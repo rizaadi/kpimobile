@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../routes/auth_routes.dart';
 import 'signup_controller.dart';
 
 class SignupPage extends GetView<SignupController> {
-  const SignupPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,14 +13,15 @@ class SignupPage extends GetView<SignupController> {
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 52, 16, 0),
               child: Text('Create account',
-                  style: TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             ),
             Row(
               children: [
                 const Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                  child: Text('Enter your account details below or',),
+                  child: Text(
+                    'Enter your account details below or',
+                  ),
                 ),
                 TextButton(
                     style: TextButton.styleFrom(
