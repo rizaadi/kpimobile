@@ -21,7 +21,10 @@ class ThemeConfig {
       ),
       primaryColor: const Color(0xff26A0C9),
       textTheme: const TextTheme(
-          headline3: TextStyle(fontFamily: 'Poppins', fontSize: 12)),
+        headline3: TextStyle(fontFamily: 'Poppins', fontSize: 12),
+        headline5: TextStyle(
+            fontFamily: 'Poppins', fontWeight: FontWeight.w700, fontSize: 23),
+      ),
       fontFamily: 'Poppins',
       cardColor: const Color(0xff26A0C9));
 }

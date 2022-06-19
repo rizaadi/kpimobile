@@ -12,6 +12,8 @@ import 'package:kpimobile/app/modules/notifications/bindings/notifications_bindi
 import 'package:kpimobile/app/modules/notifications/views/notifications_view.dart';
 import 'package:kpimobile/app/modules/profile/bindings/profile_binding.dart';
 import 'package:kpimobile/app/modules/profile/views/profile_view.dart';
+import 'package:kpimobile/app/modules/tambah_kpi/bindings/tambah_kpi_binding.dart';
+import 'package:kpimobile/app/modules/tambah_kpi/views/tambah_kpi_view.dart';
 
 import '../modules/auth/login/login_binding.dart';
 import '../modules/auth/login/login_page.dart';
@@ -74,6 +76,11 @@ class AppPages {
       name: _Paths.DETAIL_KPI,
       page: () => DetailKpiView(),
       binding: DetailKpiBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_KPI,
+      page: () => TambahKpiView(),
+      binding: TambahKpiBinding(),
     ),
   ];
 }

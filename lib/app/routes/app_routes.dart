@@ -15,6 +15,7 @@ abstract class Routes {
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const PROFILE = _Paths.PROFILE;
   static const DETAIL_KPI = _Paths.DETAIL_KPI;
+  static const TAMBAH_KPI = _Paths.TAMBAH_KPI;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const NOTIFICATIONS = '/notifications';
   static const PROFILE = '/profile';
   static const DETAIL_KPI = '/detail-kpi';
+  static const TAMBAH_KPI = '/tambah-kpi';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
+import 'package:kpimobile/app/routes/app_pages.dart';
 
 import '../controllers/detail_kpi_controller.dart';
 
@@ -16,7 +17,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
       // ),
       body: SafeArea(
         child: SingleChildScrollView(
-          
           child: Center(
               child: Card(
             margin: const EdgeInsets.only(bottom: 11),
@@ -243,7 +243,9 @@ class DetailKpiView extends GetView<DetailKpiController> {
                               ),
                               label: const Text("Filter")),
                           ElevatedButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(Routes.TAMBAH_KPI);
+                              },
                               icon: SvgPicture.asset('assets/icons/plus.svg',
                                   width: 18, height: 18),
                               label: const Text("Tambah KPI")),
