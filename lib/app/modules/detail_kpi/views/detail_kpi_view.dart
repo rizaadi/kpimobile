@@ -11,10 +11,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('DetailKpiView'),
-      //   centerTitle: true,
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(

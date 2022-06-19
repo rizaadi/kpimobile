@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:kpimobile/app/core/theme/theme_config.dart';
 import 'package:kpimobile/app/modules/history/views/history_view.dart';
 import 'package:kpimobile/app/modules/home/home_page.dart';
 import 'package:kpimobile/app/modules/notifications/views/notifications_view.dart';
@@ -11,13 +10,14 @@ import 'package:kpimobile/app/modules/profile/views/profile_view.dart';
 import '../controllers/bottom_navigation_controller.dart';
 
 class BottomNavigationView extends GetView<BottomNavigationController> {
-  BottomNavigationController bNC = BottomNavigationController();
   final screens = [
     HomePage(),
     HistoryView(),
-    NotificationsView(),
+    const NotificationsView(),
     ProfileView()
   ];
+
+  BottomNavigationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
                           ? Get.theme.primaryColor
                           : Colors.grey,
                     ),
-                    label: 'Notification'),
+                    label: 'Notifikasi'),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/icons/profile.svg',
@@ -67,7 +67,7 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
                           ? Get.theme.primaryColor
                           : Colors.grey,
                     ),
-                    label: 'Profile'),
+                    label: 'Profil'),
               ])),
     );
   }
