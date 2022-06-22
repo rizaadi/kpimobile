@@ -8,6 +8,14 @@ import 'package:kpimobile/app/core/widgets/custom_textfield.dart';
 import '../controllers/tambah_kpi_controller.dart';
 
 class TambahKpiView extends GetView<TambahKpiController> {
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+  String dropdownvalue = 'Item 1';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +33,41 @@ class TambahKpiView extends GetView<TambahKpiController> {
               "Tambah KPI",
               style: Get.textTheme.headline5,
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
+            DropdownButtonFormField(
+                hint: const Text("Pilih Kategori"),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  dropdownvalue = value!;
+                }),
+            const SizedBox(height: 12),
+            DropdownButtonFormField(
+                hint: const Text("Pilih KRA"),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
+                  dropdownvalue = value!;
+                }),
+            const SizedBox(height: 12),
             const CustomTextField(label: "Deksripsi"),
             const SizedBox(height: 12),
             const CustomTextField(label: "Rumus"),
