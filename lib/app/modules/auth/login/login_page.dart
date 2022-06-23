@@ -5,7 +5,6 @@ import 'package:kpimobile/app/routes/app_pages.dart';
 import 'login_controller.dart';
 
 class LoginPage extends GetView<LoginController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +15,7 @@ class LoginPage extends GetView<LoginController> {
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 52, 16, 0),
               child: Text('Welcome Back!',
-                  style: TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             ),
             Row(
               children: [
@@ -85,7 +83,9 @@ class LoginPage extends GetView<LoginController> {
                 child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.offAllNamed(Routes.BOTTOM_NAVIGATION);
+                },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 23),
                     primary: const Color(0xff26A0C9),

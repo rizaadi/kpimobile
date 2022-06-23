@@ -26,7 +26,7 @@ class TambahKpiView extends GetView<TambahKpiController> {
         ),
         body: SafeArea(
             child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
@@ -34,12 +34,45 @@ class TambahKpiView extends GetView<TambahKpiController> {
               style: Get.textTheme.headline5,
             ),
             const SizedBox(height: 16),
+            Text("Kategori",
+                style: Get.textTheme.bodyText2
+                    ?.copyWith(fontWeight: FontWeight.w600)),
+            const SizedBox(height: 6),
             DropdownButtonFormField(
-                hint: const Text("Pilih Kategori"),
+                hint: const Text("Pilih Kategori",
+                    style: TextStyle(fontSize: 13)),
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  filled: true,
+                  fillColor: ThemeConfig.colors.Gray_primary,
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+                items: items.map((String items) {
+                  return DropdownMenuItem(value: items, child: Text(items));
+                }).toList(),
+                onChanged: (String? value) {
+                  dropdownvalue = value!;
+                }),
+            const SizedBox(height: 16),
+            Text("KRA",
+                style: Get.textTheme.bodyText2
+                    ?.copyWith(fontWeight: FontWeight.w600)),
+            const SizedBox(height: 6),
+            DropdownButtonFormField(
+                hint: const Text("Pilih KRA", style: TextStyle(fontSize: 13)),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: ThemeConfig.colors.Gray_primary,
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10)),
                 ),
                 items: items.map((String items) {
                   return DropdownMenuItem(
@@ -50,48 +83,78 @@ class TambahKpiView extends GetView<TambahKpiController> {
                 onChanged: (String? value) {
                   dropdownvalue = value!;
                 }),
-            const SizedBox(height: 12),
-            DropdownButtonFormField(
-                hint: const Text("Pilih KRA"),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                items: items.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  dropdownvalue = value!;
-                }),
-            const SizedBox(height: 12),
-            const CustomTextField(label: "Deksripsi"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
+            const CustomTextField(label: "Deskripsi"),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Rumus"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Bobot (%)"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Target"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Satuan"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Sumber Data"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Perlu Perhatian"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Nilai 4"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Nilai 3"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Nilai 2"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             const CustomTextField(label: "Nilai 1"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Get.bottomSheet(
+                    Container(
+                      height: 200,
+                      padding: const EdgeInsets.all(16),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Anda yakin ingin Simpan KPI ?",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 20),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                minimumSize: const Size.fromHeight(50),
+                              ),
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text("IYA")),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: ThemeConfig.colors.Gray_primary,
+                                minimumSize: const Size.fromHeight(50),
+                              ),
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: const Text(
+                                "TIDAK",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              ))
+                        ],
+                      ),
+                    ),
+                  );
+                },
                 icon: SvgPicture.asset(
                   'assets/icons/save.svg',
                   color: Colors.white,

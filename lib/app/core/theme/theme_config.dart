@@ -21,16 +21,30 @@ class ThemeConfig {
       ),
       primaryColor: const Color(0xff26A0C9),
       textTheme: TextTheme(
-        headline3: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 12,
-            color: ThemeConfig.colors.Black_primary),
-        headline5: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w700,
-            fontSize: 23,
-            color: ThemeConfig.colors.Black_primary),
-      ),
+          headline3: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 12,
+              color: ThemeConfig.colors.Black_primary),
+          headline5: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w700,
+              fontSize: 23,
+              color: ThemeConfig.colors.Black_primary),
+          subtitle1: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.normal,
+              fontSize: 16,
+              color: ThemeConfig.colors.Black_primary),
+          bodyText2: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.normal,
+              fontSize: 13,
+              color: ThemeConfig.colors.Black_primary),
+          caption: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.normal,
+              fontSize: 12,
+              color: ThemeConfig.colors.Black_primary)),
       fontFamily: 'Poppins',
       cardColor: const Color(0xff26A0C9));
 }

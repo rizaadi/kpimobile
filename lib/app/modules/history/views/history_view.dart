@@ -21,7 +21,29 @@ class HistoryView extends GetView<HistoryController> {
         ),
         const SizedBox(height: 16),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            Get.bottomSheet(
+              Container(
+                height: 300,
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                child: Column(
+                  children: [
+                    const Text(
+                      "Filter",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            );
+          },
           icon: SvgPicture.asset('assets/icons/sliders.svg'),
           label: const Text("Filter"),
           style: const ButtonStyle(

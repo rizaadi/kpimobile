@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:kpimobile/app/routes/app_pages.dart';
 
 import '../../../core/theme/theme_config.dart';
 import '../controllers/profile_controller.dart';
@@ -173,7 +174,9 @@ class ProfileView extends GetView<ProfileController> {
         ),
         const SizedBox(height: 16),
         ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Get.offAllNamed(Routes.LOGIN);
+            },
             icon: SvgPicture.asset('assets/icons/log-out.svg'),
             label: const Text("Logout"))
       ]),
