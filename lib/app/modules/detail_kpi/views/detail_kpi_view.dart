@@ -229,14 +229,14 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                           topLeft: Radius.circular(20),
                                           topRight: Radius.circular(20))),
                                   child: Column(
-                                    children: [
-                                      const Text(
+                                    children: const [
+                                      Text(
                                         "Filter",
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      const SizedBox(height: 20),
+                                      SizedBox(height: 20),
                                     ],
                                   ),
                                 ),
@@ -247,14 +247,18 @@ class DetailKpiView extends GetView<DetailKpiController> {
                               width: 18,
                               height: 18,
                             ),
-                            label: const Text("Filter")),
+                            label: const Text("Filter"),
+                            style: ElevatedButton.styleFrom(
+                                primary: ThemeConfig.colors.Green_primary)),
                         ElevatedButton.icon(
                             onPressed: () {
                               Get.toNamed(Routes.TAMBAH_KPI);
                             },
                             icon: SvgPicture.asset('assets/icons/plus.svg',
                                 width: 18, height: 18),
-                            label: const Text("Tambah KPI")),
+                            label: const Text("Tambah KPI"),
+                            style: ElevatedButton.styleFrom(
+                                primary: ThemeConfig.colors.Green_primary)),
                       ],
                     ),
                     ElevatedButton.icon(
@@ -458,7 +462,9 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                   DataCell(Row(
                                     children: [
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Get.toNamed(Routes.EDIT_KPI);
+                                          },
                                           icon: SvgPicture.asset(
                                               'assets/icons/edit.svg')),
                                       const SizedBox(

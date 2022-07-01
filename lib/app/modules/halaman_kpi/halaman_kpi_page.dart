@@ -45,39 +45,41 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
               spacing: 4,
               children: [
                 ElevatedButton.icon(
-                  onPressed: () {
-                    Get.bottomSheet(
-                      Container(
-                        height: 300,
-                        padding: const EdgeInsets.all(16),
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Filter",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
+                    onPressed: () {
+                      Get.bottomSheet(
+                        Container(
+                          height: 300,
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Filter",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 20),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  label: const Text("Filter"),
-                  icon: SvgPicture.asset('assets/icons/sliders.svg'),
-                ),
+                      );
+                    },
+                    label: const Text("Filter"),
+                    icon: SvgPicture.asset('assets/icons/sliders.svg'),
+                    style: ElevatedButton.styleFrom(
+                        primary: ThemeConfig.colors.Green_primary)),
                 ElevatedButton.icon(
-                  onPressed: () {
-                    Get.toNamed(Routes.HISTORY);
-                  },
-                  label: const Text('Riwayat'),
-                  icon: SvgPicture.asset('assets/icons/history.svg'),
-                ),
+                    onPressed: () {
+                      Get.toNamed(Routes.HISTORY);
+                    },
+                    label: const Text('Riwayat'),
+                    icon: SvgPicture.asset('assets/icons/history.svg'),
+                    style: ElevatedButton.styleFrom(
+                        primary: ThemeConfig.colors.Green_primary)),
               ],
             ),
             ElevatedButton.icon(

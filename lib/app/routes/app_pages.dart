@@ -4,6 +4,8 @@ import 'package:kpimobile/app/modules/bottom_navigation/bindings/bottom_navigati
 import 'package:kpimobile/app/modules/bottom_navigation/views/bottom_navigation_view.dart';
 import 'package:kpimobile/app/modules/detail_kpi/bindings/detail_kpi_binding.dart';
 import 'package:kpimobile/app/modules/detail_kpi/views/detail_kpi_view.dart';
+import 'package:kpimobile/app/modules/edit_kpi/bindings/edit_kpi_binding.dart';
+import 'package:kpimobile/app/modules/edit_kpi/views/edit_kpi_view.dart';
 import 'package:kpimobile/app/modules/history/bindings/history_binding.dart';
 import 'package:kpimobile/app/modules/history/views/history_view.dart';
 import 'package:kpimobile/app/modules/home/home_binding.dart';
@@ -81,6 +83,11 @@ class AppPages {
       name: _Paths.TAMBAH_KPI,
       page: () => TambahKpiView(),
       binding: TambahKpiBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_KPI,
+      page: () => EditKpiView(),
+      binding: EditKpiBinding(),
     ),
   ];
 }

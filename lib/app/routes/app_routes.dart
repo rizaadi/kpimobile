@@ -16,6 +16,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const DETAIL_KPI = _Paths.DETAIL_KPI;
   static const TAMBAH_KPI = _Paths.TAMBAH_KPI;
+  static const EDIT_KPI = _Paths.EDIT_KPI;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const DETAIL_KPI = '/detail-kpi';
   static const TAMBAH_KPI = '/tambah-kpi';
+  static const EDIT_KPI = '/edit-kpi';
 }

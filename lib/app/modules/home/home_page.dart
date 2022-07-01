@@ -117,10 +117,9 @@ class HomePage extends GetView<HomeController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "KPI Terakhir",
-                style: Get.theme.textTheme.subtitle2,
-              ),
+              Text("KPI Terakhir",
+                  style: Get.theme.textTheme.subtitle1
+                      ?.copyWith(fontWeight: FontWeight.w600)),
               TextButton(
                   onPressed: () {
                     Get.toNamed(Routes.HALAMANKPI);
@@ -132,7 +131,7 @@ class HomePage extends GetView<HomeController> {
                   ),
                   child: Text(
                     "Lihat Semua",
-                    style: Get.theme.textTheme.subtitle2,
+                    style: Get.theme.textTheme.bodyText2,
                   ))
             ],
           ),
@@ -142,17 +141,18 @@ class HomePage extends GetView<HomeController> {
           const CardHistory(
             namaPerusahaan: "PT. PUPUK INDONESIA",
             periode: "01 Januari 2021 - 31 Desember 2021",
-            status: "SELESAI",
+            status: "Selesai",
           ),
           const CardHistory(
             namaPerusahaan: "PT. PUPUK INDONESIA",
             periode: "01 Januari 2021 - 31 Desember 2021",
-            status: "SELESAI",
+            status: "Selesai",
           ),
           const SizedBox(height: 30),
-          const Text(
+          Text(
             "KPI",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            style: Get.theme.textTheme.subtitle1
+                ?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 16),
           ElevatedButton.icon(

@@ -77,12 +77,18 @@ class CardKpi extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color: status == "Selesai"
+                            ? ThemeConfig.colors.Green_primary
+                            : ThemeConfig.colors.Gray_primary,
                         borderRadius: BorderRadius.circular(8)),
                     child: Text(
                       status,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 13),
+                      style: TextStyle(
+                          color: status == "Selesai"
+                              ? Colors.white
+                              : ThemeConfig.colors.Black_primary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13),
                     ),
                   ),
                   IconButton(

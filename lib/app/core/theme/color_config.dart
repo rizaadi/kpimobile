@@ -9,6 +9,7 @@ class AppColors {
   final blue_gradient_primary = const Color(0xff26A0C9);
   final blue_gradient_second = const Color(0xff00B9CD);
   final Red_primary = const Color(0xffC92626);
+  final Green_primary = const Color(0xff26C98E);
 
   const AppColors();
 }
