@@ -46,6 +46,7 @@ class LoginPage extends GetView<LoginController> {
                   children: [
                     const Text("Email"),
                     TextField(
+                      controller: controller.emailC,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -66,6 +67,7 @@ class LoginPage extends GetView<LoginController> {
                   children: [
                     const Text("Password"),
                     TextField(
+                      controller: controller.passC,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -84,7 +86,7 @@ class LoginPage extends GetView<LoginController> {
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.BOTTOM_NAVIGATION);
+                  controller.signIn();
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 23),
