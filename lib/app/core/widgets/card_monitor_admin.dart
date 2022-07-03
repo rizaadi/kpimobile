@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:kpimobile/app/core/theme/theme_config.dart';
 
-class CardMonitor extends StatelessWidget {
-  const CardMonitor({Key? key, required this.status, required this.value})
+class CardMonitorAdmin extends StatelessWidget {
+  const CardMonitorAdmin({Key? key, required this.status, required this.value})
       : super(key: key);
 
   final String status;
@@ -12,10 +13,9 @@ class CardMonitor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         margin: EdgeInsets.zero,
+        color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Get.theme.cardColor,
         elevation: 5,
-        shadowColor: Get.theme.cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,8 +26,9 @@ class CardMonitor extends StatelessWidget {
               ),
               child: Text(
                 status,
-                style: Get.textTheme.bodyText2!
-                    .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                style: Get.textTheme.bodyText2!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: ThemeConfig.colors.Blue_primary),
               ),
             ),
             Padding(
@@ -35,8 +36,8 @@ class CardMonitor extends StatelessWidget {
               child: Text(
                 value,
                 maxLines: 1,
-                style: const TextStyle(
-                    color: Colors.white,
+                style: TextStyle(
+                    color: ThemeConfig.colors.Blue_primary,
                     fontSize: 32,
                     fontWeight: FontWeight.bold),
               ),
