@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,6 +9,7 @@ import '../../../core/theme/theme_config.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
+  final profileC = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,12 +175,21 @@ class ProfileView extends GetView<ProfileController> {
           height: 1,
         ),
         const SizedBox(height: 16),
-        ElevatedButton.icon(
-            onPressed: () {
-              Get.offAllNamed(Routes.LOGIN);
+        Obx(() => ElevatedButton.icon(
+            onPressed: () async {
+              if (profileC.isLoading.isFalse) {
+                profileC.isLoading.value = true;
+                await FirebaseAuth.instance.signOut();
+                profileC.isLoading.value = false;
+                Get.offAllNamed(Routes.LOGIN);
+              }
             },
             icon: SvgPicture.asset('assets/icons/log-out.svg'),
-            label: const Text("Logout"))
+            label: profileC.isLoading.isFalse
+                ? const Text("Logout")
+                : const CircularProgressIndicator(
+                    color: Colors.white,
+                  )))
       ]),
     )));
   }

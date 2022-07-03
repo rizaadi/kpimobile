@@ -68,6 +68,7 @@ class LoginPage extends GetView<LoginController> {
                     const Text("Password"),
                     TextField(
                       controller: controller.passC,
+                      obscureText: true,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -84,22 +85,29 @@ class LoginPage extends GetView<LoginController> {
             Center(
                 child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.signIn();
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 23),
-                    primary: const Color(0xff26A0C9),
-                    minimumSize: const Size.fromHeight(50),
-                    shadowColor: const Color.fromARGB(255, 80, 207, 250),
-                    elevation: 10),
-                child: const Text(
-                  "Sign in",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-              ),
+              child: Obx(() => ElevatedButton(
+                    onPressed: () async {
+                      if (controller.isLoading.isFalse) {
+                        await controller.signIn();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 23),
+                        primary: const Color(0xff26A0C9),
+                        minimumSize: const Size.fromHeight(50),
+                        shadowColor: const Color.fromARGB(255, 80, 207, 250),
+                        elevation: 10),
+                    child: controller.isLoading.isFalse
+                        ? const Text(
+                            "Sign in",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )
+                        : const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                  )),
             )),
           ],
         ),
