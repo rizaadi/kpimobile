@@ -86,11 +86,11 @@ class LoginPage extends GetView<LoginController> {
                 child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
               child: Obx(() => ElevatedButton(
-                    onPressed: () async {
+                    onPressed: controller.isLoading.isFalse ?() async {
                       if (controller.isLoading.isFalse) {
                         await controller.signIn();
                       }
-                    },
+                    } : null,
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 23),
                         primary: const Color(0xff26A0C9),

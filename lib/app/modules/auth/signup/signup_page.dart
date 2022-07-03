@@ -14,7 +14,8 @@ class SignupPage extends GetView<SignupController> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 52, 16, 0),
                 child: Text('Create account',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               ),
               Row(
                 children: [
@@ -50,12 +51,12 @@ class SignupPage extends GetView<SignupController> {
                         controller: controller.emailC,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                         ),
                       ),
@@ -71,12 +72,12 @@ class SignupPage extends GetView<SignupController> {
                         controller: controller.passC,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                         ),
                       ),
@@ -92,12 +93,12 @@ class SignupPage extends GetView<SignupController> {
                         controller: controller.pass2C,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                           focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 1, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 1, color: Colors.black),
                               borderRadius: BorderRadius.circular(6)),
                         ),
                       ),
@@ -106,24 +107,32 @@ class SignupPage extends GetView<SignupController> {
               Center(
                   child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    controller.signUp();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 23),
-                      primary: const Color(0xff26A0C9),
-                      minimumSize: const Size.fromHeight(50),
-                      shadowColor: const Color.fromARGB(255, 80, 207, 250),
-                      elevation: 10),
-                  child: const Text(
-                    "Create account",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
+                child: Obx(() => ElevatedButton(
+                      onPressed: controller.isLoading.isFalse
+                          ? () async {
+                              controller.isLoading.value = true;
+                              await controller.signUp();
+                              controller.isLoading.value = false;
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 23),
+                          primary: const Color(0xff26A0C9),
+                          minimumSize: const Size.fromHeight(50),
+                          shadowColor: const Color.fromARGB(255, 80, 207, 250),
+                          elevation: 10),
+                      child: controller.isLoading.isFalse
+                          ? const Text(
+                              "Create account",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            )
+                          : const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                    )),
               )),
             ],
           ),

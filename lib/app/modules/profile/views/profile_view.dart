@@ -176,14 +176,14 @@ class ProfileView extends GetView<ProfileController> {
         ),
         const SizedBox(height: 16),
         Obx(() => ElevatedButton.icon(
-            onPressed: () async {
+            onPressed: profileC.isLoading.isFalse ? () async {
               if (profileC.isLoading.isFalse) {
                 profileC.isLoading.value = true;
                 await FirebaseAuth.instance.signOut();
                 profileC.isLoading.value = false;
                 Get.offAllNamed(Routes.LOGIN);
               }
-            },
+            } : null,
             icon: SvgPicture.asset('assets/icons/log-out.svg'),
             label: profileC.isLoading.isFalse
                 ? const Text("Logout")
