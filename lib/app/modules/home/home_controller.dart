@@ -1,24 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  var tabIndex = 0;
-  void changeTabIndex(int index) {
-    tabIndex = index;
-    update();
-  }
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  Stream<DocumentSnapshot<Map<String, dynamic>>> streamRole() async* {
+    String uid = auth.currentUser!.uid;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    yield* firestore.collection("karyawan").doc(uid).snapshots();
   }
 }
