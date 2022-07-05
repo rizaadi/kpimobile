@@ -4,6 +4,7 @@ import 'package:kpimobile/app/core/theme/color_config.dart';
 class ThemeConfig {
   static const colors = AppColors();
   ThemeData getThemeData = ThemeData(
+      backgroundColor: Colors.white,
       primarySwatch: const MaterialColor(
         0xff26A0C9,
         <int, Color>{
