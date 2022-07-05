@@ -33,6 +33,7 @@ class HomePage extends GetView<HomeController> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   String role = snapshot.data!.data()!['role'];
+                  Map<String, dynamic> user = snapshot.data!.data()!;
                   if (role == "Karyawan") {
                     return ListView(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -47,16 +48,16 @@ class HomePage extends GetView<HomeController> {
                                 Text("Hello",
                                     style: Get.theme.textTheme.headline5),
                                 Text(
-                                  "Riza Adi Kurniawan",
+                                  "${user['nama']}",
                                   style: Get.theme.textTheme.headline5
                                       ?.copyWith(fontWeight: FontWeight.normal),
                                 )
                               ],
                             ),
-                            const CircleAvatar(
+                            CircleAvatar(
                                 radius: 35,
                                 backgroundImage: NetworkImage(
-                                    'https://s3-alpha.figma.com/profile/46915882-ffc5-4a0c-b3e9-663f14c427e0')),
+                                    'https://ui-avatars.com/api/?background=26A0C9&color=fff&name=${user['nama']}')),
                           ],
                         ),
                         const SizedBox(height: 30),

@@ -9,6 +9,6 @@ class HomeController extends GetxController {
   Stream<DocumentSnapshot<Map<String, dynamic>>> streamRole() async* {
     String uid = auth.currentUser!.uid;
 
-    yield* firestore.collection("karyawan").doc(uid).snapshots();
+    yield* firestore.collection("users").doc(uid).snapshots();
   }
 }
