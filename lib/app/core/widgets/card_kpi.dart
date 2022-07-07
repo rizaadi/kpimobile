@@ -36,38 +36,47 @@ class CardKpi extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Wrap(
                   children: [
-                    Row(
+                    CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://ui-avatars.com/api/?background=26A0C9&color=fff&name=$nama'),
+                        radius: 15),
+                    const SizedBox(width: 6),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SvgPicture.asset(
-                          'assets/icons/briefcase.svg',
-                          color: Colors.black,
-                          height: 12,
-                          width: 12,
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/briefcase.svg',
+                              color: Colors.black,
+                              height: 12,
+                              width: 12,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              perusahaan,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 13),
+                            )
+                          ],
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          perusahaan,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 13),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/calendar.svg',
-                          color: Colors.black,
-                          height: 12,
-                          width: 12,
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/calendar.svg',
+                              color: Colors.black,
+                              height: 12,
+                              width: 12,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              tanggal,
+                              style: const TextStyle(fontSize: 11),
+                            )
+                          ],
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          tanggal,
-                          style: const TextStyle(fontSize: 11),
-                        )
                       ],
                     ),
                   ],

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -164,19 +165,37 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
         ),
         const SizedBox(height: 11),
         Expanded(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return CardKpi(
-                perusahaan: "PT. PUPUK INDONESIA",
-                tanggal: "01 Januari 2021 - 31 Desember 2021",
-                status: "Selesai",
-                nama: "Nendra Ariyanto",
-                jabatan: "VP Remunerisasi & Manj. Kinerja",
-                unitKerja: "Departement Remunerasi & Manj. Kinerja",
-              );
-            },
-          ),
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: controller.getListKpiKaryawan(),
+              builder: (context, snapshot) {
+                return ListView.builder(
+                  itemCount: snapshot.data?.size,
+                  itemBuilder: (context, index) {
+                    Map<String, dynamic>? kpi =
+                        snapshot.data?.docs.elementAt(index).data();
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      //TODO: Change to loading skeleton
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      return InkWell(
+                        onTap: () {
+                          // controller.getListKpi();
+                        },
+                        child: CardKpi(
+                          perusahaan: kpi?['perusahaan'] ?? 'Kosong',
+                          tanggal: kpi?['quarter'] ?? 'Kosong',
+                          status: kpi?['status'][0] ?? 'Kosong',
+                          nama: kpi?['nama'] ?? 'Kosong',
+                          jabatan: kpi?['jabatan'] ?? 'Kosong',
+                          unitKerja: kpi?['unitKerja'] ?? 'Kosong',
+                        ),
+                      );
+                    } else {
+                      return const Center(child: Text("Tidak ada data"));
+                    }
+                  },
+                );
+              }),
         )
       ]),
     ));

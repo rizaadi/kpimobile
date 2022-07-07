@@ -1,20 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class HalamanKpiController extends GetxController {
-  //TODO: Implement HalamanKpiController.
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiKaryawan() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    yield* firestore.collection("kpi").where("id", whereIn: listKpi).snapshots();
+    // print(kpi.data());
   }
 }
