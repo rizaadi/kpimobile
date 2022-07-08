@@ -235,268 +235,293 @@ class DetailKpiView extends GetView<DetailKpiController> {
                       SizedBox(
                         height: Get.height * 0.8,
                         width: 2000,
-                        child:
-                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                                stream: controller.getListKpiKaryawan(uid),
-                                builder: (context, snapshot) {
-                                  var kpi = snapshot.data?.docs;
-                                  print(kpi?[0].data());
-                                  if (snapshot.hasData) {
-                                    return DataTable2(
-                                      minWidth: 2000,
-                                      horizontalMargin: 10,
-                                      columnSpacing: 12,
-                                      fixedLeftColumns: 1,
-                                      dataRowHeight: 80,
-                                      bottomMargin: 16,
-                                      headingTextStyle: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color:
-                                              ThemeConfig.colors.Black_primary),
-                                      dividerThickness: 0,
-                                      columns: const [
-                                        DataColumn2(
-                                          fixedWidth: 30,
-                                          label: Text("No"),
-                                        ),
-                                        DataColumn2(
-                                            fixedWidth: 90,
-                                            label: Text("Kategori")),
-                                        DataColumn2(
-                                            fixedWidth: 90, label: Text("KRA")),
-                                        DataColumn2(
-                                          fixedWidth: 300,
-                                          label: Text("Deskripsi"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 200,
-                                          label: Text("Rumus"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 50,
-                                          label: Text("Bobot (%)"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 70,
-                                          label: Text("Target"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 90,
-                                          label: Text("Satuan"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 150,
-                                          label: Text("Sumber Data"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 150,
-                                          label: Text("Perlu Perhatian"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 100,
-                                          label: Text("Nilai 4"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 100,
-                                          label: Text("Nilai 3"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 100,
-                                          label: Text("Nilai 2"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 100,
-                                          label: Text("Nilai 1"),
-                                        ),
-                                        DataColumn2(
-                                          fixedWidth: 112,
-                                          label: Text("Aksi"),
-                                        )
-                                      ],
-                                      rows: List<DataRow>.generate(
-                                          20,
-                                          (index) => DataRow2(
-                                                  color: MaterialStateProperty
-                                                      .resolveWith((states) =>
-                                                          index.isEven
-                                                              ? ThemeConfig
-                                                                  .colors
-                                                                  .Gray_primary
-                                                              : Colors
-                                                                  .transparent),
-                                                  cells: [
-                                                    DataCell(Text("$index")),
-                                                    DataCell(Text("Strategis")),
-                                                    DataCell(Text(
-                                                      "Laba Bersih",
-                                                      maxLines: 3,
+                        child: StreamBuilder<
+                                QuerySnapshot<Map<String, dynamic>>>(
+                            stream: controller.getListKpiKaryawan(uid),
+                            builder: (context, snapshot) {
+                              var kpi = snapshot.data?.docs;
+                              print(kpi?[0].data());
+                              if (snapshot.hasData) {
+                                return DataTable2(
+                                  minWidth: 2000,
+                                  horizontalMargin: 10,
+                                  columnSpacing: 12,
+                                  fixedLeftColumns: 1,
+                                  dataRowHeight: 80,
+                                  bottomMargin: 16,
+                                  headingTextStyle: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: ThemeConfig.colors.Black_primary),
+                                  dividerThickness: 0,
+                                  columns: const [
+                                    DataColumn2(
+                                      fixedWidth: 30,
+                                      label: Text("No"),
+                                    ),
+                                    DataColumn2(
+                                        fixedWidth: 90,
+                                        label: Text("Kategori")),
+                                    DataColumn2(
+                                      fixedWidth: 90,
+                                      label: Text("Bobot (%)"),
+                                    ),
+                                    DataColumn2(
+                                        fixedWidth: 90, label: Text("Target")),
+                                    DataColumn2(
+                                      fixedWidth: 110,
+                                      label: Text("Nilai 1"),
+                                    ),
+                                    DataColumn2(
+                                      fixedWidth: 170,
+                                      label: Text("Aksi"),
+                                    )
+                                  ],
+                                  rows: List<DataRow>.generate(
+                                      kpi?.length ?? 0,
+                                      (index) => DataRow2(
+                                              color: MaterialStateProperty
+                                                  .resolveWith((states) =>
+                                                      index.isEven
+                                                          ? ThemeConfig.colors
+                                                              .Gray_primary
+                                                          : Colors.transparent),
+                                              cells: [
+                                                DataCell(Text("${index + 1}")),
+                                                DataCell(Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        kpi?[index].data()[
+                                                                "kategori"] ??
+                                                            "Kosong",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 12)),
+                                                    Text(
+                                                        kpi?[index].data()[
+                                                                "kra"] ??
+                                                            "Kosong",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                            fontSize: 12))
+                                                  ],
+                                                )),
+                                                DataCell(Text(
+                                                  kpi?[index]
+                                                          .data()["bobot"]
+                                                          .toString() ??
+                                                      "Kosong",
+                                                  style: const TextStyle(
+                                                      fontSize: 12),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                )),
+                                                DataCell(Text(
+                                                  kpi?[index]
+                                                          .data()["target"] ??
+                                                      "Kosong",
+                                                  style: const TextStyle(
+                                                      fontSize: 12),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                )),
+                                                DataCell(Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "1. ${kpi?[index].data()["nilai1"] ?? "Kosong"}",
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                      maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "Kelebihan seluruh pendapatan atas seluruh biaya untuk seuatu periode tertentu setelah dikurangi pajak penghasilan yang disajikan dalam laporan laba rugi",
-                                                      maxLines: 3,
+                                                    ),
+                                                    Text(
+                                                      "2. ${kpi?[index].data()["nilai2"] ?? "Kosong"}",
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                      maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "(Realisasi/Target) x 100%",
-                                                      maxLines: 3,
+                                                    ),
+                                                    Text(
+                                                      "3. ${kpi?[index].data()["nilai3"] ?? "Kosong"}",
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                      maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "8",
-                                                      maxLines: 3,
+                                                    ),
+                                                    Text(
+                                                      "4. ${kpi?[index].data()["nilai4"] ?? "Kosong"}",
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                      maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "3213",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "Rp Miliar",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "Laporan Manajemen",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "Polaritas Maximize",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "> 3105",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "2794 - 305",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "2328 -< 2794",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Text(
-                                                      "<2328",
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    )),
-                                                    DataCell(Row(
-                                                      children: [
-                                                        IconButton(
-                                                            onPressed: () {
-                                                              Get.toNamed(Routes
-                                                                  .EDIT_KPI);
-                                                            },
-                                                            icon: SvgPicture.asset(
-                                                                'assets/icons/edit.svg')),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        IconButton(
-                                                            onPressed: () {
-                                                              Get.bottomSheet(
-                                                                Container(
-                                                                  height: 200,
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(16),
-                                                                  decoration: const BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius: BorderRadius.only(
-                                                                          topLeft: Radius.circular(
+                                                    ),
+                                                  ],
+                                                )),
+                                                DataCell(Row(
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Get.bottomSheet(
+                                                            Container(
+                                                              height: 200,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(16),
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topLeft: Radius
+                                                                          .circular(
                                                                               20),
-                                                                          topRight:
-                                                                              Radius.circular(20))),
-                                                                  child: Column(
-                                                                    children: [
-                                                                      const Text(
-                                                                        "Anda yakin ingin Hapus KPI ?",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                15,
-                                                                            fontWeight:
-                                                                                FontWeight.w600),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                          height:
-                                                                              20),
-                                                                      ElevatedButton(
-                                                                          style: ElevatedButton
-                                                                              .styleFrom(
-                                                                            elevation:
-                                                                                0,
-                                                                            minimumSize:
-                                                                                const Size.fromHeight(50),
-                                                                          ),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Get.back();
-                                                                          },
-                                                                          child:
-                                                                              const Text("IYA")),
-                                                                      const SizedBox(
-                                                                          height:
-                                                                              16),
-                                                                      ElevatedButton(
-                                                                          style: ElevatedButton
-                                                                              .styleFrom(
-                                                                            elevation:
-                                                                                0,
-                                                                            primary:
-                                                                                ThemeConfig.colors.Gray_primary,
-                                                                            minimumSize:
-                                                                                const Size.fromHeight(50),
-                                                                          ),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Get.back();
-                                                                          },
-                                                                          child:
-                                                                              const Text(
-                                                                            "TIDAK",
-                                                                            style:
-                                                                                TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                                                                          ))
-                                                                    ],
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              20))),
+                                                              child: Column(
+                                                                children: [
+                                                                  const Text(
+                                                                    "Anda yakin ingin Hapus KPI ?",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
                                                                   ),
-                                                                ),
-                                                              );
-                                                            },
-                                                            icon: SvgPicture
-                                                                .asset(
-                                                              'assets/icons/trash-2.svg',
-                                                              color: Colors.red,
-                                                            )),
-                                                      ],
-                                                    )),
-                                                  ])),
-                                    );
-                                  } else {
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                }),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          20),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: SvgPicture.asset(
+                                                          'assets/icons/file-text.svg',
+                                                          width: 24,
+                                                          height: 24,
+                                                        )),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Get.toNamed(
+                                                              Routes.EDIT_KPI);
+                                                        },
+                                                        icon: SvgPicture.asset(
+                                                            'assets/icons/edit.svg')),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Get.bottomSheet(
+                                                            Container(
+                                                              height: 200,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(16),
+                                                              decoration: const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              20),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              20))),
+                                                              child: Column(
+                                                                children: [
+                                                                  const Text(
+                                                                    "Anda yakin ingin Hapus KPI ?",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          20),
+                                                                  ElevatedButton(
+                                                                      style: ElevatedButton
+                                                                          .styleFrom(
+                                                                        elevation:
+                                                                            0,
+                                                                        minimumSize:
+                                                                            const Size.fromHeight(50),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Get.back();
+                                                                      },
+                                                                      child: const Text(
+                                                                          "IYA")),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          16),
+                                                                  ElevatedButton(
+                                                                      style: ElevatedButton
+                                                                          .styleFrom(
+                                                                        elevation:
+                                                                            0,
+                                                                        primary: ThemeConfig
+                                                                            .colors
+                                                                            .Gray_primary,
+                                                                        minimumSize:
+                                                                            const Size.fromHeight(50),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Get.back();
+                                                                      },
+                                                                      child:
+                                                                          const Text(
+                                                                        "TIDAK",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontWeight: FontWeight.w600),
+                                                                      ))
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: SvgPicture.asset(
+                                                          'assets/icons/trash-2.svg',
+                                                          color: Colors.red,
+                                                        )),
+                                                  ],
+                                                )),
+                                              ])),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            }),
                       )
                     ],
                   );
