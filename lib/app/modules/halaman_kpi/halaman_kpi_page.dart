@@ -179,7 +179,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                     } else if (snapshot.hasData) {
                       return InkWell(
                         onTap: () {
-                          // controller.getListKpi();
+                          Get.toNamed(Routes.DETAIL_KPI, arguments: kpi?['id']);
                         },
                         child: CardKpi(
                           perusahaan: kpi?['perusahaan'] ?? 'Kosong',

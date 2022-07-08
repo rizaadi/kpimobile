@@ -1,20 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DetailKpiController extends GetxController {
-  //TODO: Implement DetailKpiController
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
+      uid) async* {
+
+    yield* firestore.collection("kpi").doc(uid).snapshots();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiKaryawan(
+      uid) async* {
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+    yield* firestore
+        .collection("kpi")
+        .doc(uid)
+        .collection("kpiuser")
+        .snapshots();
+  }
 }
