@@ -6,7 +6,6 @@ class DetailKpiController extends GetxController {
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
       uid) async* {
-
     yield* firestore.collection("kpi").doc(uid).snapshots();
   }
 

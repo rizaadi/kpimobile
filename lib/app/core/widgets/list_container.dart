@@ -26,11 +26,13 @@ class ListContainer extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 12),
           ),
-          Text(
-            value,
-            textAlign: TextAlign.end,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            ),
           )
         ]),
       ),

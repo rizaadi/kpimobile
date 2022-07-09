@@ -188,6 +188,8 @@ class HomePage extends GetView<HomeController> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton.icon(
+                            icon: const Icon(Icons.zoom_out_map_outlined),
+                            label: const Text("Tambah KPI"),
                             onPressed: () {
                               Get.defaultDialog(
                                   title: "Form penyusunan KPI individu",
@@ -215,7 +217,7 @@ class HomePage extends GetView<HomeController> {
                                       )),
                                   confirm: ElevatedButton(
                                       onPressed: () {
-                                        Get.toNamed(Routes.DETAIL_KPI);
+                                        controller.addKpi();
                                       },
                                       child: const Text("Selanjutnya")),
                                   content: SizedBox(
@@ -234,17 +236,21 @@ class HomePage extends GetView<HomeController> {
                                                     BorderRadius.circular(10),
                                               ),
                                             ),
-                                            items: items.map((String items) {
+                                            items: controller.periodeItem
+                                                .map((String items) {
                                               return DropdownMenuItem(
                                                 value: items,
-                                                child: Text(items),
+                                                child: Text(items,
+                                                    style: const TextStyle(
+                                                        fontSize: 13)),
                                               );
                                             }).toList(),
                                             onChanged: (String? value) {
-                                              dropdownvalue = value!;
+                                              controller.periodeC.text = value!;
                                             }),
                                         const SizedBox(height: 16),
                                         DropdownButtonFormField(
+                                            isExpanded: true,
                                             hint: const Text(
                                                 "Jabatan / Unit Kerja"),
                                             decoration: InputDecoration(
@@ -253,24 +259,26 @@ class HomePage extends GetView<HomeController> {
                                                     BorderRadius.circular(10),
                                               ),
                                             ),
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                            items: items.map((String items) {
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            items: controller.jabatanUnitItem
+                                                .map((String items) {
                                               return DropdownMenuItem(
                                                 value: items,
-                                                child: Text(items),
+                                                child: Text(
+                                                  items,
+                                                  style: const TextStyle(
+                                                      fontSize: 13),
+                                                ),
                                               );
                                             }).toList(),
                                             onChanged: (String? value) {
-                                              dropdownvalue = value!;
+                                              controller.jabatanC.text = value!;
                                             })
                                       ],
                                     ),
                                   ));
-                            },
-                            icon: const Icon(Icons.zoom_out_map_outlined),
-                            label: const Text("Tambah KPI"))
+                            })
                       ],
                     );
                   } else {

@@ -84,27 +84,60 @@ class EditKpiView extends GetView<EditKpiController> {
                   dropdownvalue = value!;
                 }),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Deskripsi"),
+            CustomTextField(
+              label: "Deskripsi",
+              controller: controller.deskripsiC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Rumus"),
+            CustomTextField(
+              label: "Rumus",
+              controller: controller.rumusC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Bobot (%)"),
+            CustomTextField(
+              label: "Bobot (%)",
+              controller: controller.bobotC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Target"),
+            CustomTextField(
+              label: "Target",
+              controller: controller.targetC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Satuan"),
+            CustomTextField(
+              label: "Satuan",
+              controller: controller.satuanC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Sumber Data"),
+            CustomTextField(
+              label: "Sumber Data",
+              controller: controller.sumberDataC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Perlu Perhatian"),
+            CustomTextField(
+              label: "Perlu Perhatian",
+              controller: controller.perhatianC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 4"),
+            CustomTextField(
+              label: "Nilai 4",
+              controller: controller.nilai4C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 3"),
+            CustomTextField(
+              label: "Nilai 3",
+              controller: controller.nilai3C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 2"),
+            CustomTextField(
+              label: "Nilai 2",
+              controller: controller.nilai2C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 1"),
+            CustomTextField(
+              label: "Nilai 1",
+              controller: controller.nilai1C,
+            ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
                 onPressed: () {

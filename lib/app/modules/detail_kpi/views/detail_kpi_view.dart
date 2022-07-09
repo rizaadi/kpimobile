@@ -14,7 +14,7 @@ import '../controllers/detail_kpi_controller.dart';
 class DetailKpiView extends GetView<DetailKpiController> {
   @override
   Widget build(BuildContext context) {
-    var uid = Get.arguments;
+    var idKpi = Get.arguments;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -22,9 +22,14 @@ class DetailKpiView extends GetView<DetailKpiController> {
               child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                stream: controller.getDetailKpiKaryawan(uid),
+                stream: controller.getDetailKpiKaryawan(idKpi),
                 builder: (context, snapshot) {
                   var kpi = snapshot.data?.data();
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -160,7 +165,8 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                           ThemeConfig.colors.Green_primary)),
                               ElevatedButton.icon(
                                   onPressed: () {
-                                    Get.toNamed(Routes.TAMBAH_KPI);
+                                    Get.toNamed(Routes.TAMBAH_KPI,
+                                        arguments: idKpi);
                                   },
                                   icon: SvgPicture.asset(
                                       'assets/icons/plus.svg',
@@ -237,11 +243,22 @@ class DetailKpiView extends GetView<DetailKpiController> {
                         width: 2000,
                         child: StreamBuilder<
                                 QuerySnapshot<Map<String, dynamic>>>(
-                            stream: controller.getListKpiKaryawan(uid),
-                            builder: (context, snapshot) {
-                              var kpi = snapshot.data?.docs;
-                              print(kpi?[0].data());
-                              if (snapshot.hasData) {
+                            stream: controller.getListKpiKaryawan(idKpi),
+                            builder: (context, snapshotlist) {
+                              var kpilist = snapshotlist.data?.docs;
+                              if (snapshotlist.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshotlist.data?.docs.length == 0 ||
+                                  snapshotlist.data?.docs == null) {
+                                return const Padding(
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text("KPI belum diisi")),
+                                );
+                              } else if (snapshotlist.hasData) {
                                 return DataTable2(
                                   minWidth: 2000,
                                   horizontalMargin: 10,
@@ -277,7 +294,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                     )
                                   ],
                                   rows: List<DataRow>.generate(
-                                      kpi?.length ?? 0,
+                                      kpilist?.length ?? 0,
                                       (index) => DataRow2(
                                               color: MaterialStateProperty
                                                   .resolveWith((states) =>
@@ -294,7 +311,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                        kpi?[index].data()[
+                                                        kpilist?[index].data()[
                                                                 "kategori"] ??
                                                             "Kosong",
                                                         maxLines: 1,
@@ -305,7 +322,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                 FontWeight.w600,
                                                             fontSize: 12)),
                                                     Text(
-                                                        kpi?[index].data()[
+                                                        kpilist?[index].data()[
                                                                 "kra"] ??
                                                             "Kosong",
                                                         maxLines: 1,
@@ -316,7 +333,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                   ],
                                                 )),
                                                 DataCell(Text(
-                                                  kpi?[index]
+                                                  kpilist?[index]
                                                           .data()["bobot"]
                                                           .toString() ??
                                                       "Kosong",
@@ -327,7 +344,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                       TextOverflow.ellipsis,
                                                 )),
                                                 DataCell(Text(
-                                                  kpi?[index]
+                                                  kpilist?[index]
                                                           .data()["target"] ??
                                                       "Kosong",
                                                   style: const TextStyle(
@@ -343,7 +360,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "1. ${kpi?[index].data()["nilai1"] ?? "Kosong"}",
+                                                      "1. ${kpilist?[index].data()["nilai1"] ?? "Kosong"}",
                                                       style: const TextStyle(
                                                           fontSize: 12),
                                                       maxLines: 1,
@@ -351,7 +368,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
-                                                      "2. ${kpi?[index].data()["nilai2"] ?? "Kosong"}",
+                                                      "2. ${kpilist?[index].data()["nilai2"] ?? "Kosong"}",
                                                       style: const TextStyle(
                                                           fontSize: 12),
                                                       maxLines: 1,
@@ -359,7 +376,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
-                                                      "3. ${kpi?[index].data()["nilai3"] ?? "Kosong"}",
+                                                      "3. ${kpilist?[index].data()["nilai3"] ?? "Kosong"}",
                                                       style: const TextStyle(
                                                           fontSize: 12),
                                                       maxLines: 1,
@@ -367,7 +384,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     Text(
-                                                      "4. ${kpi?[index].data()["nilai4"] ?? "Kosong"}",
+                                                      "4. ${kpilist?[index].data()["nilai4"] ?? "Kosong"}",
                                                       style: const TextStyle(
                                                           fontSize: 12),
                                                       maxLines: 1,
@@ -380,6 +397,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
+                                                          //TODO: Display description/note for each kpi (chat)
                                                           Get.bottomSheet(
                                                             Container(
                                                               height: 200,
@@ -516,11 +534,9 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                 )),
                                               ])),
                                 );
-                              } else {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
                               }
+                              return Text("Data tidak ada");
+                              //
                             }),
                       )
                     ],

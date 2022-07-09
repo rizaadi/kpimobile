@@ -6,9 +6,11 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     required this.label,
+    required this.controller,
   }) : super(key: key);
 
   final String label;
+  final TextEditingController controller;
 // final String hint;
 
   @override
@@ -20,6 +22,7 @@ class CustomTextField extends StatelessWidget {
       ),
       const SizedBox(height: 6),
       TextField(
+        controller: controller,
         minLines: 1,
         maxLines: 5,
         decoration: InputDecoration(

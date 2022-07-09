@@ -8,19 +8,14 @@ import 'package:kpimobile/app/core/widgets/custom_textfield.dart';
 import '../controllers/tambah_kpi_controller.dart';
 
 class TambahKpiView extends GetView<TambahKpiController> {
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
-  String dropdownvalue = 'Item 1';
+  String dropdownvalueKategori = 'Kosong';
+  String dropdownvalueKRA = 'Kosong';
+  var idKpi = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 1,
+          elevation: 0,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: ThemeConfig.colors.Black_primary),
         ),
@@ -51,11 +46,14 @@ class TambahKpiView extends GetView<TambahKpiController> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                items: items.map((String items) {
-                  return DropdownMenuItem(value: items, child: Text(items));
+                borderRadius: BorderRadius.circular(10),
+                items: controller.kategoriItem.map((String items) {
+                  return DropdownMenuItem(
+                      value: items,
+                      child: Text(items, style: const TextStyle(fontSize: 13)));
                 }).toList(),
                 onChanged: (String? value) {
-                  dropdownvalue = value!;
+                  controller.kategoriC.text = value!;
                 }),
             const SizedBox(height: 16),
             Text("KRA",
@@ -63,6 +61,7 @@ class TambahKpiView extends GetView<TambahKpiController> {
                     ?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             DropdownButtonFormField(
+                isExpanded: true,
                 hint: const Text("Pilih KRA", style: TextStyle(fontSize: 13)),
                 decoration: InputDecoration(
                   filled: true,
@@ -74,86 +73,130 @@ class TambahKpiView extends GetView<TambahKpiController> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                items: items.map((String items) {
+                borderRadius: BorderRadius.circular(10),
+                items: controller.kra.map((String items) {
                   return DropdownMenuItem(
                     value: items,
-                    child: Text(items),
+                    child: Text(items, style: const TextStyle(fontSize: 13)),
                   );
                 }).toList(),
                 onChanged: (String? value) {
-                  dropdownvalue = value!;
+                  controller.kraC.text = value!;
                 }),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Deskripsi"),
+            CustomTextField(
+              label: "Deskripsi",
+              controller: controller.deskripsiC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Rumus"),
+            CustomTextField(
+              label: "Rumus",
+              controller: controller.rumusC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Bobot (%)"),
+            CustomTextField(
+              label: "Bobot (%)",
+              controller: controller.bobotC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Target"),
+            CustomTextField(
+              label: "Target",
+              controller: controller.targetC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Satuan"),
+            CustomTextField(
+              label: "Satuan",
+              controller: controller.satuanC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Sumber Data"),
+            CustomTextField(
+              label: "Sumber Data",
+              controller: controller.sumberDataC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Perlu Perhatian"),
+            CustomTextField(
+              label: "Perlu Perhatian",
+              controller: controller.perhatianC,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 4"),
+            CustomTextField(
+              label: "Nilai 4",
+              controller: controller.nilai4C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 3"),
+            CustomTextField(
+              label: "Nilai 3",
+              controller: controller.nilai3C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 2"),
+            CustomTextField(
+              label: "Nilai 2",
+              controller: controller.nilai2C,
+            ),
             const SizedBox(height: 16),
-            const CustomTextField(label: "Nilai 1"),
+            CustomTextField(
+              label: "Nilai 1",
+              controller: controller.nilai1C,
+            ),
+            const SizedBox(height: 16),
+            CustomTextField(
+              label: "Catatan",
+              controller: controller.catatanC,
+            ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
                 onPressed: () {
-                  Get.bottomSheet(
-                    Container(
-                      height: 200,
-                      padding: const EdgeInsets.all(16),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Anda yakin ingin Simpan KPI ?",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                minimumSize: const Size.fromHeight(50),
-                              ),
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: const Text("IYA")),
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: ThemeConfig.colors.Gray_primary,
-                                minimumSize: const Size.fromHeight(50),
-                              ),
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: const Text(
-                                "TIDAK",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
-                              ))
-                        ],
+                  controller.validatorText();
+                  if (!controller.isTextEmpty.value) {
+                    Get.bottomSheet(
+                      Container(
+                        height: 200,
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Anda yakin ingin Simpan KPI ?",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  minimumSize: const Size.fromHeight(50),
+                                ),
+                                onPressed: () {
+                                  Get.back();
+                                  controller.addGetKpi(idKpi);
+                                  Get.back();
+                                },
+                                child: const Text("IYA")),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: ThemeConfig.colors.Gray_primary,
+                                  minimumSize: const Size.fromHeight(50),
+                                ),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text(
+                                  "TIDAK",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600),
+                                ))
+                          ],
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
                 icon: SvgPicture.asset(
                   'assets/icons/save.svg',
