@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 class DetailKpiController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
       uid) async* {
@@ -19,7 +18,6 @@ class DetailKpiController extends GetxController {
   }
 
   deleteKpiUser(idKpi, id) async {
-    print("${idKpi + id}");
     await firestore
         .collection("kpi")
         .doc(idKpi)
@@ -31,6 +29,13 @@ class DetailKpiController extends GetxController {
 
   deleteKpi(idKpi) async {
     await firestore.collection("kpi").doc(idKpi).delete();
+    Get.back();
+  }
+
+  submitKpi(idKpi) async {
+    await firestore.collection("kpi").doc(idKpi).update({
+      "status": ["Pending", "Monitoring"],
+    });
     Get.back();
   }
 }

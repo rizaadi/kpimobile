@@ -181,77 +181,83 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                   style: ElevatedButton.styleFrom(
                                       primary:
                                           ThemeConfig.colors.Green_primary)),
-                              ElevatedButton.icon(
-                                  onPressed: () {
-                                    Get.toNamed(Routes.TAMBAH_KPI,
-                                        arguments: idKpi);
-                                  },
-                                  icon: SvgPicture.asset(
-                                      'assets/icons/plus.svg',
-                                      width: 18,
-                                      height: 18),
-                                  label: const Text("Tambah KPI"),
-                                  style: ElevatedButton.styleFrom(
-                                      primary:
-                                          ThemeConfig.colors.Green_primary)),
+                              Visibility(
+                                visible: kpi?['status'][0] == "Draft",
+                                child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      Get.toNamed(Routes.TAMBAH_KPI,
+                                          arguments: idKpi);
+                                    },
+                                    icon: SvgPicture.asset(
+                                        'assets/icons/plus.svg',
+                                        width: 18,
+                                        height: 18),
+                                    label: const Text("Tambah KPI"),
+                                    style: ElevatedButton.styleFrom(
+                                        primary:
+                                            ThemeConfig.colors.Green_primary)),
+                              ),
                             ],
                           ),
-                          ElevatedButton.icon(
-                              onPressed: () {
-                                Get.bottomSheet(
-                                    Container(
-                                      height: 200,
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        children: [
-                                          const Text(
-                                              "Anda yakin ingin submit KPI ?"),
-                                          const SizedBox(height: 20),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                elevation: 0,
-                                                minimumSize:
-                                                    const Size.fromHeight(50),
-                                              ),
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: const Text("IYA")),
-                                          const SizedBox(height: 16),
-                                          ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                elevation: 0,
-                                                primary: ThemeConfig
-                                                    .colors.Gray_primary,
-                                                minimumSize:
-                                                    const Size.fromHeight(50),
-                                              ),
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: const Text(
-                                                "TIDAK",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ))
-                                        ],
+                          Visibility(
+                            visible: kpi?['status'][0] == 'Draft',
+                            child: ElevatedButton.icon(
+                                onPressed: () {
+                                  Get.bottomSheet(
+                                      Container(
+                                        height: 200,
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          children: [
+                                            const Text(
+                                                "Anda yakin ingin submit KPI ?"),
+                                            const SizedBox(height: 20),
+                                            ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  elevation: 0,
+                                                  minimumSize:
+                                                      const Size.fromHeight(50),
+                                                ),
+                                                onPressed: () {
+                                                  controller.submitKpi(idKpi);
+                                                },
+                                                child: const Text("IYA")),
+                                            const SizedBox(height: 16),
+                                            ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  elevation: 0,
+                                                  primary: ThemeConfig
+                                                      .colors.Gray_primary,
+                                                  minimumSize:
+                                                      const Size.fromHeight(50),
+                                                ),
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                child: const Text(
+                                                  "TIDAK",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ))
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    enableDrag: false);
-                              },
-                              icon: SvgPicture.asset(
-                                'assets/icons/send.svg',
-                                width: 18,
-                                height: 18,
-                                color: Colors.white,
-                              ),
-                              label: const Text("Submit KPI")),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      enableDrag: false);
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icons/send.svg',
+                                  width: 18,
+                                  height: 18,
+                                  color: Colors.white,
+                                ),
+                                label: const Text("Submit KPI")),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 11),

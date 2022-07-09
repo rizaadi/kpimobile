@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../theme/theme_config.dart';
 
@@ -8,7 +7,6 @@ class StatusBadge extends StatelessWidget {
   final String status;
   @override
   Widget build(BuildContext context) {
-    var color = Colors.black;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
