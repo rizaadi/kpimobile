@@ -261,7 +261,8 @@ class DetailKpiView extends GetView<DetailKpiController> {
                         ],
                       ),
                       const SizedBox(height: 11),
-                      Text("Total Bobot :  0% (Strategis: 0% | Teknis: 0%)"),
+                      Text(
+                          "Total Bobot :  ${kpi?['totalBobot']}%"),
                       SizedBox(
                         height: Get.height * 0.8,
                         width: 2000,

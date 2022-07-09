@@ -41,7 +41,12 @@ class TambahKpiController extends GetxController {
       "nilai3": nilai3C.text,
       "nilai2": nilai2C.text,
       "nilai1": nilai1C.text,
-    });
+    }).then((value) => {
+          firestore.collection("kpi").doc(idKpi).update({
+            "totalBobot":
+                FieldValue.increment(int.tryParse(bobotC.text)!.toInt()),
+          })
+        });
   }
 
   var kategoriItem = [

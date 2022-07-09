@@ -23,7 +23,8 @@ class DetailKpiController extends GetxController {
         .doc(idKpi)
         .collection("kpiuser")
         .doc(id)
-        .delete();
+        .delete()
+        .then((value) => {totalBobot(idKpi)});
     Get.back();
   }
 
@@ -37,5 +38,23 @@ class DetailKpiController extends GetxController {
       "status": ["Pending", "Monitoring"],
     });
     Get.back();
+  }
+
+  totalBobot(idKpi) async {
+    num total = 0;
+    await firestore
+        .collection("kpi")
+        .doc(idKpi)
+        .collection("kpiuser")
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        total += element.data()['bobot'];
+      }
+    }).then((value) => {
+              firestore.collection("kpi").doc(idKpi).update({
+                "totalBobot": total,
+              })
+            });
   }
 }
