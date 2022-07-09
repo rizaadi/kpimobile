@@ -28,6 +28,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                 stream: controller.getDetailKpiKaryawan(idKpi),
                 builder: (context, snapshot) {
                   var kpi = snapshot.data?.data();
+                  print(kpi);
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
@@ -261,8 +262,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                         ],
                       ),
                       const SizedBox(height: 11),
-                      Text(
-                          "Total Bobot :  ${kpi?['totalBobot']}%"),
+                      Text("Total Bobot :  ${kpi?['totalBobot']}%"),
                       SizedBox(
                         height: Get.height * 0.8,
                         width: 2000,
@@ -468,7 +468,14 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                     IconButton(
                                                         onPressed: () {
                                                           Get.toNamed(
-                                                              Routes.EDIT_KPI);
+                                                              Routes.EDIT_KPI,
+                                                              arguments: [
+                                                                kpilist?[index]
+                                                                    .data(),
+                                                                idKpi,
+                                                                kpilist?[index]
+                                                                    .id
+                                                              ]);
                                                         },
                                                         icon: SvgPicture.asset(
                                                             'assets/icons/edit.svg')),
@@ -563,7 +570,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                 );
                               }
                               return Text("Data tidak ada");
-                              //
                             }),
                       )
                     ],

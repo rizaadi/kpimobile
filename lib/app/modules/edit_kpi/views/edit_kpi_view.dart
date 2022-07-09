@@ -8,16 +8,13 @@ import '../../../core/widgets/custom_textfield.dart';
 import '../controllers/edit_kpi_controller.dart';
 
 class EditKpiView extends GetView<EditKpiController> {
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
   String dropdownvalue = 'Item 1';
   @override
   Widget build(BuildContext context) {
+    dynamic kpi = Get.arguments;
+    // controller.loadKpi(idKpi[0]['idKpi'], idKpi[0]['idKpiuser']);
+    controller.updateText(kpi);
+
     return Scaffold(
         appBar: AppBar(
           elevation: 1,
@@ -39,6 +36,7 @@ class EditKpiView extends GetView<EditKpiController> {
                     ?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             DropdownButtonFormField(
+                value: kpi[0]['kategori'].toString(),
                 hint: const Text("Pilih Kategori",
                     style: TextStyle(fontSize: 13)),
                 decoration: InputDecoration(
@@ -51,11 +49,11 @@ class EditKpiView extends GetView<EditKpiController> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                items: items.map((String items) {
+                items: controller.kategoriItem.map((String items) {
                   return DropdownMenuItem(value: items, child: Text(items));
                 }).toList(),
                 onChanged: (String? value) {
-                  dropdownvalue = value!;
+                  controller.kategoriC.text = value!;
                 }),
             const SizedBox(height: 16),
             Text("KRA",
@@ -63,6 +61,8 @@ class EditKpiView extends GetView<EditKpiController> {
                     ?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             DropdownButtonFormField(
+                value: kpi[0]['kra'].toString(),
+                isExpanded: true,
                 hint: const Text("Pilih KRA", style: TextStyle(fontSize: 13)),
                 decoration: InputDecoration(
                   filled: true,
@@ -74,14 +74,14 @@ class EditKpiView extends GetView<EditKpiController> {
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                items: items.map((String items) {
+                items: controller.kra.map((String items) {
                   return DropdownMenuItem(
                     value: items,
-                    child: Text(items),
+                    child: Text(items, style: const TextStyle(fontSize: 13)),
                   );
                 }).toList(),
                 onChanged: (String? value) {
-                  dropdownvalue = value!;
+                  controller.kraC.text = value!;
                 }),
             const SizedBox(height: 16),
             CustomTextField(
@@ -164,6 +164,7 @@ class EditKpiView extends GetView<EditKpiController> {
                                 minimumSize: const Size.fromHeight(50),
                               ),
                               onPressed: () {
+                                controller.updateKpi(kpi[1], kpi[2]);
                                 Get.back();
                               },
                               child: const Text("IYA")),
