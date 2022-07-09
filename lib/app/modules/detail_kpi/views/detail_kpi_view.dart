@@ -415,8 +415,8 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                           Radius.circular(
                                                                               20))),
                                                               child: Column(
-                                                                children: [
-                                                                  const Text(
+                                                                children: const [
+                                                                  Text(
                                                                     "Anda yakin ingin Hapus KPI ?",
                                                                     style: TextStyle(
                                                                         fontSize:
@@ -424,7 +424,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                         fontWeight:
                                                                             FontWeight.w600),
                                                                   ),
-                                                                  const SizedBox(
+                                                                  SizedBox(
                                                                       height:
                                                                           20),
                                                                 ],
@@ -491,7 +491,9 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                       ),
                                                                       onPressed:
                                                                           () {
-                                                                        Get.back();
+                                                                        controller.deleteKpiUser(
+                                                                            idKpi,
+                                                                            kpilist?[index].id);
                                                                       },
                                                                       child: const Text(
                                                                           "IYA")),

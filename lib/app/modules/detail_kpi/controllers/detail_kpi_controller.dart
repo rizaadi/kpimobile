@@ -9,13 +9,22 @@ class DetailKpiController extends GetxController {
     yield* firestore.collection("kpi").doc(uid).snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiKaryawan(
-      uid) async* {
-
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiKaryawan(uid) async* {
     yield* firestore
         .collection("kpi")
         .doc(uid)
         .collection("kpiuser")
         .snapshots();
+  }
+
+  deleteKpiUser(idKpi, id) async {
+    print("${idKpi + id}");
+    await firestore
+        .collection("kpi")
+        .doc(idKpi)
+        .collection("kpiuser")
+        .doc(id)
+        .delete();
+    Get.back();
   }
 }
