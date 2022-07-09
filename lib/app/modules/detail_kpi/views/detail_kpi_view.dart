@@ -9,7 +9,10 @@ import 'package:kpimobile/app/core/widgets/list_container.dart';
 import 'package:kpimobile/app/core/widgets/list_three_container.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
+import '../../../core/widgets/custom_popupmenuitem.dart';
 import '../controllers/detail_kpi_controller.dart';
+
+enum Options { History, Delete }
 
 class DetailKpiView extends GetView<DetailKpiController> {
   @override
@@ -83,14 +86,29 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                   ],
                                 ),
                               ]),
-                          IconButton(
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                'assets/icons/history.svg',
-                                color: Get.theme.primaryColor,
-                                width: 24,
-                                height: 24,
-                              ))
+                          PopupMenuButton(
+                              onSelected: (value) => {
+                                    if (value == Options.History.index)
+                                      {Get.toNamed(Routes.HISTORY)}
+                                    else if (value == Options.Delete.index)
+                                      {controller.deleteKpi(idKpi)}
+                                  },
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              constraints: const BoxConstraints(maxWidth: 120),
+                              itemBuilder: (context) => [
+                                    customPopupMenuItem(
+                                        'History',
+                                        'assets/icons/history.svg',
+                                        Get.theme.primaryColor,
+                                        Options.History.index),
+                                    customPopupMenuItem(
+                                        'Delete',
+                                        'assets/icons/trash-2.svg',
+                                        Get.theme.errorColor,
+                                        Options.Delete.index),
+                                  ]),
                         ],
                       ),
                       const SizedBox(height: 6),
