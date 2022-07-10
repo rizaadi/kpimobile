@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
+import 'package:kpimobile/app/core/widgets/status_badge.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
 class CardHistory extends StatelessWidget {
@@ -69,24 +70,7 @@ class CardHistory extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                      color: status == "Selesai"
-                          ? ThemeConfig.colors.Green_primary
-                          : ThemeConfig.colors.Gray_primary,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Text(
-                    status,
-                    style: TextStyle(
-                        color: status == "Selesai"
-                            ? Colors.white
-                            : ThemeConfig.colors.Black_primary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                  ),
-                )
+                StatusBadge(status: status)
               ],
             ),
           )

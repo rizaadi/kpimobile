@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -170,15 +172,42 @@ class HomePage extends GetView<HomeController> {
                         const SizedBox(
                           height: 13,
                         ),
-                        const CardHistory(
-                          namaPerusahaan: "PT. PUPUK INDONESIA",
-                          periode: "01 Januari 2021 - 31 Desember 2021",
-                          status: "Selesai",
-                        ),
-                        const CardHistory(
-                          namaPerusahaan: "PT. PUPUK INDONESIA",
-                          periode: "01 Januari 2021 - 31 Desember 2021",
-                          status: "Selesai",
+                        Flexible(
+                          child: StreamBuilder<
+                                  QuerySnapshot<Map<String, dynamic>>>(
+                              stream: homeC.getListHistoryKpi(),
+                              builder: (context, snapshot) {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data?.docs.length ?? 0,
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic>? kpi = snapshot
+                                        .data?.docs
+                                        .elementAt(index)
+                                        .data();
+                                    // log(name: "HIstoryHome", kpi.toString());
+                                    if (snapshot.hasData) {
+                                      switch (snapshot.connectionState) {
+                                        case ConnectionState.none:
+                                          return const Text("No Connections");
+                                        case ConnectionState.waiting:
+                                          return const CircularProgressIndicator();
+                                        case ConnectionState.active:
+                                        case ConnectionState.done:
+                                          return CardHistory(
+                                            namaPerusahaan: kpi?['perusahaan'],
+                                            periode: kpi?['periode'],
+                                            status: kpi?['status'][0],
+                                          );
+                                        default:
+                                          break;
+                                      }
+                                    }
+                                    return const Text("No data");
+                                  },
+                                );
+                              }),
                         ),
                         const SizedBox(height: 30),
                         Text(

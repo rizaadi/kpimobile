@@ -53,4 +53,16 @@ class HomeController extends GetxController {
               })
         });
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListHistoryKpi() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .orderBy("updatedAt", descending: true)
+        .limit(2)
+        .snapshots();
+  }
 }
