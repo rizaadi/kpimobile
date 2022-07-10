@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../routes/app_pages.dart';
+
 class HalamanKpiController extends GetxController {
   TextEditingController periodeC = TextEditingController();
   TextEditingController jabatanC = TextEditingController();
@@ -44,14 +46,17 @@ class HalamanKpiController extends GetxController {
             "periode": periodeC.text,
             "unitKerja": value.data()!['unitKerja'],
             "status": ["Draft"],
-            "tanggal": DateTime.now(),
+            "createdAt": DateTime.now(),
+            "updatedAt": DateTime.now(),
           }).then((value) => {
                 firestore.collection("users").doc(uid).update({
                   "kpi": FieldValue.arrayUnion([value.id]),
                 }),
                 firestore.collection("kpi").doc(value.id).update({
                   "id": value.id,
-                })
+                }),
+                Get.back(),
+                Get.toNamed(Routes.DETAIL_KPI, arguments: value.id)
               })
         });
   }

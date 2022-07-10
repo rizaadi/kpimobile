@@ -39,7 +39,8 @@ class HomeController extends GetxController {
             "periode": periodeC.text,
             "unitKerja": value.data()!['unitKerja'],
             "status": ["Draft"],
-            "tanggal": DateTime.now(),
+            "createdAt": DateTime.now(),
+            "updatedAt": DateTime.now(),
           }).then((value) => {
                 firestore.collection("users").doc(uid).update({
                   "kpi": FieldValue.arrayUnion([value.id]),

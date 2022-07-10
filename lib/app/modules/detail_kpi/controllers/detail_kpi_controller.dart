@@ -36,6 +36,7 @@ class DetailKpiController extends GetxController {
   submitKpi(idKpi) async {
     await firestore.collection("kpi").doc(idKpi).update({
       "status": ["Pending", "Monitoring"],
+      "updatedAt": DateTime.now(),
     });
     Get.back();
   }

@@ -41,6 +41,8 @@ class TambahKpiController extends GetxController {
       "nilai3": nilai3C.text,
       "nilai2": nilai2C.text,
       "nilai1": nilai1C.text,
+      "createdAt": DateTime.now(),
+      "updatedAt": DateTime.now(),
     }).then((value) => {
           firestore.collection("kpi").doc(idKpi).update({
             "totalBobot":

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
 import 'package:kpimobile/app/core/widgets/list_container.dart';
 import 'package:kpimobile/app/core/widgets/list_three_container.dart';
@@ -140,6 +141,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                           title: "Status",
                           value: kpi?['status'][0] ?? "Kosong",
                           color: Colors.white),
+                      // Text(DateFormat('d MMM yyyy').format(kpi?['tanggal'].toDate())),
                       const Divider(height: 1),
                       const SizedBox(height: 11),
                       Row(
@@ -262,7 +264,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                         ],
                       ),
                       const SizedBox(height: 11),
-                      Text("Total Bobot :  ${kpi?['totalBobot']}%"),
+                      Text("Total Bobot :  ${kpi?['totalBobot'] ?? "0"}%"),
                       SizedBox(
                         height: Get.height * 0.8,
                         width: 2000,

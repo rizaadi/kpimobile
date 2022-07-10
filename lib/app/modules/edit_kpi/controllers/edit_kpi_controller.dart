@@ -71,6 +71,7 @@ class EditKpiController extends GetxController {
       "nilai3": nilai3C.text,
       "nilai2": nilai2C.text,
       "nilai1": nilai1C.text,
+      "updatedAt": DateTime.now(),
     });
     Get.back();
   }
