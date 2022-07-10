@@ -141,7 +141,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
                           title: "Status",
                           value: kpi?['status'][0] ?? "Kosong",
                           color: Colors.white),
-                      // Text(DateFormat('d MMM yyyy').format(kpi?['tanggal'].toDate())),
                       const Divider(height: 1),
                       const SizedBox(height: 11),
                       Row(

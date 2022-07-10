@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kpimobile/app/core/widgets/card_history_timeline.dart';
 import 'package:timelines/timelines.dart';
 
@@ -9,6 +13,7 @@ import '../../../core/theme/theme_config.dart';
 import '../controllers/history_controller.dart';
 
 class HistoryView extends GetView<HistoryController> {
+  final historyC = Get.put(HistoryController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,35 +53,44 @@ class HistoryView extends GetView<HistoryController> {
             icon: SvgPicture.asset('assets/icons/sliders.svg'),
             label: const Text("Filter"),
             style: ElevatedButton.styleFrom(
-                primary: ThemeConfig.colors.Green_primary)
-            // style: const ButtonStyle(
-            //     tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-            ),
+                primary: ThemeConfig.colors.Green_primary)),
         const SizedBox(height: 16),
         Expanded(
-          child: Timeline.tileBuilder(
-              theme: TimelineThemeData(
-                  indicatorPosition: 0.1,
-                  nodePosition: 0,
-                  color: Get.theme.primaryColor,
-                  indicatorTheme: const IndicatorThemeData(size: 14),
-                  connectorTheme: const ConnectorThemeData(thickness: 2)),
-              shrinkWrap: true,
-              builder: TimelineTileBuilder.connectedFromStyle(
-                  firstConnectorStyle: ConnectorStyle.transparent,
-                  lastConnectorStyle: ConnectorStyle.transparent,
-                  connectorStyleBuilder: (context, index) =>
-                      ConnectorStyle.solidLine,
-                  indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
-                  itemCount: 4,
-                  contentsBuilder: (context, index) => CardHistoryTimeline(
-                        tanggal: "15 Mei 2022",
-                        status: "Draft",
-                        nama: "Nendra Ariyanto",
-                        jabatan: "VP Remunerisasi & Manj. Kinerja",
-                        unitKerja: "Departement Remunerasi & Manj. Kinerja",
-                        lampiran: "Terlampir draft..",
-                      ))),
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: historyC.getListKpi(),
+              builder: (context, snapshot) {
+                return Timeline.tileBuilder(
+                    theme: TimelineThemeData(
+                        indicatorPosition: 0.1,
+                        nodePosition: 0,
+                        color: Get.theme.primaryColor,
+                        indicatorTheme: const IndicatorThemeData(size: 14),
+                        connectorTheme: const ConnectorThemeData(thickness: 2)),
+                    shrinkWrap: true,
+                    builder: TimelineTileBuilder.connectedFromStyle(
+                        firstConnectorStyle: ConnectorStyle.transparent,
+                        lastConnectorStyle: ConnectorStyle.transparent,
+                        connectorStyleBuilder: (context, index) =>
+                            ConnectorStyle.solidLine,
+                        indicatorStyleBuilder: (context, index) =>
+                            IndicatorStyle.dot,
+                        itemCount: snapshot.data?.docs.length ?? 0,
+                        contentsBuilder: (context, index) {
+                          Map<String, dynamic>? kpi =
+                              snapshot.data?.docs.elementAt(index).data();
+                          log(name: "History", kpi.toString());
+                          return CardHistoryTimeline(
+                            // Text(DateFormat('d MMM yyyy').format(kpi?['tanggal'].toDate())),
+                            // tanggal: DateFormat('d MMM yyyy').format(listKpi?[index]['updatedAt'].toDate()),
+                            tanggal: "sada",
+                            status: "Draft",
+                            nama: "kpi?[index]['nama']",
+                            jabatan: "VP Remunerisasi & Manj. Kinerja",
+                            unitKerja: "Departement Remunerasi & Manj. Kinerja",
+                            lampiran: "Terlampir draft..",
+                          );
+                        }));
+              }),
         )
       ]),
     )));

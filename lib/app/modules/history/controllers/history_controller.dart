@@ -1,20 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class HistoryController extends GetxController {
-  //TODO: Implement HistoryController
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpi() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .orderBy("updatedAt", descending: true)
+        .snapshots();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
