@@ -84,7 +84,7 @@ class HomePage extends GetView<HomeController> {
                                       switch (snapshot.connectionState) {
                                         case ConnectionState.none:
                                           return const CardMonitor(
-                                            status: 'KPI',
+                                            status: 'On Track',
                                             value: '-',
                                           );
                                         case ConnectionState.waiting:
@@ -92,7 +92,7 @@ class HomePage extends GetView<HomeController> {
                                         case ConnectionState.active:
                                         case ConnectionState.done:
                                           return CardMonitor(
-                                            status: 'KPI',
+                                            status: 'On Track',
                                             value: kpi.toString(),
                                           );
                                         default:
@@ -100,7 +100,7 @@ class HomePage extends GetView<HomeController> {
                                       }
                                     }
                                     return const CardMonitor(
-                                      status: 'KPI',
+                                      status: 'On Track',
                                       value: '-',
                                     );
                                   }),
@@ -120,7 +120,7 @@ class HomePage extends GetView<HomeController> {
                                       switch (snapshot.connectionState) {
                                         case ConnectionState.none:
                                           return const CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Behind Target',
                                             value: '-',
                                           );
                                         case ConnectionState.waiting:
@@ -128,7 +128,7 @@ class HomePage extends GetView<HomeController> {
                                         case ConnectionState.active:
                                         case ConnectionState.done:
                                           return CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Behind Target',
                                             value: kpi.toString(),
                                           );
                                         default:
@@ -136,7 +136,7 @@ class HomePage extends GetView<HomeController> {
                                       }
                                     }
                                     return const CardMonitor(
-                                      status: 'KPI',
+                                      status: 'Behind Target',
                                       value: '-',
                                     );
                                   }),
@@ -156,7 +156,7 @@ class HomePage extends GetView<HomeController> {
                                       switch (snapshot.connectionState) {
                                         case ConnectionState.none:
                                           return const CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Inactive',
                                             value: '-',
                                           );
                                         case ConnectionState.waiting:
@@ -164,7 +164,7 @@ class HomePage extends GetView<HomeController> {
                                         case ConnectionState.active:
                                         case ConnectionState.done:
                                           return CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Inactive',
                                             value: kpi.toString(),
                                           );
                                         default:
@@ -172,7 +172,7 @@ class HomePage extends GetView<HomeController> {
                                       }
                                     }
                                     return const CardMonitor(
-                                      status: 'KPI',
+                                      status: 'Inactive',
                                       value: '-',
                                     );
                                   }),
@@ -237,7 +237,7 @@ class HomePage extends GetView<HomeController> {
                                       switch (snapshot.connectionState) {
                                         case ConnectionState.none:
                                           return const CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Monitoring',
                                             value: '-',
                                           );
                                         case ConnectionState.waiting:
@@ -245,7 +245,7 @@ class HomePage extends GetView<HomeController> {
                                         case ConnectionState.active:
                                         case ConnectionState.done:
                                           return CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Monitoring',
                                             value: kpi.toString(),
                                           );
                                         default:
@@ -253,7 +253,7 @@ class HomePage extends GetView<HomeController> {
                                       }
                                     }
                                     return const CardMonitor(
-                                      status: 'KPI',
+                                      status: 'Monitoring',
                                       value: '-',
                                     );
                                   }),
@@ -273,7 +273,7 @@ class HomePage extends GetView<HomeController> {
                                       switch (snapshot.connectionState) {
                                         case ConnectionState.none:
                                           return const CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Penilaian',
                                             value: '-',
                                           );
                                         case ConnectionState.waiting:
@@ -281,7 +281,7 @@ class HomePage extends GetView<HomeController> {
                                         case ConnectionState.active:
                                         case ConnectionState.done:
                                           return CardMonitor(
-                                            status: 'KPI',
+                                            status: 'Penilaian',
                                             value: kpi.toString(),
                                           );
                                         default:
@@ -289,7 +289,7 @@ class HomePage extends GetView<HomeController> {
                                       }
                                     }
                                     return const CardMonitor(
-                                      status: 'KPI',
+                                      status: 'Penilaian',
                                       value: '-',
                                     );
                                   }),
