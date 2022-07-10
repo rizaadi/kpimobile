@@ -80,14 +80,13 @@ class HistoryView extends GetView<HistoryController> {
                               snapshot.data?.docs.elementAt(index).data();
                           log(name: "History", kpi.toString());
                           return CardHistoryTimeline(
-                            // Text(DateFormat('d MMM yyyy').format(kpi?['tanggal'].toDate())),
-                            // tanggal: DateFormat('d MMM yyyy').format(listKpi?[index]['updatedAt'].toDate()),
-                            tanggal: "sada",
-                            status: "Draft",
-                            nama: "kpi?[index]['nama']",
-                            jabatan: "VP Remunerisasi & Manj. Kinerja",
-                            unitKerja: "Departement Remunerasi & Manj. Kinerja",
-                            lampiran: "Terlampir draft..",
+                            tanggal: DateFormat('d MMM yyyy')
+                                .format(kpi?['updatedAt'].toDate()),
+                            status: kpi?['status'][0],
+                            nama: kpi?['nama'],
+                            jabatan: kpi?['jabatan'],
+                            unitKerja: kpi?['unitKerja'],
+                            periode: kpi?['periode'],
                           );
                         }));
               }),

@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:kpimobile/app/core/widgets/status_badge.dart';
 
 import '../theme/theme_config.dart';
 
@@ -11,7 +11,7 @@ class CardHistoryTimeline extends StatelessWidget {
     required this.nama,
     required this.jabatan,
     required this.unitKerja,
-    required this.lampiran,
+    required this.periode,
     required this.tanggal,
     required this.status,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class CardHistoryTimeline extends StatelessWidget {
   final String nama;
   final String jabatan;
   final String unitKerja;
-  final String lampiran;
+  final String periode;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -50,17 +50,7 @@ class CardHistoryTimeline extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                    color: ThemeConfig.colors.Gray_primary,
-                    borderRadius: BorderRadius.circular(8)),
-                child: Text(
-                  status,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 13),
-                ),
-              )
+              StatusBadge(status: status),
             ],
           ),
           const Divider(thickness: 1),
@@ -97,7 +87,7 @@ class CardHistoryTimeline extends StatelessWidget {
             width: Get.width,
             child: Padding(
               padding: const EdgeInsets.all(13),
-              child: Text(lampiran, style: const TextStyle(fontSize: 12)),
+              child: Text(periode, style: const TextStyle(fontSize: 12)),
             ),
           ),
         ]),
