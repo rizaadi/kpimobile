@@ -65,4 +65,69 @@ class HomeController extends GetxController {
         .limit(2)
         .snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumKpi() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumMonitoring() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "Monitoring")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumPenilaian() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "Penilaian")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumOnTrack() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "OnTrack")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumBehindTarget() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "BehindTarget")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumInactive() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "Inactive")
+        .snapshots();
+  }
 }
