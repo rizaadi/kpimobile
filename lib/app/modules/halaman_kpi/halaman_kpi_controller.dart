@@ -52,6 +52,12 @@ class HalamanKpiController extends GetxController {
                 firestore.collection("users").doc(uid).update({
                   "kpi": FieldValue.arrayUnion([value2.id]),
                 }),
+                firestore
+                    .collection("users")
+                    .doc(value.data()!['uidAtasan'])
+                    .update({
+                  "kpi": FieldValue.arrayUnion([value2.id]),
+                }),
                 firestore.collection("kpi").doc(value2.id).update({
                   "id": value2.id,
                 }),

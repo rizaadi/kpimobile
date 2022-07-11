@@ -35,6 +35,14 @@ class DetailKpiController extends GetxController {
           firestore.collection('users').doc(uid).update({
             'kpi': FieldValue.arrayRemove([idKpi])
           }),
+          firestore.collection("users").doc(uid).get().then((value) => {
+                firestore
+                    .collection("users")
+                    .doc(value.data()!['uidAtasan'])
+                    .update({
+                  'kpi': FieldValue.arrayRemove([idKpi])
+                }),
+              })
         });
     Get.back();
   }
