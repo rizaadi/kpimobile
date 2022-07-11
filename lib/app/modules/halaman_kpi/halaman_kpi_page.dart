@@ -187,7 +187,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                         },
                         child: CardKpi(
                           perusahaan: kpi?['perusahaan'] ?? 'Kosong',
-                          tanggal: kpi?['quarter'] ?? 'Kosong',
+                          tanggal: kpi?['periode'] ?? 'Kosong',
                           status: kpi?['status'][0] ?? 'Kosong',
                           nama: kpi?['nama'] ?? 'Kosong',
                           jabatan: kpi?['jabatan'] ?? 'Kosong',
