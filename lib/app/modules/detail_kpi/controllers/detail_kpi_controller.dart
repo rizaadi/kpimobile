@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class DetailKpiController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  FirebaseAuth auth = FirebaseAuth.instance;
   Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
       uid) async* {
     yield* firestore.collection("kpi").doc(uid).snapshots();
@@ -29,7 +30,12 @@ class DetailKpiController extends GetxController {
   }
 
   deleteKpi(idKpi) async {
-    await firestore.collection("kpi").doc(idKpi).delete();
+    String uid = auth.currentUser!.uid;
+    await firestore.collection("kpi").doc(idKpi).delete().then((value) => {
+          firestore.collection('users').doc(uid).update({
+            'kpi': FieldValue.arrayRemove([idKpi])
+          }),
+        });
     Get.back();
   }
 

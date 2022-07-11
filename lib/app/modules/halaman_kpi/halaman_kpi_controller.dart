@@ -48,15 +48,15 @@ class HalamanKpiController extends GetxController {
             "status": ["Draft"],
             "createdAt": DateTime.now(),
             "updatedAt": DateTime.now(),
-          }).then((value) => {
+          }).then((value2) => {
                 firestore.collection("users").doc(uid).update({
-                  "kpi": FieldValue.arrayUnion([value.id]),
+                  "kpi": FieldValue.arrayUnion([value2.id]),
                 }),
-                firestore.collection("kpi").doc(value.id).update({
-                  "id": value.id,
+                firestore.collection("kpi").doc(value2.id).update({
+                  "id": value2.id,
                 }),
                 Get.back(),
-                Get.toNamed(Routes.DETAIL_KPI, arguments: value.id)
+                Get.toNamed(Routes.DETAIL_KPI, arguments: value2.id)
               })
         });
   }
