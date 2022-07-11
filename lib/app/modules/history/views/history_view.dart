@@ -59,36 +59,53 @@ class HistoryView extends GetView<HistoryController> {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: historyC.getListKpi(),
               builder: (context, snapshot) {
-                return Timeline.tileBuilder(
-                    theme: TimelineThemeData(
-                        indicatorPosition: 0.1,
-                        nodePosition: 0,
-                        color: Get.theme.primaryColor,
-                        indicatorTheme: const IndicatorThemeData(size: 14),
-                        connectorTheme: const ConnectorThemeData(thickness: 2)),
-                    shrinkWrap: true,
-                    builder: TimelineTileBuilder.connectedFromStyle(
-                        firstConnectorStyle: ConnectorStyle.transparent,
-                        lastConnectorStyle: ConnectorStyle.transparent,
-                        connectorStyleBuilder: (context, index) =>
-                            ConnectorStyle.solidLine,
-                        indicatorStyleBuilder: (context, index) =>
-                            IndicatorStyle.dot,
-                        itemCount: snapshot.data?.docs.length ?? 0,
-                        contentsBuilder: (context, index) {
-                          Map<String, dynamic>? kpi =
-                              snapshot.data?.docs.elementAt(index).data();
-                          log(name: "History", kpi.toString());
-                          return CardHistoryTimeline(
-                            tanggal: DateFormat('d MMM yyyy')
-                                .format(kpi?['updatedAt'].toDate()),
-                            status: kpi?['status'][0],
-                            nama: kpi?['nama'],
-                            jabatan: kpi?['jabatan'],
-                            unitKerja: kpi?['unitKerja'],
-                            periode: kpi?['periode'],
-                          );
-                        }));
+                if (snapshot.hasData) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return const Text("No Connections");
+                    case ConnectionState.waiting:
+                    //TODO: Add loading indicator
+                      return const CircularProgressIndicator();
+                    case ConnectionState.active:
+                    case ConnectionState.done:
+                      return Timeline.tileBuilder(
+                          theme: TimelineThemeData(
+                              indicatorPosition: 0.1,
+                              nodePosition: 0,
+                              color: Get.theme.primaryColor,
+                              indicatorTheme:
+                                  const IndicatorThemeData(size: 14),
+                              connectorTheme:
+                                  const ConnectorThemeData(thickness: 2)),
+                          shrinkWrap: true,
+                          builder: TimelineTileBuilder.connectedFromStyle(
+                              firstConnectorStyle: ConnectorStyle.transparent,
+                              lastConnectorStyle: ConnectorStyle.transparent,
+                              connectorStyleBuilder: (context, index) =>
+                                  ConnectorStyle.solidLine,
+                              indicatorStyleBuilder: (context, index) =>
+                                  IndicatorStyle.dot,
+                              itemCount: snapshot.data?.docs.length ?? 0,
+                              contentsBuilder: (context, index) {
+                                Map<String, dynamic>? kpi =
+                                    snapshot.data?.docs.elementAt(index).data();
+                                log(name: "History", kpi.toString());
+                                return CardHistoryTimeline(
+                                  tanggal: DateFormat('d MMM yyyy')
+                                      .format(kpi?['updatedAt'].toDate()),
+                                  status: kpi?['status'][0],
+                                  nama: kpi?['nama'],
+                                  jabatan: kpi?['jabatan'],
+                                  unitKerja: kpi?['unitKerja'],
+                                  periode: kpi?['periode'],
+                                );
+                              }));
+                    default:
+                      break;
+                  }
+                }
+                return const Text("No Data");
+                // return const Text("No data");
               }),
         )
       ]),
