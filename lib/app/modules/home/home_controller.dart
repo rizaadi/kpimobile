@@ -130,4 +130,8 @@ class HomeController extends GetxController {
         .where("status", arrayContains: "Inactive")
         .snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiAtasan() async* {
+    yield* firestore.collection("kpi").snapshots();
+  }
 }

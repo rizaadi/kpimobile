@@ -10,7 +10,7 @@ class HalamanKpiController extends GetxController {
   TextEditingController jabatanC = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  RxString role = "".obs;
   var periodeItem = [
     'Quarter 1',
     'Quarter 2',
@@ -28,7 +28,7 @@ class HalamanKpiController extends GetxController {
     List<dynamic> listKpi = docUser.data()!['kpi'];
     yield* firestore
         .collection("kpi")
-        .where("id", whereIn: listKpi)
+        .where("id", whereIn: listKpi.isEmpty ? ['lala'] : listKpi)
         .snapshots();
   }
 
@@ -65,5 +65,23 @@ class HalamanKpiController extends GetxController {
                 Get.toNamed(Routes.DETAIL_KPI, arguments: value2.id)
               })
         });
+  }
+
+  getUserRole() async {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    return docUser.data()!['role'];
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiAtasan() async* {
+    yield* firestore.collection("kpi").snapshots();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getUserRole().then((value) {
+      role.value = value;
+    });
   }
 }

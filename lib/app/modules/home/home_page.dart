@@ -489,7 +489,7 @@ class HomePage extends GetView<HomeController> {
                                     style: Get.theme.textTheme.headline5
                                         ?.copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  StatusBadge(status: "Admin")
+                                  const StatusBadge(status: "Admin")
                                 ],
                               ),
                             ],
@@ -633,40 +633,79 @@ class HomePage extends GetView<HomeController> {
                                     ),
                                     const SizedBox(width: 16),
                                     Expanded(
-                                      child: Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 20, 20, 13),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.32),
-                                                    blurRadius: 29,
-                                                    spreadRadius: 0,
-                                                    offset: const Offset(0, 10))
-                                              ]),
-                                          child: Column(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/list.svg',
-                                                color: ThemeConfig
-                                                    .colors.Blue_primary,
-                                                height: 36,
-                                                width: 36,
-                                              ),
-                                              const SizedBox(height: 6),
-                                              Text("List KPI",
-                                                  style: Get
-                                                      .textTheme.subtitle1!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                              Text("2 KPI")
-                                            ],
-                                          )),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.toNamed(Routes.HALAMANKPI);
+                                        },
+                                        child: Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 20, 20, 13),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.32),
+                                                      blurRadius: 29,
+                                                      spreadRadius: 0,
+                                                      offset:
+                                                          const Offset(0, 10))
+                                                ]),
+                                            child: Column(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/icons/list.svg',
+                                                  color: ThemeConfig
+                                                      .colors.Blue_primary,
+                                                  height: 36,
+                                                  width: 36,
+                                                ),
+                                                const SizedBox(height: 6),
+                                                Text("List KPI",
+                                                    style: Get
+                                                        .textTheme.subtitle1!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
+                                                StreamBuilder<
+                                                        QuerySnapshot<
+                                                            Map<String,
+                                                                dynamic>>>(
+                                                    stream: controller
+                                                        .getListKpiAtasan(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      var sumKpi = snapshot.data
+                                                              ?.docs.length ??
+                                                          "0";
+                                                      if (snapshot.hasData) {
+                                                        switch (snapshot
+                                                            .connectionState) {
+                                                          case ConnectionState
+                                                              .none:
+                                                            return const Text(
+                                                                "- KPI");
+                                                          case ConnectionState
+                                                              .waiting:
+                                                            return const CircularProgressIndicator();
+                                                          case ConnectionState
+                                                              .active:
+                                                          case ConnectionState
+                                                              .done:
+                                                            return Text(
+                                                                "$sumKpi KPI");
+                                                          default:
+                                                            break;
+                                                        }
+                                                      }
+                                                      return Text("- KPI");
+                                                    })
+                                              ],
+                                            )),
+                                      ),
                                     ),
                                   ],
                                 )
