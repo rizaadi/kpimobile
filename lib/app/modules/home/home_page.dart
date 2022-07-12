@@ -305,6 +305,7 @@ class HomePage extends GetView<HomeController> {
                                     ?.copyWith(fontWeight: FontWeight.w600)),
                             TextButton(
                                 onPressed: () {
+                                  //FIXME : belum muncul detail kpi
                                   Get.toNamed(Routes.HALAMANKPI);
                                 },
                                 style: TextButton.styleFrom(
@@ -596,46 +597,88 @@ class HomePage extends GetView<HomeController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
-                                      child: Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 20, 20, 13),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.32),
-                                                    blurRadius: 29,
-                                                    spreadRadius: 0,
-                                                    offset: const Offset(0, 10))
-                                              ]),
-                                          child: Column(
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/icons/check-circle.svg',
-                                                color: ThemeConfig
-                                                    .colors.Blue_primary,
-                                                height: 36,
-                                                width: 36,
-                                              ),
-                                              const SizedBox(height: 6),
-                                              Text("Approval",
-                                                  style: Get
-                                                      .textTheme.subtitle1!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                              Text("2 Waiting Approval")
-                                            ],
-                                          )),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.toNamed(Routes.HALAMANKPI,
+                                              arguments: "approval");
+                                        },
+                                        child: Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 20, 20, 13),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.32),
+                                                      blurRadius: 29,
+                                                      spreadRadius: 0,
+                                                      offset:
+                                                          const Offset(0, 10))
+                                                ]),
+                                            child: Column(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/icons/check-circle.svg',
+                                                  color: ThemeConfig
+                                                      .colors.Blue_primary,
+                                                  height: 36,
+                                                  width: 36,
+                                                ),
+                                                const SizedBox(height: 6),
+                                                Text("Approval",
+                                                    style: Get
+                                                        .textTheme.subtitle1!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
+                                                StreamBuilder<
+                                                        QuerySnapshot<
+                                                            Map<String,
+                                                                dynamic>>>(
+                                                    stream: controller
+                                                        .getListKpiApprovalAtasan(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      var sumKpi = snapshot.data
+                                                              ?.docs.length ??
+                                                          "0";
+                                                      if (snapshot.hasData) {
+                                                        switch (snapshot
+                                                            .connectionState) {
+                                                          case ConnectionState
+                                                              .none:
+                                                            return const Text(
+                                                                "- Waiting Approval");
+                                                          case ConnectionState
+                                                              .waiting:
+                                                            return const CircularProgressIndicator();
+                                                          case ConnectionState
+                                                              .active:
+                                                          case ConnectionState
+                                                              .done:
+                                                            return Text(
+                                                                "$sumKpi Waiting Approval");
+                                                          default:
+                                                            break;
+                                                        }
+                                                      }
+                                                      return const Text(
+                                                          "- Waiting Approval");
+                                                    })
+                                              ],
+                                            )),
+                                      ),
                                     ),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: InkWell(
                                         onTap: () {
-                                          Get.toNamed(Routes.HALAMANKPI);
+                                          Get.toNamed(Routes.HALAMANKPI,
+                                              arguments: "listkpi");
                                         },
                                         child: Container(
                                             padding: const EdgeInsets.fromLTRB(
@@ -701,7 +744,8 @@ class HomePage extends GetView<HomeController> {
                                                             break;
                                                         }
                                                       }
-                                                      return Text("- KPI");
+                                                      return const Text(
+                                                          "- KPI");
                                                     })
                                               ],
                                             )),

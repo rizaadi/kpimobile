@@ -134,4 +134,16 @@ class HomeController extends GetxController {
   Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiAtasan() async* {
     yield* firestore.collection("kpi").snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>
+      getListKpiApprovalAtasan() async* {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "Pending")
+        .snapshots();
+  }
 }

@@ -1,10 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailKpiController extends GetxController {
+  TextEditingController gradingC = TextEditingController();
+  TextEditingController pencapaianC = TextEditingController();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
+  RxString role = "".obs;
+  var gradingItem = [
+    '4. > 10',
+    '4. > 5',
+    '4. > 81',
+    '4. > 16',
+    '4. > 33',
+    '4. > 100',
+  ];
+
   Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
       uid) async* {
     yield* firestore.collection("kpi").doc(uid).snapshots();
@@ -55,6 +68,44 @@ class DetailKpiController extends GetxController {
     Get.back();
   }
 
+  terimaKpi(idKpi) async {
+    await firestore.collection("kpi").doc(idKpi).update({
+      "status": ["Selesai", "Penilaian"],
+      "updatedAt": DateTime.now(),
+    });
+    Get.back();
+  }
+
+  tolakKpi(idKpi) async {
+    await firestore.collection("kpi").doc(idKpi).update({
+      "status": ["Ditolak", "Monitoring"],
+      "updatedAt": DateTime.now(),
+    });
+    //delete field percapaian & grading in collection kpiuser
+    await firestore
+        .collection("kpi")
+        .doc(idKpi)
+        .collection("kpiuser")
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) => {
+                    firestore
+                        .collection("kpi")
+                        .doc(idKpi)
+                        .collection("kpiuser")
+                        .doc(element.id)
+                        .update({
+                      "pencapaian": FieldValue.delete(),
+                      "grading": FieldValue.delete(),
+                    })
+                  })
+            });
+
+            // send notification to collection karyawan kpi has been rejected
+  
+    Get.back();
+  }
+
   totalBobot(idKpi) async {
     num total = 0;
     await firestore
@@ -71,5 +122,53 @@ class DetailKpiController extends GetxController {
                 "totalBobot": total,
               })
             });
+  }
+
+  getUserRole() async {
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    return docUser.data()!['role'];
+  }
+
+  addPencapaianKPIAtasan(idKpi, idKpiUser) async {
+    if (pencapaianC.text.isEmpty) {
+      Get.snackbar("Error", "Pencapaian tidak boleh kosong");
+    } else {
+      await firestore
+          .collection("kpi")
+          .doc(idKpi)
+          .collection("kpiuser")
+          .doc(idKpiUser)
+          .update({
+        "pencapaian": pencapaianC.text,
+        "updatedAt": DateTime.now(),
+      });
+      Get.back();
+    }
+  }
+
+  addGradingKPIAtasan(idKpi, idKpiUser) async {
+    if (gradingC.text.isEmpty || gradingC.text == "Kosong") {
+      Get.snackbar("Error", "Grading tidak boleh kosong");
+    } else {
+      await firestore
+          .collection("kpi")
+          .doc(idKpi)
+          .collection("kpiuser")
+          .doc(idKpiUser)
+          .update({
+        "grading": gradingC.text,
+        "updatedAt": DateTime.now(),
+      });
+      Get.back();
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getUserRole().then((value) {
+      role.value = value;
+    });
   }
 }

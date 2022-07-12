@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +11,7 @@ import '../../core/widgets/card_kpi.dart';
 import 'halaman_kpi_controller.dart';
 
 class HalamanKpiPage extends GetView<HalamanKpiController> {
+  var arg = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +124,8 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                items: controller.periodeItem.map((String items) {
+                                items:
+                                    controller.periodeItem.map((String items) {
                                   return DropdownMenuItem(
                                     value: items,
                                     child: Text(items,
@@ -164,10 +168,12 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
         ),
         const SizedBox(height: 11),
         Expanded(
-          child: Obx(() => StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: controller.role == "Atasan"
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: arg == "listkpi"
                   ? controller.getListKpiAtasan()
-                  : controller.getListKpiKaryawan(),
+                  : arg == "approval"
+                      ? controller.getListKpiApprovalAtasan()
+                      : controller.getListKpiKaryawan(),
               builder: (context, snapshot) {
                 return ListView.builder(
                   itemCount: snapshot.data?.size,
@@ -196,7 +202,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                     }
                   },
                 );
-              })),
+              }),
         )
       ]),
     ));

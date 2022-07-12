@@ -16,7 +16,9 @@ class StatusBadge extends StatelessWidget {
                   ? ThemeConfig.colors.Gray_primary
                   : status == "Pending"
                       ? ThemeConfig.colors.Yellow_primary
-                      : ThemeConfig.colors.Blue_primary.withOpacity(0.15),
+                      : status == "Ditolak"
+                          ? ThemeConfig.colors.Red_primary
+                          : ThemeConfig.colors.Blue_primary.withOpacity(0.15),
           borderRadius: BorderRadius.circular(8)),
       child: Text(
         status,

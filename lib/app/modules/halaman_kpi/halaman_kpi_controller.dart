@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +76,22 @@ class HalamanKpiController extends GetxController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiAtasan() async* {
+    log("getListKpiAtasan");
+
     yield* firestore.collection("kpi").snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>
+      getListKpiApprovalAtasan() async* {
+    log("getListKpiApprovalAtasan");
+    String uid = auth.currentUser!.uid;
+    final docUser = await firestore.collection("users").doc(uid).get();
+    List<dynamic> listKpi = docUser.data()!['kpi'];
+    yield* firestore
+        .collection("kpi")
+        .where("id", whereIn: listKpi)
+        .where("status", arrayContains: "Pending")
+        .snapshots();
   }
 
   @override
