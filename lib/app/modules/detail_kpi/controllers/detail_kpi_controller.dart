@@ -73,6 +73,28 @@ class DetailKpiController extends GetxController {
       "status": ["Selesai", "Penilaian"],
       "updatedAt": DateTime.now(),
     });
+    final docKpi = await firestore.collection("kpi").doc(idKpi).get();
+    await firestore
+        .collection("users")
+        .where("uidAtasan", isEqualTo: auth.currentUser!.uid)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) => {
+                    firestore
+                        .collection("users")
+                        .doc(element.data()['uid'])
+                        .update({
+                      "notif": FieldValue.arrayUnion([
+                        {
+                          "nama": element.data()['nama'],
+                          "periode": docKpi.data()!['periode'],
+                          "status": "Disetujui",
+                          "tanggal": DateTime.now(),
+                        }
+                      ])
+                    })
+                  })
+            });
     Get.back();
   }
 
@@ -100,9 +122,30 @@ class DetailKpiController extends GetxController {
                     })
                   })
             });
+    //notif karyawan
+    final docKpi = await firestore.collection("kpi").doc(idKpi).get();
+    await firestore
+        .collection("users")
+        .where("uidAtasan", isEqualTo: auth.currentUser!.uid)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) => {
+                    firestore
+                        .collection("users")
+                        .doc(element.data()['uid'])
+                        .update({
+                      "notif": FieldValue.arrayUnion([
+                        {
+                          "nama": element.data()['nama'],
+                          "periode": docKpi.data()!['periode'],
+                          "status": "Ditolak",
+                          "tanggal": DateTime.now(),
+                        }
+                      ])
+                    })
+                  })
+            });
 
-            // send notification to collection karyawan kpi has been rejected
-  
     Get.back();
   }
 

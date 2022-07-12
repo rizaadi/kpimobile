@@ -14,6 +14,7 @@ class ContainerNotif extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -30,7 +31,8 @@ class ContainerNotif extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            tanggal
+            tanggal,
+            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           const SizedBox(
             height: 5,

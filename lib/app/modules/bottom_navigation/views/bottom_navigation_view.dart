@@ -13,7 +13,7 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   final screens = [
     HomePage(),
     HistoryView(),
-    const NotificationsView(),
+    NotificationsView(),
     ProfileView()
   ];
 
