@@ -158,4 +158,40 @@ class HomeController extends GetxController {
         .limit(2)
         .snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumMonitoringAtasan() async* {
+    yield* firestore
+        .collection("kpi")
+        .where("status", arrayContains: "Monitoring")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumPenilaianAtasan() async* {
+    yield* firestore
+        .collection("kpi")
+        .where("status", arrayContains: "Penilaian")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumOnTrackAtasan() async* {
+    yield* firestore
+        .collection("kpi")
+        .where("status", arrayContains: "OnTrack")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>
+      getSumBehindTargetAtasan() async* {
+    yield* firestore
+        .collection("kpi")
+        .where("status", arrayContains: "BehindTarget")
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumInactiveAtasan() async* {
+    yield* firestore
+        .collection("kpi")
+        .where("status", arrayContains: "Inactive")
+        .snapshots();
+  }
 }

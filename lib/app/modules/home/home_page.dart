@@ -73,7 +73,7 @@ class HomePage extends GetView<HomeController> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.HALAMANKPI);
+                                // Get.toNamed(Routes.HALAMANKPI);
                               },
                               child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
@@ -109,7 +109,7 @@ class HomePage extends GetView<HomeController> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.HALAMANKPI);
+                                // Get.toNamed(Routes.HALAMANKPI);
                               },
                               child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
@@ -145,7 +145,7 @@ class HomePage extends GetView<HomeController> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.HALAMANKPI);
+                                // Get.toNamed(Routes.HALAMANKPI);
                               },
                               child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
@@ -226,7 +226,7 @@ class HomePage extends GetView<HomeController> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.HALAMANKPI);
+                                // Get.toNamed(Routes.HALAMANKPI);
                               },
                               child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
@@ -262,7 +262,7 @@ class HomePage extends GetView<HomeController> {
                             Expanded(
                                 child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.HALAMANKPI);
+                                // Get.toNamed(Routes.HALAMANKPI);
                               },
                               child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
@@ -508,34 +508,116 @@ class HomePage extends GetView<HomeController> {
                                   Expanded(
                                       child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.HALAMANKPI);
+                                      // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: CardMonitorAdmin(
-                                      status: 'On Track',
-                                      value: '1',
-                                    ),
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream: homeC.getSumOnTrackAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'On Track',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'On Track',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'On Track',
+                                            value: '-',
+                                          );
+                                        }),
                                   )),
                                   const SizedBox(width: 6),
                                   Expanded(
                                       child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.HALAMANKPI);
+                                      // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: CardMonitorAdmin(
-                                      status: 'Behind Target',
-                                      value: '19',
-                                    ),
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream:
+                                            homeC.getSumBehindTargetAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'Behind Target',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'Behind Target',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'Behind Target',
+                                            value: '-',
+                                          );
+                                        }),
                                   )),
                                   const SizedBox(width: 6),
                                   Expanded(
                                       child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.HALAMANKPI);
+                                      // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: CardMonitorAdmin(
-                                      status: 'Inactive',
-                                      value: '1',
-                                    ),
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream: homeC.getSumInactiveAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'Inactive',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'Inactive',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'Inactive',
+                                            value: '-',
+                                          );
+                                        }),
                                   )),
                                 ],
                               ),
@@ -546,34 +628,116 @@ class HomePage extends GetView<HomeController> {
                                 children: [
                                   Expanded(
                                       child: GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(Routes.HALAMANKPI);
-                                          },
-                                          child: CardMonitorAdmin(
-                                            status: 'KPI',
-                                            value: '7',
-                                          ))),
-                                  const SizedBox(width: 6),
-                                  Expanded(
-                                      child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.HALAMANKPI);
+                                      // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: CardMonitorAdmin(
-                                      status: 'Monitoring',
-                                      value: '4',
-                                    ),
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream: homeC.getListKpiAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'KPI',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'KPI',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'KPI',
+                                            value: '-',
+                                          );
+                                        }),
                                   )),
                                   const SizedBox(width: 6),
                                   Expanded(
                                       child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(Routes.HALAMANKPI);
+                                      // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: CardMonitorAdmin(
-                                      status: 'Penilaian',
-                                      value: '12',
-                                    ),
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream: homeC.getSumMonitoringAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'Monitoring',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'Monitoring',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'Monitoring',
+                                            value: '-',
+                                          );
+                                        }),
+                                  )),
+                                  const SizedBox(width: 6),
+                                  Expanded(
+                                      child: GestureDetector(
+                                    onTap: () {
+                                      // Get.toNamed(Routes.HALAMANKPI);
+                                    },
+                                    child: StreamBuilder<
+                                            QuerySnapshot<
+                                                Map<String, dynamic>>>(
+                                        stream: homeC.getSumPenilaianAtasan(),
+                                        builder: (context, snapshot) {
+                                          var kpi =
+                                              snapshot.data?.docs.length ?? 0;
+                                          if (snapshot.hasData) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.none:
+                                                return const CardMonitorAdmin(
+                                                  status: 'Penilaian',
+                                                  value: '-',
+                                                );
+                                              case ConnectionState.waiting:
+                                                return const CircularProgressIndicator();
+                                              case ConnectionState.active:
+                                              case ConnectionState.done:
+                                                return CardMonitorAdmin(
+                                                  status: 'Penilaian',
+                                                  value: kpi.toString(),
+                                                );
+                                              default:
+                                                break;
+                                            }
+                                          }
+                                          return const CardMonitorAdmin(
+                                            status: 'Penilaian',
+                                            value: '-',
+                                          );
+                                        }),
                                   )),
                                 ],
                               ),
@@ -805,8 +969,7 @@ class HomePage extends GetView<HomeController> {
                                               .data();
                                           // log(name: "HIstoryHome", kpi.toString());
                                           if (snapshot.hasData) {
-                                            switch (
-                                                snapshot.connectionState) {
+                                            switch (snapshot.connectionState) {
                                               case ConnectionState.none:
                                                 return const Text(
                                                     "No Connections");
