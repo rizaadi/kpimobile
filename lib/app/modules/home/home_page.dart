@@ -388,7 +388,9 @@ class HomePage extends GetView<HomeController> {
                                           primary:
                                               ThemeConfig.colors.Gray_primary),
                                       onPressed: () {
-                                        Get.back();
+                                        controller.isLoading == true
+                                            ? null
+                                            : Get.back();
                                       },
                                       child: const Text(
                                         "Batal",
@@ -396,9 +398,13 @@ class HomePage extends GetView<HomeController> {
                                       )),
                                   confirm: ElevatedButton(
                                       onPressed: () {
-                                        controller.addKpi();
+                                        controller.isLoading == true
+                                            ? null
+                                            : controller.addKpi();
                                       },
-                                      child: const Text("Selanjutnya")),
+                                      child: Text(controller.isLoading == true
+                                          ? "Loading.."
+                                          : "Selanjutnya")),
                                   content: SizedBox(
                                     width: Get.width,
                                     child: Column(
@@ -408,7 +414,7 @@ class HomePage extends GetView<HomeController> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             hint: const Text(
-                                                "Periode Penyusunan KPI"),
+                                                "Pilih Periode Penyusunan KPI"),
                                             decoration: InputDecoration(
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -431,7 +437,7 @@ class HomePage extends GetView<HomeController> {
                                         DropdownButtonFormField(
                                             isExpanded: true,
                                             hint: const Text(
-                                                "Jabatan / Unit Kerja"),
+                                                "Pilih Jabatan / Unit Kerja"),
                                             decoration: InputDecoration(
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -456,7 +462,10 @@ class HomePage extends GetView<HomeController> {
                                             })
                                       ],
                                     ),
-                                  ));
+                                  )).then((value) => {
+                                    homeC.jabatanC.clear(),
+                                    homeC.periodeC.clear(),
+                                  });
                             })
                       ],
                     );
@@ -809,7 +818,7 @@ class HomePage extends GetView<HomeController> {
                                                       var sumKpi = snapshot.data
                                                               ?.docs.length ??
                                                           "0";
-                                                      
+
                                                       if (snapshot.hasData) {
                                                         switch (snapshot
                                                             .connectionState) {
