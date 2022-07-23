@@ -21,22 +21,22 @@ class LoginPage extends GetView<LoginController> {
               children: [
                 const Padding(
                   padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                  child: Text('Login below or'),
+                  child: Text('Login below '),
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
-                        minimumSize: const Size(0, 0),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        padding: const EdgeInsets.only(left: 3)),
-                    onPressed: () {
-                      Get.toNamed(Routes.SIGNUP);
-                    },
-                    child: const Text(
-                      "create an account",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline),
-                    ))
+                // TextButton(
+                //     style: TextButton.styleFrom(
+                //         minimumSize: const Size(0, 0),
+                //         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                //         padding: const EdgeInsets.only(left: 3)),
+                //     onPressed: () {
+                //       Get.toNamed(Routes.SIGNUP);
+                //     },
+                //     child: const Text(
+                //       "create an account",
+                //       style: TextStyle(
+                //           fontWeight: FontWeight.w600,
+                //           decoration: TextDecoration.underline),
+                //     ))
               ],
             ),
             Padding(
@@ -86,11 +86,13 @@ class LoginPage extends GetView<LoginController> {
                 child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
               child: Obx(() => ElevatedButton(
-                    onPressed: controller.isLoading.isFalse ?() async {
-                      if (controller.isLoading.isFalse) {
-                        await controller.signIn();
-                      }
-                    } : null,
+                    onPressed: controller.isLoading.isFalse
+                        ? () async {
+                            if (controller.isLoading.isFalse) {
+                              await controller.signIn();
+                            }
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 23),
                         primary: const Color(0xff26A0C9),

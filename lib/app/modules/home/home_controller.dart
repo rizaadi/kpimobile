@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +43,21 @@ class HomeController extends GetxController {
             "status": ["Draft"],
             "createdAt": DateTime.now(),
             "updatedAt": DateTime.now(),
-          }).then((value) => {
+          }).then((value2) => {
                 firestore.collection("users").doc(uid).update({
-                  "kpi": FieldValue.arrayUnion([value.id]),
+                  "kpi": FieldValue.arrayUnion([value2.id]),
                 }),
-                firestore.collection("kpi").doc(value.id).update({
-                  "id": value.id,
+                firestore
+                    .collection("users")
+                    .doc(value.data()!['uidAtasan'])
+                    .update({
+                  "kpi": FieldValue.arrayUnion([value2.id]),
+                }),
+                firestore.collection("kpi").doc(value2.id).update({
+                  "id": value2.id,
                 }),
                 Get.back(),
-                Get.toNamed(Routes.DETAIL_KPI, arguments: value.id)
+                Get.toNamed(Routes.DETAIL_KPI, arguments: value2.id)
               })
         });
   }
@@ -140,6 +148,7 @@ class HomeController extends GetxController {
     String uid = auth.currentUser!.uid;
     final docUser = await firestore.collection("users").doc(uid).get();
     List<dynamic> listKpi = docUser.data()!['kpi'];
+    log(name: "Approval Atasan", listKpi.toString());
     yield* firestore
         .collection("kpi")
         .where("id", whereIn: listKpi)

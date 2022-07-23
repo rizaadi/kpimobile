@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:kpimobile/app/core/theme/theme_config.dart';
 import 'package:kpimobile/app/core/widgets/status_badge.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
@@ -20,7 +19,7 @@ class CardHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.DETAIL_KPI);
+        // Get.toNamed(Routes.DETAIL_KPI);
       },
       child: Card(
         margin: const EdgeInsets.only(bottom: 6),

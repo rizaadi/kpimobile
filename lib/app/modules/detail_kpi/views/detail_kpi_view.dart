@@ -729,7 +729,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                         Column(
                                                                       children: const [
                                                                         Text(
-                                                                          "Anda yakin ingin Hapus KPI ?",
+                                                                          "Detail KPI",
                                                                           style: TextStyle(
                                                                               fontSize: 15,
                                                                               fontWeight: FontWeight.w600),
@@ -1022,7 +1022,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                   child: Column(
                                                                     children: const [
                                                                       Text(
-                                                                        "Anda yakin ingin Hapus KPI ?",
+                                                                        "Detail KPI",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 15,

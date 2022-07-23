@@ -41,7 +41,7 @@ class DetailKpiController extends GetxController {
         .then((value) => {totalBobot(idKpi)});
     Get.back();
   }
-
+ //FIXME: DELETE atasan user error
   deleteKpi(idKpi) async {
     String uid = auth.currentUser!.uid;
     await firestore.collection("kpi").doc(idKpi).delete().then((value) => {

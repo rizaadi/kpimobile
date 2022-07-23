@@ -11,6 +11,7 @@ import 'package:kpimobile/app/core/widgets/status_badge.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
 import '../../core/theme/theme_config.dart';
+import '../history/controllers/history_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -24,6 +25,7 @@ class HomePage extends GetView<HomeController> {
   String dropdownvalue = 'Item 1';
   String users = "Atasan";
   final homeC = Get.put(HomeController());
+  final historyC = Get.put(HistoryController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -323,43 +325,40 @@ class HomePage extends GetView<HomeController> {
                         const SizedBox(
                           height: 13,
                         ),
-                        Flexible(
-                          child: StreamBuilder<
-                                  QuerySnapshot<Map<String, dynamic>>>(
-                              stream: homeC.getListHistoryKpi(),
-                              builder: (context, snapshot) {
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: snapshot.data?.docs.length ?? 0,
-                                  itemBuilder: (context, index) {
-                                    Map<String, dynamic>? kpi = snapshot
-                                        .data?.docs
-                                        .elementAt(index)
-                                        .data();
-                                    // log(name: "HIstoryHome", kpi.toString());
-                                    if (snapshot.hasData) {
-                                      switch (snapshot.connectionState) {
-                                        case ConnectionState.none:
-                                          return const Text("No Connections");
-                                        case ConnectionState.waiting:
-                                          return const CircularProgressIndicator();
-                                        case ConnectionState.active:
-                                        case ConnectionState.done:
-                                          return CardHistory(
-                                            namaPerusahaan: kpi?['perusahaan'],
-                                            periode: kpi?['periode'],
-                                            status: kpi?['status'][0],
-                                          );
-                                        default:
-                                          break;
-                                      }
+                        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                            stream: homeC.getListHistoryKpi(),
+                            builder: (context, snapshot) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: snapshot.data?.docs.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  Map<String, dynamic>? kpi = snapshot
+                                      .data?.docs
+                                      .elementAt(index)
+                                      .data();
+                                  // log(name: "HIstoryHome", kpi.toString());
+                                  if (snapshot.hasData) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                        return const Text("No Connections");
+                                      case ConnectionState.waiting:
+                                        return const CircularProgressIndicator();
+                                      case ConnectionState.active:
+                                      case ConnectionState.done:
+                                        return CardHistory(
+                                          namaPerusahaan: kpi?['perusahaan'],
+                                          periode: kpi?['periode'],
+                                          status: kpi?['status'][0],
+                                        );
+                                      default:
+                                        break;
                                     }
-                                    return const Text("No data");
-                                  },
-                                );
-                              }),
-                        ),
+                                  }
+                                  return const Text("No data");
+                                },
+                              );
+                            }),
                         const SizedBox(height: 30),
                         Text(
                           "KPI",
@@ -810,6 +809,7 @@ class HomePage extends GetView<HomeController> {
                                                       var sumKpi = snapshot.data
                                                               ?.docs.length ??
                                                           "0";
+                                                      
                                                       if (snapshot.hasData) {
                                                         switch (snapshot
                                                             .connectionState) {
