@@ -14,6 +14,7 @@ import 'package:kpimobile/app/routes/app_pages.dart';
 import '../../../core/widgets/chip_approve_kpi.dart';
 import '../../../core/widgets/custom_popupmenuitem.dart';
 import '../../../core/widgets/custom_textfield.dart';
+import '../../../core/widgets/list_single_container.dart';
 import '../controllers/detail_kpi_controller.dart';
 
 enum Options { History, Delete }
@@ -713,8 +714,12 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                               onPressed: () {
                                                                 //TODO: Display description/note for each kpi (chat)
                                                                 Get.bottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
                                                                   Container(
-                                                                    height: 200,
+                                                                    height:
+                                                                        Get.height *
+                                                                            0.95,
                                                                     padding:
                                                                         const EdgeInsets.all(
                                                                             16),
@@ -727,16 +732,118 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                             topRight: Radius.circular(20))),
                                                                     child:
                                                                         Column(
-                                                                      children: const [
-                                                                        Text(
+                                                                      children: [
+                                                                        const Text(
                                                                           "Detail KPI",
                                                                           style: TextStyle(
                                                                               fontSize: 15,
                                                                               fontWeight: FontWeight.w600),
                                                                         ),
-                                                                        SizedBox(
+                                                                        const SizedBox(
                                                                             height:
                                                                                 20),
+                                                                        Expanded(
+                                                                          child:
+                                                                              ListView(
+                                                                            physics:
+                                                                                const BouncingScrollPhysics(),
+                                                                            children: [
+                                                                              Wrap(crossAxisAlignment: WrapCrossAlignment.start, children: [
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Kategori"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["kategori"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("KRA"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["kra"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Deskripsi"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["deskripsi"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Rumus"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["rumus"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Bobot (%)"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: '${kpilist?[index].data()["bobot"]}',
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Target"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["target"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Satuan"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["satuan"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Sumber Data"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["sumberData"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Perlu Perhatian"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["perhatian"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Nilai 4"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["nilai4"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Nilai 3"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["nilai3"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Nilai 2"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["nilai2"],
+                                                                                ),
+                                                                                const Padding(
+                                                                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                                                                  child: Text("Nilai 1"),
+                                                                                ),
+                                                                                ListSingleContainer(
+                                                                                  value: kpilist?[index].data()["nilai1"],
+                                                                                ),
+                                                                              ]),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                       ],
                                                                     ),
                                                                   ),

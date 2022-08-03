@@ -78,90 +78,93 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                         primary: ThemeConfig.colors.Green_primary)),
               ],
             ),
-            Visibility(
-              visible: controller.role == "Atasan" ? true : false,
-              child: ElevatedButton.icon(
-                label: const Text('Tambah KPI'),
-                icon: SvgPicture.asset('assets/icons/plus.svg'),
-                onPressed: () {
-                  Get.defaultDialog(
-                      title: "Form penyusunan KPI individu",
-                      textCancel: "Cancel",
-                      textConfirm: "Selanjutnya",
-                      radius: 10,
-                      titleStyle: const TextStyle(fontSize: 16),
-                      titlePadding: const EdgeInsets.all(16),
-                      contentPadding: const EdgeInsets.all(16),
-                      buttonColor: Get.theme.primaryColor,
-                      cancelTextColor: ThemeConfig.colors.Black_primary,
-                      confirmTextColor: Colors.white,
-                      cancel: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              primary: ThemeConfig.colors.Gray_primary),
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text(
-                            "Batal",
-                            style: TextStyle(color: Colors.black),
-                          )),
-                      confirm: ElevatedButton(
-                          onPressed: () {
-                            controller.addKpi();
-                          },
-                          child: const Text("Selanjutnya")),
-                      content: SizedBox(
-                        width: Get.width,
-                        child: Column(
-                          children: [
-                            DropdownButtonFormField(
-                                isExpanded: true,
-                                borderRadius: BorderRadius.circular(10),
-                                hint: const Text("Periode Penyusunan KPI"),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                items:
-                                    controller.periodeItem.map((String items) {
-                                  return DropdownMenuItem(
-                                    value: items,
-                                    child: Text(items,
-                                        style: const TextStyle(fontSize: 13)),
-                                  );
-                                }).toList(),
-                                onChanged: (String? value) {
-                                  controller.periodeC.text = value!;
-                                }),
-                            const SizedBox(height: 16),
-                            DropdownButtonFormField(
-                                isExpanded: true,
-                                hint: const Text("Jabatan / Unit Kerja"),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                                items: controller.jabatanUnitItem
-                                    .map((String items) {
-                                  return DropdownMenuItem(
-                                    value: items,
-                                    child: Text(
-                                      items,
-                                      style: const TextStyle(fontSize: 13),
+            Obx(
+              () => Visibility(
+                visible: controller.role == "Karyawan" ? true : false,
+                child: ElevatedButton.icon(
+                  label: const Text('Tambah KPI'),
+                  icon: SvgPicture.asset('assets/icons/plus.svg'),
+                  onPressed: () {
+                    // TODO: Tambah filter input kosong
+                    Get.defaultDialog(
+                        title: "Form penyusunan KPI individu",
+                        textCancel: "Cancel",
+                        textConfirm: "Selanjutnya",
+                        radius: 10,
+                        titleStyle: const TextStyle(fontSize: 16),
+                        titlePadding: const EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.all(16),
+                        buttonColor: Get.theme.primaryColor,
+                        cancelTextColor: ThemeConfig.colors.Black_primary,
+                        confirmTextColor: Colors.white,
+                        cancel: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: ThemeConfig.colors.Gray_primary),
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text(
+                              "Batal",
+                              style: TextStyle(color: Colors.black),
+                            )),
+                        confirm: ElevatedButton(
+                            onPressed: () {
+                              controller.addKpi();
+                            },
+                            child: const Text("Selanjutnya")),
+                        content: SizedBox(
+                          width: Get.width,
+                          child: Column(
+                            children: [
+                              DropdownButtonFormField(
+                                  isExpanded: true,
+                                  borderRadius: BorderRadius.circular(10),
+                                  hint: const Text("Periode Penyusunan KPI"),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? value) {
-                                  controller.jabatanC.text = value!;
-                                })
-                          ],
-                        ),
-                      ));
-                },
+                                  ),
+                                  items: controller.periodeItem
+                                      .map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items,
+                                          style: const TextStyle(fontSize: 13)),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? value) {
+                                    controller.periodeC.text = value!;
+                                  }),
+                              const SizedBox(height: 16),
+                              DropdownButtonFormField(
+                                  isExpanded: true,
+                                  hint: const Text("Jabatan / Unit Kerja"),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  items: controller.jabatanUnitItem
+                                      .map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(
+                                        items,
+                                        style: const TextStyle(fontSize: 13),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? value) {
+                                    controller.jabatanC.text = value!;
+                                  })
+                            ],
+                          ),
+                        ));
+                  },
+                ),
               ),
             ),
           ]),
