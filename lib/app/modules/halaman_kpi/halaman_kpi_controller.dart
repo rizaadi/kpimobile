@@ -31,6 +31,7 @@ class HalamanKpiController extends GetxController {
     yield* firestore
         .collection("kpi")
         .where("id", whereIn: listKpi.isEmpty ? ['lala'] : listKpi)
+        .orderBy("updatedAt", descending: true)
         .snapshots();
   }
 
