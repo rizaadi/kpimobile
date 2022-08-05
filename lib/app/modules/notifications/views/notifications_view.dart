@@ -40,7 +40,7 @@ class NotificationsView extends GetView<NotificationsController> {
                     case ConnectionState.done:
                       return ListView.builder(
                         itemCount:
-                            reverseNotif == null ? 0 : reverseNotif.length,
+                            notif == null ? 0 : notif.length,
                         itemBuilder: (context, index) {
                           return ContainerNotif(
                             tanggal: DateFormat('d MMM yyyy').format(
