@@ -24,7 +24,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
   Widget build(BuildContext context) {
     var idKpi = Get.arguments;
     log(name: "Role: ", controller.role.toString());
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,7 +34,6 @@ class DetailKpiView extends GetView<DetailKpiController> {
                 stream: controller.getDetailKpiKaryawan(idKpi),
                 builder: (context, snapshot) {
                   var kpi = snapshot.data?.data();
-                  print(kpi);
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),

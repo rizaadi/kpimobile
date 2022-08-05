@@ -29,8 +29,8 @@ class NotificationsView extends GetView<NotificationsController> {
               stream: controller.getNotifKaryawan(),
               builder: (context, snapshot) {
                 var notif = snapshot.data?.data()?['notif'];
-                var reverseNotif = List.from(notif.reversed);
                 if (snapshot.hasData) {
+                  var reverseNotif = List.from(notif.reversed);
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return const Text("No Connections");
@@ -39,14 +39,14 @@ class NotificationsView extends GetView<NotificationsController> {
                     case ConnectionState.active:
                     case ConnectionState.done:
                       return ListView.builder(
-                        itemCount:
-                            notif == null ? 0 : notif.length,
+                        itemCount: notif == null ? 0 : notif.length,
                         itemBuilder: (context, index) {
                           return ContainerNotif(
                             tanggal: DateFormat('d MMM yyyy').format(
                                 reverseNotif[index]['tanggal'].toDate()),
-                            deskripsi:
-                                "${reverseNotif[index]['status'] == "Ditolak" ? "Maaf" : "Selamat"} KPI anda atas ${reverseNotif[index]['nama']} pada periode ${reverseNotif[index]['periode']} yang anda ajukan telah ${reverseNotif[index]['status']}",
+                            deskripsi: controller.role == 'Karyawan'
+                                ? "${reverseNotif[index]['status'] == "Ditolak" ? "Maaf" : "Selamat"} KPI anda atas ${reverseNotif[index]['nama']} pada periode ${reverseNotif[index]['periode']} yang anda ajukan telah ${reverseNotif[index]['status']}"
+                                : "KPI baru telah masuk atas nama  ${reverseNotif[index]['nama']} pada periode ${reverseNotif[index]['periode']} ",
                           );
                         },
                       );

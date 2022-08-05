@@ -41,7 +41,8 @@ class DetailKpiController extends GetxController {
         .then((value) => {totalBobot(idKpi)});
     Get.back();
   }
- //FIXME: DELETE atasan user error
+
+  //FIXME: DELETE atasan user error
   deleteKpi(idKpi) async {
     String uid = auth.currentUser!.uid;
     await firestore.collection("kpi").doc(idKpi).delete().then((value) => {
@@ -65,6 +66,25 @@ class DetailKpiController extends GetxController {
       "status": ["Pending", "Monitoring"],
       "updatedAt": DateTime.now(),
     });
+    final docKpi = await firestore.collection("kpi").doc(idKpi).get();
+    await firestore
+        .collection("users")
+        .where('uid', isEqualTo: docKpi.data()!['uid'])
+        .get()
+        .then((value) => {
+              firestore
+                  .collection("users")
+                  .doc(value.docs[0].data()['uidAtasan'])
+                  .update({
+                "notif": FieldValue.arrayUnion([
+                  {
+                    "nama": docKpi.data()!['nama'],
+                    "periode": docKpi.data()!['periode'],
+                    "tanggal": DateTime.now(),
+                  }
+                ])
+              })
+            });
     Get.back();
   }
 
