@@ -14,6 +14,8 @@ import '../controllers/history_controller.dart';
 
 class HistoryView extends GetView<HistoryController> {
   final historyC = Get.put(HistoryController());
+  final List<String> _chipLabel = ['Ditolak', 'Pending', 'Selesai', 'Draft'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class HistoryView extends GetView<HistoryController> {
             onPressed: () {
               Get.bottomSheet(
                 Container(
-                  height: 300,
+                  height: 150,
                   padding: const EdgeInsets.all(16),
                   decoration: const BoxDecoration(
                       color: Colors.white,
@@ -38,13 +40,46 @@ class HistoryView extends GetView<HistoryController> {
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20))),
                   child: Column(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Filter",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
+                      Wrap(
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.start,
+                        children: [
+                          const Text("Status",
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          Obx(
+                            () => Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 10,
+                              children: List<Widget>.generate(4, (int index) {
+                                return ChoiceChip(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 6),
+                                    selectedColor:
+                                        ThemeConfig.colors.Blue_primary,
+                                    labelStyle: TextStyle(
+                                        color:
+                                            ThemeConfig.colors.Black_primary),
+                                    label: Text(_chipLabel[index]),
+                                    selected: controller.selectedChip == index,
+                                    onSelected: (bool selected) {
+                                      controller.selectedChip =
+                                          selected ? index : null;
+                                      controller
+                                          .filterChip(controller.selectedChip);
+                                      print(controller.selectedChip);
+                                    });
+                              }),
+                            ),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -60,15 +95,18 @@ class HistoryView extends GetView<HistoryController> {
               stream: historyC.getListKpi(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  List<Map<String, dynamic>>? dataKpi =
+                      snapshot.data?.docs.map((e) => e.data()).toList();
+                  controller.allKpi.addAll(dataKpi!);
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return const Text("No Connections");
                     case ConnectionState.waiting:
-                    //TODO: Add loading indicator
+                      //TODO: Add loading indicator
                       return const CircularProgressIndicator();
                     case ConnectionState.active:
                     case ConnectionState.done:
-                      return Timeline.tileBuilder(
+                      return Obx(() => Timeline.tileBuilder(
                           theme: TimelineThemeData(
                               indicatorPosition: 0.1,
                               nodePosition: 0,
@@ -85,10 +123,11 @@ class HistoryView extends GetView<HistoryController> {
                                   ConnectorStyle.solidLine,
                               indicatorStyleBuilder: (context, index) =>
                                   IndicatorStyle.dot,
-                              itemCount: snapshot.data?.docs.length ?? 0,
+                              itemCount: controller.results.length,
                               contentsBuilder: (context, index) {
                                 Map<String, dynamic>? kpi =
-                                    snapshot.data?.docs.elementAt(index).data();
+                                    controller.results.elementAt(index);
+                                // snapshot.data?.docs.elementAt(index).data();
                                 log(name: "History", kpi.toString());
                                 return CardHistoryTimeline(
                                   tanggal: DateFormat('d MMM yyyy')
@@ -99,7 +138,7 @@ class HistoryView extends GetView<HistoryController> {
                                   unitKerja: kpi?['unitKerja'],
                                   periode: kpi?['periode'],
                                 );
-                              }));
+                              })));
                     default:
                       break;
                   }
