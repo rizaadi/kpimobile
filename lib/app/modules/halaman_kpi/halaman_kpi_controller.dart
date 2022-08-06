@@ -13,6 +13,8 @@ class HalamanKpiController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RxString role = "".obs;
+  RxList allKpi = [].obs;
+  RxList results = [].obs;
   var periodeItem = [
     'Quarter 1',
     'Quarter 2',
@@ -95,11 +97,22 @@ class HalamanKpiController extends GetxController {
         .snapshots();
   }
 
+  runFilter(String inKey) async {
+    if (inKey.isNotEmpty) {
+      // results.value = allKpi;
+      results.value = allKpi
+          .where((item) =>
+              item['nama'].toLowerCase().contains(inKey.toLowerCase()))
+          .toList();
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
     getUserRole().then((value) {
       role.value = value;
     });
+    results.value = allKpi;
   }
 }

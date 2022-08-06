@@ -20,17 +20,18 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
         Padding(
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: TextField(
+              onChanged: (value) => controller.runFilter(value),
               decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    width: 1, color: ThemeConfig.colors.Black_primary),
-                borderRadius: BorderRadius.circular(6)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(6)),
-          )),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 1, color: ThemeConfig.colors.Black_primary),
+                    borderRadius: BorderRadius.circular(6)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(6)),
+              )),
         ),
         const SizedBox(height: 11),
         Padding(
@@ -178,33 +179,41 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                       ? controller.getListKpiApprovalAtasan()
                       : controller.getListKpiKaryawan(),
               builder: (context, snapshot) {
-                return ListView.builder(
-                  itemCount: snapshot.data?.size,
-                  itemBuilder: (context, index) {
-                    Map<String, dynamic>? kpi =
-                        snapshot.data?.docs.elementAt(index).data();
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      //TODO: Change to loading skeleton
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasData) {
-                      return InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.DETAIL_KPI, arguments: kpi?['id']);
-                        },
-                        child: CardKpi(
-                          perusahaan: kpi?['perusahaan'] ?? 'Kosong',
-                          tanggal: kpi?['periode'] ?? 'Kosong',
-                          status: kpi?['status'][0] ?? 'Kosong',
-                          nama: kpi?['nama'] ?? 'Kosong',
-                          jabatan: kpi?['jabatan'] ?? 'Kosong',
-                          unitKerja: kpi?['unitKerja'] ?? 'Kosong',
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text("Tidak ada data"));
-                    }
-                  },
-                );
+                if (snapshot.hasData) {
+                  List<Map<String, dynamic>>? dataKpi =
+                      snapshot.data?.docs.map((e) => e.data()).toList();
+                  controller.allKpi.addAll(dataKpi!);
+                }
+                return Obx(() => ListView.builder(
+                      itemCount: controller.results.length,
+                      itemBuilder: (context, index) {
+                        Map<String, dynamic>? kpi =
+                            controller.results.elementAt(index);
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          //TODO: Change to loading skeleton
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasData) {
+                          return InkWell(
+                            onTap: () {
+                              Get.toNamed(Routes.DETAIL_KPI,
+                                  arguments: kpi?['id']);
+                            },
+                            child: CardKpi(
+                              perusahaan: kpi?['perusahaan'] ?? 'Kosong',
+                              tanggal: kpi?['periode'] ?? 'Kosong',
+                              status: kpi?['status'][0] ?? 'Kosong',
+                              nama: kpi?['nama'] ?? 'Kosong',
+                              jabatan: kpi?['jabatan'] ?? 'Kosong',
+                              unitKerja: kpi?['unitKerja'] ?? 'Kosong',
+                            ),
+                          );
+                        } else {
+                          return const Center(child: Text("Tidak ada data"));
+                        }
+                      },
+                    ));
               }),
         )
       ]),
