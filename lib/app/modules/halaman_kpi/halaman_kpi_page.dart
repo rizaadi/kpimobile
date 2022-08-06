@@ -12,6 +12,7 @@ import 'halaman_kpi_controller.dart';
 
 class HalamanKpiPage extends GetView<HalamanKpiController> {
   var arg = Get.arguments;
+  final List<String> _chipLabel = ['Ditolak', 'Pending', 'Selesai', 'Draft'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                     onPressed: () {
                       Get.bottomSheet(
                         Container(
-                          height: 300,
+                          height: 150,
                           padding: const EdgeInsets.all(16),
                           decoration: const BoxDecoration(
                               color: Colors.white,
@@ -60,6 +61,41 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                                     fontSize: 15, fontWeight: FontWeight.w600),
                               ),
                               const SizedBox(height: 20),
+                              Wrap(
+                                direction: Axis.vertical,
+                                alignment: WrapAlignment.start,
+                                children: [
+                                  const Text("Status",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                  Obx(
+                                    () => Wrap(
+                                      alignment: WrapAlignment.start,
+                                      spacing: 10,
+                                      children:
+                                          List<Widget>.generate(4, (int index) {
+                                        return ChoiceChip(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            selectedColor:
+                                                ThemeConfig.colors.Blue_primary,
+                                            labelStyle: TextStyle(
+                                                color: ThemeConfig
+                                                    .colors.Black_primary),
+                                            label: Text(_chipLabel[index]),
+                                            selected: controller.selectedChip ==
+                                                index,
+                                            onSelected: (bool selected) {
+                                              controller.selectedChip =
+                                                  selected ? index : null;
+                                              controller.filterChip(
+                                                  controller.selectedChip);
+                                            });
+                                      }),
+                                    ),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),

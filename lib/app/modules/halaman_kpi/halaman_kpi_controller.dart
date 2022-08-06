@@ -15,6 +15,9 @@ class HalamanKpiController extends GetxController {
   RxString role = "".obs;
   RxList allKpi = [].obs;
   RxList results = [].obs;
+  final _selectedChip = 10.obs;
+  get selectedChip => _selectedChip.value;
+  set selectedChip(index) => _selectedChip.value = index;
   var periodeItem = [
     'Quarter 1',
     'Quarter 2',
@@ -103,6 +106,26 @@ class HalamanKpiController extends GetxController {
       results.value = allKpi
           .where((item) =>
               item['nama'].toLowerCase().contains(inKey.toLowerCase()))
+          .toList();
+    }
+  }
+
+  filterChip(int index) async {
+    if (index == 0) {
+      results.value = allKpi
+          .where((item) => item['status'].toString().contains("Ditolak"))
+          .toList();
+    } else if (index == 1) {
+      results.value = allKpi
+          .where((item) => item['status'].toString().contains("Pending"))
+          .toList();
+    } else if (index == 2) {
+      results.value = allKpi
+          .where((item) => item['status'].toString().contains("Selesai"))
+          .toList();
+    } else if (index == 3) {
+      results.value = allKpi
+          .where((item) => item['status'].toString().contains("Draft"))
           .toList();
     }
   }
