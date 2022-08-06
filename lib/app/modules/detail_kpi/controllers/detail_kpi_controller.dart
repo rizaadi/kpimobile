@@ -85,6 +85,19 @@ class DetailKpiController extends GetxController {
                 ])
               })
             });
+    if (docKpi.data()!['totalBobot'] == 0) {
+      firestore.collection("kpi").doc(idKpi).update({
+        "status": FieldValue.arrayUnion(["Inactive"])
+      });
+    } else if (docKpi.data()!['totalBobot'] >= 95) {
+      firestore.collection("kpi").doc(idKpi).update({
+        "status": FieldValue.arrayUnion(["OnTrack"])
+      });
+    } else {
+      firestore.collection("kpi").doc(idKpi).update({
+        "status": FieldValue.arrayUnion(["BehindTarget"])
+      });
+    }
     Get.back();
   }
 
