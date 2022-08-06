@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -215,10 +214,11 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                       ? controller.getListKpiApprovalAtasan()
                       : controller.getListKpiKaryawan(),
               builder: (context, snapshot) {
+                // FIXME: setelah tambah kpi, ke detail dan kembali lagi ke list, kpi belum update
                 if (snapshot.hasData) {
                   List<Map<String, dynamic>>? dataKpi =
                       snapshot.data?.docs.map((e) => e.data()).toList();
-                  controller.allKpi.addAll(dataKpi!);
+                  controller.allKpi.value = dataKpi!;
                 }
                 return Obx(() => ListView.builder(
                       itemCount: controller.results.length,
