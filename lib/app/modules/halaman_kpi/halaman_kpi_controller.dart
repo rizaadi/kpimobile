@@ -127,6 +127,8 @@ class HalamanKpiController extends GetxController {
       results.value = allKpi
           .where((item) => item['status'].toString().contains("Draft"))
           .toList();
+    }else {
+      results.value = allKpi;
     }
   }
 
