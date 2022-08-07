@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
+import '../../core/widgets/notif_snackbar.dart';
+
 class HomeController extends GetxController {
   final RxBool isLoading = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,17 +31,9 @@ class HomeController extends GetxController {
 
   void addKpi() async {
     if (periodeC.text.isEmpty) {
-      Get.snackbar('Error', 'Periode harus diisi',
-          backgroundColor: Colors.white,
-          colorText: ThemeConfig.colors.Black_primary,
-          margin: const EdgeInsets.all(16),
-          snackStyle: SnackStyle.FLOATING);
+      notifSnackBar('Error', 'Periode tidak boleh kosong');
     } else if (jabatanC.text.isEmpty) {
-      Get.snackbar('Error', 'Jabatan harus diisi',
-          backgroundColor: Colors.white,
-          colorText: ThemeConfig.colors.Black_primary,
-          margin: const EdgeInsets.all(16),
-          snackStyle: SnackStyle.FLOATING);
+      notifSnackBar('Error', 'Jabatan tidak boleh kosong');
     } else {
       isLoading.value = true;
       log(isLoading.value.toString());
