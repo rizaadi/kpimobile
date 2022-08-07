@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
+import 'package:kpimobile/app/modules/history/controllers/history_controller.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
 import '../../core/widgets/card_kpi.dart';
@@ -105,6 +106,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                         primary: ThemeConfig.colors.Green_primary)),
                 ElevatedButton.icon(
                     onPressed: () {
+                      Get.delete<HistoryController>();
                       Get.toNamed(Routes.HISTORY);
                     },
                     label: const Text('Riwayat'),

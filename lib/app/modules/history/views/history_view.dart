@@ -67,13 +67,13 @@ class HistoryView extends GetView<HistoryController> {
                                         color:
                                             ThemeConfig.colors.Black_primary),
                                     label: Text(_chipLabel[index]),
-                                    selected: controller.selectedChip == index,
+                                    selected: historyC.selectedChip == index,
                                     onSelected: (bool selected) {
-                                      controller.selectedChip =
+                                      historyC.selectedChip =
                                           selected ? index : null;
-                                      controller
-                                          .filterChip(controller.selectedChip);
-                                      print(controller.selectedChip);
+                                      historyC
+                                          .filterChip(historyC.selectedChip);
+                                      print(historyC.selectedChip);
                                     });
                               }),
                             ),
@@ -97,7 +97,7 @@ class HistoryView extends GetView<HistoryController> {
                 if (snapshot.hasData) {
                   List<Map<String, dynamic>>? dataKpi =
                       snapshot.data?.docs.map((e) => e.data()).toList();
-                  controller.allKpi.addAll(dataKpi!);
+                  historyC.allKpi.addAll(dataKpi!);
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return const Text("No Connections");
@@ -123,10 +123,10 @@ class HistoryView extends GetView<HistoryController> {
                                   ConnectorStyle.solidLine,
                               indicatorStyleBuilder: (context, index) =>
                                   IndicatorStyle.dot,
-                              itemCount: controller.results.length,
+                              itemCount: historyC.results.length,
                               contentsBuilder: (context, index) {
                                 Map<String, dynamic>? kpi =
-                                    controller.results.elementAt(index);
+                                    historyC.results.elementAt(index);
                                 // snapshot.data?.docs.elementAt(index).data();
                                 log(name: "History", kpi.toString());
                                 return CardHistoryTimeline(
