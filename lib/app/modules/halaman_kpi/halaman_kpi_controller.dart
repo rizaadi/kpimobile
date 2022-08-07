@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/widgets/notif_snackbar.dart';
 import '../../routes/app_pages.dart';
 
 class HalamanKpiController extends GetxController {
+  final RxBool isLoading = false.obs;
   TextEditingController periodeC = TextEditingController();
   TextEditingController jabatanC = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -41,38 +43,46 @@ class HalamanKpiController extends GetxController {
   }
 
   void addKpi() async {
-    String uid = auth.currentUser!.uid;
-    await firestore.collection("users").doc(uid).get().then((value) => {
-          firestore.collection("kpi").add({
-            "atasan1": value.data()!['atasan1'],
-            "atasan2": value.data()!['atasan2'],
-            "atasan3": value.data()!['atasan3'],
-            "badge": value.data()!['badge'],
-            "jabatan": jabatanC.text,
-            "nama": value.data()!['nama'],
-            "perusahaan": value.data()!['perusahaan'],
-            "periode": periodeC.text,
-            "unitKerja": value.data()!['unitKerja'],
-            "status": ["Draft"],
-            "createdAt": DateTime.now(),
-            "updatedAt": DateTime.now(),
-          }).then((value2) => {
-                firestore.collection("users").doc(uid).update({
-                  "kpi": FieldValue.arrayUnion([value2.id]),
-                }),
-                firestore
-                    .collection("users")
-                    .doc(value.data()!['uidAtasan'])
-                    .update({
-                  "kpi": FieldValue.arrayUnion([value2.id]),
-                }),
-                firestore.collection("kpi").doc(value2.id).update({
-                  "id": value2.id,
-                }),
-                Get.back(),
-                Get.toNamed(Routes.DETAIL_KPI, arguments: value2.id)
-              })
-        });
+    if (periodeC.text.isEmpty) {
+      notifSnackBar('Error', 'Periode tidak boleh kosong');
+    } else if (jabatanC.text.isEmpty) {
+      notifSnackBar('Error', 'Jabatan tidak boleh kosong');
+    } else {
+      isLoading.value = true;
+      String uid = auth.currentUser!.uid;
+      await firestore.collection("users").doc(uid).get().then((value) => {
+            firestore.collection("kpi").add({
+              "atasan1": value.data()!['atasan1'],
+              "atasan2": value.data()!['atasan2'],
+              "atasan3": value.data()!['atasan3'],
+              "badge": value.data()!['badge'],
+              "jabatan": jabatanC.text,
+              "nama": value.data()!['nama'],
+              "perusahaan": value.data()!['perusahaan'],
+              "periode": periodeC.text,
+              "unitKerja": value.data()!['unitKerja'],
+              "status": ["Draft"],
+              "createdAt": DateTime.now(),
+              "updatedAt": DateTime.now(),
+            }).then((value2) => {
+                  firestore.collection("users").doc(uid).update({
+                    "kpi": FieldValue.arrayUnion([value2.id]),
+                  }),
+                  firestore
+                      .collection("users")
+                      .doc(value.data()!['uidAtasan'])
+                      .update({
+                    "kpi": FieldValue.arrayUnion([value2.id]),
+                  }),
+                  firestore.collection("kpi").doc(value2.id).update({
+                    "id": value2.id,
+                  }),
+                  Get.back(),
+                  Get.toNamed(Routes.DETAIL_KPI, arguments: value2.id)
+                })
+          });
+      isLoading.value = false;
+    }
   }
 
   getUserRole() async {

@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kpimobile/app/core/theme/theme_config.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
 import '../../core/widgets/notif_snackbar.dart';

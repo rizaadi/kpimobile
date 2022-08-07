@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -138,7 +137,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                                 elevation: 0,
                                 primary: ThemeConfig.colors.Gray_primary),
                             onPressed: () {
-                              Get.back();
+                              controller.isLoading == true ? null : Get.back();
                             },
                             child: const Text(
                               "Batal",
@@ -146,9 +145,13 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                             )),
                         confirm: ElevatedButton(
                             onPressed: () {
-                              controller.addKpi();
+                              controller.isLoading == true
+                                  ? null
+                                  : controller.addKpi();
                             },
-                            child: const Text("Selanjutnya")),
+                            child: Text(controller.isLoading == true
+                                ? "Loading.."
+                                : "Selanjutnya")),
                         content: SizedBox(
                           width: Get.width,
                           child: Column(
