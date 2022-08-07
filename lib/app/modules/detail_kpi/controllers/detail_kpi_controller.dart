@@ -45,20 +45,25 @@ class DetailKpiController extends GetxController {
   //FIXME: DELETE atasan user error
   deleteKpi(idKpi) async {
     String uid = auth.currentUser!.uid;
-    await firestore.collection("kpi").doc(idKpi).delete().then((value) => {
-          firestore.collection('users').doc(uid).update({
-            'kpi': FieldValue.arrayRemove([idKpi])
-          }),
-          firestore.collection("users").doc(uid).get().then((value) => {
-                firestore
-                    .collection("users")
-                    .doc(value.data()!['uidAtasan'])
-                    .update({
-                  'kpi': FieldValue.arrayRemove([idKpi])
-                }),
-              })
-        });
-    Get.back();
+    if (role == "Karyawan") {
+      await firestore.collection("kpi").doc(idKpi).delete().then((value) => {
+            firestore.collection('users').doc(uid).update({
+              'kpi': FieldValue.arrayRemove([idKpi])
+            }),
+            firestore.collection("users").doc(uid).get().then((value2) => {
+                  firestore
+                      .collection("users")
+                      .doc(value2.data()!['uidAtasan'])
+                      .update({
+                    'kpi': FieldValue.arrayRemove([idKpi])
+                  }),
+                })
+          });
+      Get.back();
+    } else {
+      // FIXME: DELETE atasan user error
+      Get.back();
+    }
   }
 
   submitKpi(idKpi) async {
