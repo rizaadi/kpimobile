@@ -9,6 +9,7 @@ class DetailKpiController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   RxString role = "".obs;
+  RxDouble hasil = 0.0.obs;
   var gradingItem = [
     '4. > 10',
     '4. > 5',
@@ -181,6 +182,17 @@ class DetailKpiController extends GetxController {
         "updatedAt": DateTime.now(),
       });
       Get.back();
+    }
+  }
+
+  sumGrading(bobot, target, grading) async {
+    if (bobot == null || target == null || grading == null) {
+      return 0;
+    } else {
+      String gradingS = grading;
+      var gradingNum = gradingS.substring(0, 1);
+      num gradingN = num.parse(gradingNum);
+      hasil.value = bobot * target / 100 * gradingN;
     }
   }
 

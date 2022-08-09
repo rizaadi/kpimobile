@@ -33,7 +33,7 @@ class TambahKpiController extends GetxController {
       "deskripsi": deskripsiC.text,
       "rumus": rumusC.text,
       "bobot": int.tryParse(bobotC.text)!.toInt(),
-      "target": targetC.text,
+      "target": int.tryParse(targetC.text)!.toInt(),
       "satuan": satuanC.text,
       "sumberData": sumberDataC.text,
       "perhatian": perhatianC.text,
@@ -108,6 +108,9 @@ class TambahKpiController extends GetxController {
     } else if (int.tryParse(bobotC.text) is! int) {
       isTextEmpty.value = true;
       Get.snackbar('Terjadi Kesalahan', 'Bobot harus angka');
+    } else if (int.tryParse(targetC.text) is! int) {
+      isTextEmpty.value = true;
+      Get.snackbar('Terjadi Kesalahan', 'Target harus angka');
     } else {
       isTextEmpty.value = false;
     }

@@ -329,63 +329,135 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                         label: Text("Grading Penilaian"),
                                       ),
                                       DataColumn2(
+                                        fixedWidth: 140,
+                                        label: Text("Nilai x Bobot"),
+                                      ),
+                                      DataColumn2(
                                         fixedWidth: 170,
                                         label: Text("Aksi"),
                                       )
                                     ],
-                                    rows: List<DataRow>.generate(
-                                        kpilist?.length ?? 0,
-                                        (index) => DataRow2(
-                                                color: MaterialStateProperty.resolveWith((states) => index.isEven
-                                                    ? ThemeConfig.colors.Gray_primary
-                                                    : Colors.transparent),
-                                                cells: [
-                                                  DataCell(Text("${index + 1}")),
-                                                  DataCell(Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(kpilist?[index].data()["kategori"] ?? "Kosong",
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          style: const TextStyle(
-                                                              fontWeight: FontWeight.w600, fontSize: 12)),
-                                                      Text(kpilist?[index].data()["kra"] ?? "Kosong",
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          style: const TextStyle(fontSize: 12))
-                                                    ],
-                                                  )),
-                                                  DataCell(Text(
-                                                    kpilist?[index].data()["bobot"].toString() ?? "Kosong",
-                                                    style: const TextStyle(fontSize: 12),
+                                    rows: List<DataRow>.generate(kpilist?.length ?? 0, (index) {
+                                      var targetK = kpilist?[index].data()["target"];
+                                      var bobotK = kpilist?[index].data()["bobot"];
+                                      var gradingK = kpilist?[index].data()["grading"];
+                                      controller.sumGrading(bobotK, targetK, gradingK);
+                                      var nilaiAkhir = controller.hasil;
+                                      return DataRow2(
+                                          color: MaterialStateProperty.resolveWith((states) =>
+                                              index.isEven ? ThemeConfig.colors.Gray_primary : Colors.transparent),
+                                          cells: [
+                                            DataCell(Text("${index + 1}")),
+                                            DataCell(Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(kpilist?[index].data()["kategori"] ?? "Kosong",
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
-                                                  )),
-                                                  DataCell(Text(
-                                                    kpilist?[index].data()["target"].toString() ?? "Kosong",
-                                                    style: const TextStyle(fontSize: 12),
+                                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+                                                Text(kpilist?[index].data()["kra"] ?? "Kosong",
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
-                                                  )),
-                                                  DataCell(
+                                                    style: const TextStyle(fontSize: 12))
+                                              ],
+                                            )),
+                                            DataCell(Text(
+                                              kpilist?[index].data()["bobot"].toString() ?? "Kosong",
+                                              style: const TextStyle(fontSize: 12),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
+                                            DataCell(Text(
+                                              kpilist?[index].data()["target"].toString() ?? "Kosong",
+                                              style: const TextStyle(fontSize: 12),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
+                                            DataCell(
+                                              Container(
+                                                width: 100,
+                                                padding: const EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: Colors.grey.shade300),
+                                                    borderRadius: BorderRadius.circular(5)),
+                                                child: Text(
+                                                  kpilist?[index].data()["pencapaian"] ?? "Kosong",
+                                                  style: const TextStyle(fontSize: 12),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                Get.bottomSheet(
                                                     Container(
-                                                      width: 100,
-                                                      padding: const EdgeInsets.all(10),
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(color: Colors.grey.shade300),
-                                                          borderRadius: BorderRadius.circular(5)),
-                                                      child: Text(
-                                                        kpilist?[index].data()["pencapaian"] ?? "Kosong",
-                                                        style: const TextStyle(fontSize: 12),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
+                                                      height: 330,
+                                                      padding: const EdgeInsets.all(16),
+                                                      child: Column(
+                                                        children: [
+                                                          const Text("Isi Pencapaian KPI",
+                                                              style:
+                                                                  TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                                                          const SizedBox(height: 34),
+                                                          CustomTextField(
+                                                            label: "Pencapaian KPI",
+                                                            controller: controller.pencapaianC,
+                                                          ),
+                                                          const SizedBox(height: 34),
+                                                          ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                elevation: 0,
+                                                                minimumSize: const Size.fromHeight(50),
+                                                              ),
+                                                              onPressed: () {
+                                                                controller.addPencapaianKPIAtasan(
+                                                                    idKpi, kpilist?[index].id);
+                                                              },
+                                                              child: const Text("Simpan")),
+                                                          const SizedBox(height: 16),
+                                                          ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                elevation: 0,
+                                                                primary: ThemeConfig.colors.Gray_primary,
+                                                                minimumSize: const Size.fromHeight(50),
+                                                              ),
+                                                              onPressed: () {
+                                                                Get.back();
+                                                              },
+                                                              child: const Text(
+                                                                "Batal",
+                                                                style: TextStyle(
+                                                                    color: Colors.black, fontWeight: FontWeight.w600),
+                                                              ))
+                                                        ],
                                                       ),
                                                     ),
-                                                    onTap: () {
+                                                    isScrollControlled: true,
+                                                    backgroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    enableDrag: false);
+                                              },
+                                            ),
+                                            DataCell(
+                                                Container(
+                                                  width: 100,
+                                                  padding: const EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: Colors.grey.shade300),
+                                                      borderRadius: BorderRadius.circular(5)),
+                                                  child: Text(
+                                                    kpilist?[index].data()["grading"] ?? "Kosong",
+                                                    style: const TextStyle(fontSize: 12),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                                onTap: () => {
                                                       Get.bottomSheet(
                                                           Container(
-                                                            height: 330,
+                                                            height: 305,
                                                             padding: const EdgeInsets.all(16),
                                                             child: Column(
                                                               children: [
@@ -393,10 +465,30 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                     style: TextStyle(
                                                                         fontSize: 15, fontWeight: FontWeight.w600)),
                                                                 const SizedBox(height: 34),
-                                                                CustomTextField(
-                                                                  label: "Pencapaian KPI",
-                                                                  controller: controller.pencapaianC,
-                                                                ),
+                                                                DropdownButtonFormField(
+                                                                    // value: kpilist?[index].data()["grading"].toString() ?? "Kosong",
+                                                                    hint: const Text("Pilih Kategori",
+                                                                        style: TextStyle(fontSize: 13)),
+                                                                    decoration: InputDecoration(
+                                                                      filled: true,
+                                                                      fillColor: ThemeConfig.colors.Gray_primary,
+                                                                      enabledBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide.none,
+                                                                          borderRadius: BorderRadius.circular(10)),
+                                                                      focusedBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide.none,
+                                                                          borderRadius: BorderRadius.circular(10)),
+                                                                    ),
+                                                                    borderRadius: BorderRadius.circular(10),
+                                                                    items: controller.gradingItem.map((String items) {
+                                                                      return DropdownMenuItem(
+                                                                          value: items,
+                                                                          child: Text(items,
+                                                                              style: const TextStyle(fontSize: 13)));
+                                                                    }).toList(),
+                                                                    onChanged: (String? value) {
+                                                                      controller.gradingC.text = value!;
+                                                                    }),
                                                                 const SizedBox(height: 34),
                                                                 ElevatedButton(
                                                                     style: ElevatedButton.styleFrom(
@@ -404,7 +496,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                       minimumSize: const Size.fromHeight(50),
                                                                     ),
                                                                     onPressed: () {
-                                                                      controller.addPencapaianKPIAtasan(
+                                                                      controller.addGradingKPIAtasan(
                                                                           idKpi, kpilist?[index].id);
                                                                     },
                                                                     child: const Text("Simpan")),
@@ -427,337 +519,233 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                               ],
                                                             ),
                                                           ),
-                                                          isScrollControlled: true,
                                                           backgroundColor: Colors.white,
                                                           shape: RoundedRectangleBorder(
                                                             borderRadius: BorderRadius.circular(10),
                                                           ),
-                                                          enableDrag: false);
-                                                    },
-                                                  ),
-                                                  DataCell(
-                                                      Container(
-                                                        width: 100,
-                                                        padding: const EdgeInsets.all(10),
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(color: Colors.grey.shade300),
-                                                            borderRadius: BorderRadius.circular(5)),
-                                                        child: Text(
-                                                          kpilist?[index].data()["grading"] ?? "Kosong",
-                                                          style: const TextStyle(fontSize: 12),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                      ),
-                                                      onTap: () => {
-                                                            Get.bottomSheet(
-                                                                Container(
-                                                                  height: 305,
-                                                                  padding: const EdgeInsets.all(16),
-                                                                  child: Column(
-                                                                    children: [
-                                                                      const Text("Isi Pencapaian KPI",
-                                                                          style: TextStyle(
-                                                                              fontSize: 15,
-                                                                              fontWeight: FontWeight.w600)),
-                                                                      const SizedBox(height: 34),
-                                                                      DropdownButtonFormField(
-                                                                          // value: kpilist?[index].data()["grading"].toString() ?? "Kosong",
-                                                                          hint: const Text("Pilih Kategori",
-                                                                              style: TextStyle(fontSize: 13)),
-                                                                          decoration: InputDecoration(
-                                                                            filled: true,
-                                                                            fillColor: ThemeConfig.colors.Gray_primary,
-                                                                            enabledBorder: OutlineInputBorder(
-                                                                                borderSide: BorderSide.none,
-                                                                                borderRadius:
-                                                                                    BorderRadius.circular(10)),
-                                                                            focusedBorder: OutlineInputBorder(
-                                                                                borderSide: BorderSide.none,
-                                                                                borderRadius:
-                                                                                    BorderRadius.circular(10)),
-                                                                          ),
-                                                                          borderRadius: BorderRadius.circular(10),
-                                                                          items: controller.gradingItem
-                                                                              .map((String items) {
-                                                                            return DropdownMenuItem(
-                                                                                value: items,
-                                                                                child: Text(items,
-                                                                                    style:
-                                                                                        const TextStyle(fontSize: 13)));
-                                                                          }).toList(),
-                                                                          onChanged: (String? value) {
-                                                                            controller.gradingC.text = value!;
-                                                                          }),
-                                                                      const SizedBox(height: 34),
-                                                                      ElevatedButton(
-                                                                          style: ElevatedButton.styleFrom(
-                                                                            elevation: 0,
-                                                                            minimumSize: const Size.fromHeight(50),
-                                                                          ),
-                                                                          onPressed: () {
-                                                                            controller.addGradingKPIAtasan(
-                                                                                idKpi, kpilist?[index].id);
-                                                                          },
-                                                                          child: const Text("Simpan")),
-                                                                      const SizedBox(height: 16),
-                                                                      ElevatedButton(
-                                                                          style: ElevatedButton.styleFrom(
-                                                                            elevation: 0,
-                                                                            primary: ThemeConfig.colors.Gray_primary,
-                                                                            minimumSize: const Size.fromHeight(50),
-                                                                          ),
-                                                                          onPressed: () {
-                                                                            Get.back();
-                                                                          },
-                                                                          child: const Text(
-                                                                            "Batal",
-                                                                            style: TextStyle(
-                                                                                color: Colors.black,
-                                                                                fontWeight: FontWeight.w600),
-                                                                          ))
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                backgroundColor: Colors.white,
-                                                                shape: RoundedRectangleBorder(
-                                                                  borderRadius: BorderRadius.circular(10),
-                                                                ),
-                                                                enableDrag: false)
-                                                          }),
-                                                  DataCell(Row(
-                                                    children: [
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            //TODO: Display description/note for each kpi (chat)
-                                                            Get.bottomSheet(
-                                                              isScrollControlled: true,
-                                                              Container(
-                                                                height: Get.height * 0.95,
-                                                                padding: const EdgeInsets.all(16),
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topLeft: Radius.circular(20),
-                                                                        topRight: Radius.circular(20))),
-                                                                child: Column(
+                                                          enableDrag: false)
+                                                    }),
+                                            DataCell(Text(nilaiAkhir.toString())),
+                                            DataCell(Row(
+                                              children: [
+                                                IconButton(
+                                                    onPressed: () {
+                                                      //TODO: Display description/note for each kpi (chat)
+                                                      Get.bottomSheet(
+                                                        isScrollControlled: true,
+                                                        Container(
+                                                          height: Get.height * 0.95,
+                                                          padding: const EdgeInsets.all(16),
+                                                          decoration: const BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.only(
+                                                                  topLeft: Radius.circular(20),
+                                                                  topRight: Radius.circular(20))),
+                                                          child: Column(
+                                                            children: [
+                                                              const Text(
+                                                                "Detail KPI",
+                                                                style: TextStyle(
+                                                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                                              ),
+                                                              const SizedBox(height: 20),
+                                                              Expanded(
+                                                                child: ListView(
+                                                                  physics: const BouncingScrollPhysics(),
                                                                   children: [
-                                                                    const Text(
-                                                                      "Detail KPI",
-                                                                      style: TextStyle(
-                                                                          fontSize: 15, fontWeight: FontWeight.w600),
-                                                                    ),
-                                                                    const SizedBox(height: 20),
-                                                                    Expanded(
-                                                                      child: ListView(
-                                                                        physics: const BouncingScrollPhysics(),
+                                                                    Wrap(
+                                                                        crossAxisAlignment: WrapCrossAlignment.start,
                                                                         children: [
-                                                                          Wrap(
-                                                                              crossAxisAlignment:
-                                                                                  WrapCrossAlignment.start,
-                                                                              children: [
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Kategori"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value: kpilist?[index]
-                                                                                      .data()["kategori"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("KRA"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value: kpilist?[index].data()["kra"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Deskripsi"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value: kpilist?[index]
-                                                                                      .data()["deskripsi"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Rumus"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["rumus"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Bobot (%)"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      '${kpilist?[index].data()["bobot"]}',
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Target"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["target"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Satuan"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["satuan"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Sumber Data"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value: kpilist?[index]
-                                                                                      .data()["sumberData"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Perlu Perhatian"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value: kpilist?[index]
-                                                                                      .data()["perhatian"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Nilai 4"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["nilai4"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Nilai 3"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["nilai3"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Nilai 2"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["nilai2"],
-                                                                                ),
-                                                                                const Padding(
-                                                                                  padding: EdgeInsets.only(
-                                                                                      top: 10, bottom: 5),
-                                                                                  child: Text("Nilai 1"),
-                                                                                ),
-                                                                                ListSingleContainer(
-                                                                                  value:
-                                                                                      kpilist?[index].data()["nilai1"],
-                                                                                ),
-                                                                              ]),
-                                                                        ],
-                                                                      ),
-                                                                    ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Kategori"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["kategori"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("KRA"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["kra"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Deskripsi"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["deskripsi"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Rumus"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["rumus"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Bobot (%)"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: '${kpilist?[index].data()["bobot"]}',
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Target"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["target"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Satuan"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["satuan"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Sumber Data"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["sumberData"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Perlu Perhatian"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["perhatian"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Nilai 4"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["nilai4"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Nilai 3"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["nilai3"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Nilai 2"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["nilai2"],
+                                                                          ),
+                                                                          const Padding(
+                                                                            padding:
+                                                                                EdgeInsets.only(top: 10, bottom: 5),
+                                                                            child: Text("Nilai 1"),
+                                                                          ),
+                                                                          ListSingleContainer(
+                                                                            value: kpilist?[index].data()["nilai1"],
+                                                                          ),
+                                                                        ]),
                                                                   ],
                                                                 ),
                                                               ),
-                                                            );
-                                                          },
-                                                          icon: SvgPicture.asset(
-                                                            'assets/icons/file-text.svg',
-                                                            width: 24,
-                                                            height: 24,
-                                                          )),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            Get.toNamed(Routes.EDIT_KPI, arguments: [
-                                                              kpilist?[index].data(),
-                                                              idKpi,
-                                                              kpilist?[index].id
-                                                            ]);
-                                                          },
-                                                          icon: SvgPicture.asset('assets/icons/edit.svg')),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            Get.bottomSheet(
-                                                              Container(
-                                                                height: 200,
-                                                                padding: const EdgeInsets.all(16),
-                                                                decoration: const BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topLeft: Radius.circular(20),
-                                                                        topRight: Radius.circular(20))),
-                                                                child: Column(
-                                                                  children: [
-                                                                    const Text(
-                                                                      "Anda yakin ingin Hapus KPI ?",
-                                                                      style: TextStyle(
-                                                                          fontSize: 15, fontWeight: FontWeight.w600),
-                                                                    ),
-                                                                    const SizedBox(height: 20),
-                                                                    ElevatedButton(
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          elevation: 0,
-                                                                          minimumSize: const Size.fromHeight(50),
-                                                                        ),
-                                                                        onPressed: () {
-                                                                          controller.deleteKpiUser(
-                                                                              idKpi, kpilist?[index].id);
-                                                                        },
-                                                                        child: const Text("IYA")),
-                                                                    const SizedBox(height: 16),
-                                                                    ElevatedButton(
-                                                                        style: ElevatedButton.styleFrom(
-                                                                          elevation: 0,
-                                                                          primary: ThemeConfig.colors.Gray_primary,
-                                                                          minimumSize: const Size.fromHeight(50),
-                                                                        ),
-                                                                        onPressed: () {
-                                                                          Get.back();
-                                                                        },
-                                                                        child: const Text(
-                                                                          "TIDAK",
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontWeight: FontWeight.w600),
-                                                                        ))
-                                                                  ],
-                                                                ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    icon: SvgPicture.asset(
+                                                      'assets/icons/file-text.svg',
+                                                      width: 24,
+                                                      height: 24,
+                                                    )),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      Get.toNamed(Routes.EDIT_KPI, arguments: [
+                                                        kpilist?[index].data(),
+                                                        idKpi,
+                                                        kpilist?[index].id
+                                                      ]);
+                                                    },
+                                                    icon: SvgPicture.asset('assets/icons/edit.svg')),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {
+                                                      Get.bottomSheet(
+                                                        Container(
+                                                          height: 200,
+                                                          padding: const EdgeInsets.all(16),
+                                                          decoration: const BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.only(
+                                                                  topLeft: Radius.circular(20),
+                                                                  topRight: Radius.circular(20))),
+                                                          child: Column(
+                                                            children: [
+                                                              const Text(
+                                                                "Anda yakin ingin Hapus KPI ?",
+                                                                style: TextStyle(
+                                                                    fontSize: 15, fontWeight: FontWeight.w600),
                                                               ),
-                                                            );
-                                                          },
-                                                          icon: SvgPicture.asset(
-                                                            'assets/icons/trash-2.svg',
-                                                            color: Colors.red,
-                                                          )),
-                                                    ],
-                                                  )),
-                                                ])),
+                                                              const SizedBox(height: 20),
+                                                              ElevatedButton(
+                                                                  style: ElevatedButton.styleFrom(
+                                                                    elevation: 0,
+                                                                    minimumSize: const Size.fromHeight(50),
+                                                                  ),
+                                                                  onPressed: () {
+                                                                    controller.deleteKpiUser(idKpi, kpilist?[index].id);
+                                                                  },
+                                                                  child: const Text("IYA")),
+                                                              const SizedBox(height: 16),
+                                                              ElevatedButton(
+                                                                  style: ElevatedButton.styleFrom(
+                                                                    elevation: 0,
+                                                                    primary: ThemeConfig.colors.Gray_primary,
+                                                                    minimumSize: const Size.fromHeight(50),
+                                                                  ),
+                                                                  onPressed: () {
+                                                                    Get.back();
+                                                                  },
+                                                                  child: const Text(
+                                                                    "TIDAK",
+                                                                    style: TextStyle(
+                                                                        color: Colors.black,
+                                                                        fontWeight: FontWeight.w600),
+                                                                  ))
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    icon: SvgPicture.asset(
+                                                      'assets/icons/trash-2.svg',
+                                                      color: Colors.red,
+                                                    )),
+                                              ],
+                                            )),
+                                          ]);
+                                    }),
                                   );
                                 }
                                 return DataTable2(
@@ -819,7 +807,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                   overflow: TextOverflow.ellipsis,
                                                 )),
                                                 DataCell(Text(
-                                                  kpilist?[index].data()["target"] ?? "Kosong",
+                                                  kpilist?[index].data()["target"].toString() ?? "Kosong",
                                                   style: const TextStyle(fontSize: 12),
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,
