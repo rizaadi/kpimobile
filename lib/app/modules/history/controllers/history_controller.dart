@@ -27,21 +27,13 @@ class HistoryController extends GetxController {
 
   filterChip(int index) async {
     if (index == 0) {
-      results.value = allKpi
-          .where((item) => item['status'].toString().contains("Ditolak"))
-          .toList();
+      results.value = allKpi.where((item) => item['status'].toString().contains("Ditolak")).toList();
     } else if (index == 1) {
-      results.value = allKpi
-          .where((item) => item['status'].toString().contains("Pending"))
-          .toList();
+      results.value = allKpi.where((item) => item['status'].toString().contains("Pending")).toList();
     } else if (index == 2) {
-      results.value = allKpi
-          .where((item) => item['status'].toString().contains("Selesai"))
-          .toList();
+      results.value = allKpi.where((item) => item['status'].toString().contains("Selesai")).toList();
     } else if (index == 3) {
-      results.value = allKpi
-          .where((item) => item['status'].toString().contains("Draft"))
-          .toList();
+      results.value = allKpi.where((item) => item['status'].toString().contains("Draft")).toList();
     } else {
       results.value = allKpi;
     }

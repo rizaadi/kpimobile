@@ -10,12 +10,7 @@ import 'package:kpimobile/app/modules/profile/views/profile_view.dart';
 import '../controllers/bottom_navigation_controller.dart';
 
 class BottomNavigationView extends GetView<BottomNavigationController> {
-  final screens = [
-    HomePage(),
-    HistoryView(),
-    NotificationsView(),
-    ProfileView()
-  ];
+  final screens = [HomePage(), HistoryView(), NotificationsView(), ProfileView()];
 
   BottomNavigationView({Key? key}) : super(key: key);
 
@@ -39,33 +34,25 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/icons/home.svg',
-                      color: controller.selectedIndex.value == 0
-                          ? Get.theme.primaryColor
-                          : Colors.grey,
+                      color: controller.selectedIndex.value == 0 ? Get.theme.primaryColor : Colors.grey,
                     ),
                     label: 'Home'),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/icons/clipboard-2.svg',
-                      color: controller.selectedIndex.value == 1
-                          ? Get.theme.primaryColor
-                          : Colors.grey,
+                      color: controller.selectedIndex.value == 1 ? Get.theme.primaryColor : Colors.grey,
                     ),
                     label: 'History'),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/icons/bell.svg',
-                      color: controller.selectedIndex.value == 2
-                          ? Get.theme.primaryColor
-                          : Colors.grey,
+                      color: controller.selectedIndex.value == 2 ? Get.theme.primaryColor : Colors.grey,
                     ),
                     label: 'Notifikasi'),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/icons/profile.svg',
-                      color: controller.selectedIndex.value == 3
-                          ? Get.theme.primaryColor
-                          : Colors.grey,
+                      color: controller.selectedIndex.value == 3 ? Get.theme.primaryColor : Colors.grey,
                     ),
                     label: 'Profil'),
               ])),

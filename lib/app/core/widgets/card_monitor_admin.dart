@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import 'package:kpimobile/app/core/theme/theme_config.dart';
 
 class CardMonitorAdmin extends StatelessWidget {
-  const CardMonitorAdmin({Key? key, required this.status, required this.value})
-      : super(key: key);
+  const CardMonitorAdmin({Key? key, required this.status, required this.value}) : super(key: key);
 
   final String status;
   final String value;
@@ -26,9 +25,8 @@ class CardMonitorAdmin extends StatelessWidget {
               ),
               child: Text(
                 status,
-                style: Get.textTheme.bodyText2!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: ThemeConfig.colors.Blue_primary),
+                style: Get.textTheme.bodyText2!
+                    .copyWith(fontWeight: FontWeight.w600, color: ThemeConfig.colors.Blue_primary),
               ),
             ),
             Padding(
@@ -36,10 +34,7 @@ class CardMonitorAdmin extends StatelessWidget {
               child: Text(
                 value,
                 maxLines: 1,
-                style: TextStyle(
-                    color: ThemeConfig.colors.Blue_primary,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: ThemeConfig.colors.Blue_primary, fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
           ],

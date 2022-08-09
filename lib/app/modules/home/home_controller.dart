@@ -55,10 +55,7 @@ class HomeController extends GetxController {
                   firestore.collection("users").doc(uid).update({
                     "kpi": FieldValue.arrayUnion([value2.id]),
                   }),
-                  firestore
-                      .collection("users")
-                      .doc(value.data()!['uidAtasan'])
-                      .update({
+                  firestore.collection("users").doc(value.data()!['uidAtasan']).update({
                     "kpi": FieldValue.arrayUnion([value2.id]),
                   }),
                   firestore.collection("kpi").doc(value2.id).update({
@@ -89,10 +86,7 @@ class HomeController extends GetxController {
     String uid = auth.currentUser!.uid;
     final docUser = await firestore.collection("users").doc(uid).get();
     List<dynamic> listKpi = docUser.data()!['kpi'];
-    yield* firestore
-        .collection("kpi")
-        .where("id", whereIn: listKpi)
-        .snapshots();
+    yield* firestore.collection("kpi").where("id", whereIn: listKpi).snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getSumMonitoring() async* {
@@ -154,8 +148,7 @@ class HomeController extends GetxController {
     yield* firestore.collection("kpi").snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>
-      getListKpiApprovalAtasan() async* {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiApprovalAtasan() async* {
     String uid = auth.currentUser!.uid;
     final docUser = await firestore.collection("users").doc(uid).get();
     List<dynamic> listKpi = docUser.data()!['kpi'];
@@ -180,38 +173,22 @@ class HomeController extends GetxController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getSumMonitoringAtasan() async* {
-    yield* firestore
-        .collection("kpi")
-        .where("status", arrayContains: "Monitoring")
-        .snapshots();
+    yield* firestore.collection("kpi").where("status", arrayContains: "Monitoring").snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getSumPenilaianAtasan() async* {
-    yield* firestore
-        .collection("kpi")
-        .where("status", arrayContains: "Penilaian")
-        .snapshots();
+    yield* firestore.collection("kpi").where("status", arrayContains: "Penilaian").snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getSumOnTrackAtasan() async* {
-    yield* firestore
-        .collection("kpi")
-        .where("status", arrayContains: "OnTrack")
-        .snapshots();
+    yield* firestore.collection("kpi").where("status", arrayContains: "OnTrack").snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>
-      getSumBehindTargetAtasan() async* {
-    yield* firestore
-        .collection("kpi")
-        .where("status", arrayContains: "BehindTarget")
-        .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSumBehindTargetAtasan() async* {
+    yield* firestore.collection("kpi").where("status", arrayContains: "BehindTarget").snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getSumInactiveAtasan() async* {
-    yield* firestore
-        .collection("kpi")
-        .where("status", arrayContains: "Inactive")
-        .snapshots();
+    yield* firestore.collection("kpi").where("status", arrayContains: "Inactive").snapshots();
   }
 }

@@ -22,43 +22,33 @@ class TambahKpiView extends GetView<TambahKpiController> {
         body: SafeArea(
             child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               "Tambah KPI",
               style: Get.textTheme.headline5,
             ),
             const SizedBox(height: 16),
-            Text("Kategori",
-                style: Get.textTheme.bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text("Kategori", style: Get.textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             DropdownButtonFormField(
-                hint: const Text("Pilih Kategori",
-                    style: TextStyle(fontSize: 13)),
+                hint: const Text("Pilih Kategori", style: TextStyle(fontSize: 13)),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: ThemeConfig.colors.Gray_primary,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
                 ),
                 borderRadius: BorderRadius.circular(10),
                 items: controller.kategoriItem.map((String items) {
-                  return DropdownMenuItem(
-                      value: items,
-                      child: Text(items, style: const TextStyle(fontSize: 13)));
+                  return DropdownMenuItem(value: items, child: Text(items, style: const TextStyle(fontSize: 13)));
                 }).toList(),
                 onChanged: (String? value) {
                   controller.kategoriC.text = value!;
                 }),
             const SizedBox(height: 16),
-            Text("KRA",
-                style: Get.textTheme.bodyText2
-                    ?.copyWith(fontWeight: FontWeight.w600)),
+            Text("KRA", style: Get.textTheme.bodyText2?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
             DropdownButtonFormField(
                 isExpanded: true,
@@ -66,12 +56,10 @@ class TambahKpiView extends GetView<TambahKpiController> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: ThemeConfig.colors.Gray_primary,
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10)),
                 ),
                 borderRadius: BorderRadius.circular(10),
                 items: controller.kra.map((String items) {
@@ -154,15 +142,13 @@ class TambahKpiView extends GetView<TambahKpiController> {
                         padding: const EdgeInsets.all(16),
                         decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
+                            borderRadius:
+                                BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                         child: Column(
                           children: [
                             const Text(
                               "Anda yakin ingin Simpan KPI ?",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(height: 20),
                             ElevatedButton(
@@ -188,9 +174,7 @@ class TambahKpiView extends GetView<TambahKpiController> {
                                 },
                                 child: const Text(
                                   "TIDAK",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
                                 ))
                           ],
                         ),

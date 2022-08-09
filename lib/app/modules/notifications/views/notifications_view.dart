@@ -42,8 +42,7 @@ class NotificationsView extends GetView<NotificationsController> {
                         itemCount: notif == null ? 0 : notif.length,
                         itemBuilder: (context, index) {
                           return ContainerNotif(
-                            tanggal: DateFormat('d MMM yyyy').format(
-                                reverseNotif[index]['tanggal'].toDate()),
+                            tanggal: DateFormat('d MMM yyyy').format(reverseNotif[index]['tanggal'].toDate()),
                             deskripsi: controller.role == 'Karyawan'
                                 ? "${reverseNotif[index]['status'] == "Ditolak" ? "Maaf" : "Selamat"} KPI anda atas ${reverseNotif[index]['nama']} pada periode ${reverseNotif[index]['periode']} yang anda ajukan telah ${reverseNotif[index]['status']}"
                                 : "KPI baru telah masuk atas nama  ${reverseNotif[index]['nama']} pada periode ${reverseNotif[index]['periode']} ",

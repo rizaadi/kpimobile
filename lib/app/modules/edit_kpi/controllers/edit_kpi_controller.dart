@@ -52,12 +52,7 @@ class EditKpiController extends GetxController {
   }
 
   updateKpi(idKpi, id) async {
-    await firestore
-        .collection("kpi")
-        .doc(idKpi)
-        .collection("kpiuser")
-        .doc(id)
-        .update({
+    await firestore.collection("kpi").doc(idKpi).collection("kpiuser").doc(id).update({
       "kategori": kategoriC.text,
       "kra": kraC.text,
       "deskripsi": deskripsiC.text,

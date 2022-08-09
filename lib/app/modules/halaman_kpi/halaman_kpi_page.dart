@@ -23,8 +23,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
               onChanged: (value) => controller.runFilter(value),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ThemeConfig.colors.Black_primary),
+                    borderSide: BorderSide(width: 1, color: ThemeConfig.colors.Black_primary),
                     borderRadius: BorderRadius.circular(6)),
                 focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -36,8 +35,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
         const SizedBox(height: 11),
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Wrap(
               spacing: 4,
               children: [
@@ -49,46 +47,34 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                           padding: const EdgeInsets.all(16),
                           decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20))),
+                              borderRadius:
+                                  BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                           child: Column(
                             children: [
                               const Text(
                                 "Filter",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                               ),
                               const SizedBox(height: 20),
                               Wrap(
                                 direction: Axis.vertical,
                                 alignment: WrapAlignment.start,
                                 children: [
-                                  const Text("Status",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600)),
+                                  const Text("Status", style: TextStyle(fontWeight: FontWeight.w600)),
                                   Obx(
                                     () => Wrap(
                                       alignment: WrapAlignment.start,
                                       spacing: 10,
-                                      children:
-                                          List<Widget>.generate(4, (int index) {
+                                      children: List<Widget>.generate(4, (int index) {
                                         return ChoiceChip(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6),
-                                            selectedColor:
-                                                ThemeConfig.colors.Blue_primary,
-                                            labelStyle: TextStyle(
-                                                color: ThemeConfig
-                                                    .colors.Black_primary),
+                                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                                            selectedColor: ThemeConfig.colors.Blue_primary,
+                                            labelStyle: TextStyle(color: ThemeConfig.colors.Black_primary),
                                             label: Text(_chipLabel[index]),
-                                            selected: controller.selectedChip ==
-                                                index,
+                                            selected: controller.selectedChip == index,
                                             onSelected: (bool selected) {
-                                              controller.selectedChip =
-                                                  selected ? index : null;
-                                              controller.filterChip(
-                                                  controller.selectedChip);
+                                              controller.selectedChip = selected ? index : null;
+                                              controller.filterChip(controller.selectedChip);
                                             });
                                       }),
                                     ),
@@ -102,8 +88,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                     },
                     label: const Text("Filter"),
                     icon: SvgPicture.asset('assets/icons/sliders.svg'),
-                    style: ElevatedButton.styleFrom(
-                        primary: ThemeConfig.colors.Green_primary)),
+                    style: ElevatedButton.styleFrom(primary: ThemeConfig.colors.Green_primary)),
                 ElevatedButton.icon(
                     onPressed: () {
                       Get.delete<HistoryController>();
@@ -111,8 +96,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                     },
                     label: const Text('Riwayat'),
                     icon: SvgPicture.asset('assets/icons/history.svg'),
-                    style: ElevatedButton.styleFrom(
-                        primary: ThemeConfig.colors.Green_primary)),
+                    style: ElevatedButton.styleFrom(primary: ThemeConfig.colors.Green_primary)),
               ],
             ),
             Obx(
@@ -135,9 +119,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                         cancelTextColor: ThemeConfig.colors.Black_primary,
                         confirmTextColor: Colors.white,
                         cancel: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: ThemeConfig.colors.Gray_primary),
+                            style: ElevatedButton.styleFrom(elevation: 0, primary: ThemeConfig.colors.Gray_primary),
                             onPressed: () {
                               controller.isLoading == true ? null : Get.back();
                             },
@@ -147,13 +129,9 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                             )),
                         confirm: ElevatedButton(
                             onPressed: () {
-                              controller.isLoading == true
-                                  ? null
-                                  : controller.addKpi();
+                              controller.isLoading == true ? null : controller.addKpi();
                             },
-                            child: Text(controller.isLoading == true
-                                ? "Loading.."
-                                : "Selanjutnya")),
+                            child: Text(controller.isLoading == true ? "Loading.." : "Selanjutnya")),
                         content: SizedBox(
                           width: Get.width,
                           child: Column(
@@ -167,12 +145,10 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
-                                  items: controller.periodeItem
-                                      .map((String items) {
+                                  items: controller.periodeItem.map((String items) {
                                     return DropdownMenuItem(
                                       value: items,
-                                      child: Text(items,
-                                          style: const TextStyle(fontSize: 13)),
+                                      child: Text(items, style: const TextStyle(fontSize: 13)),
                                     );
                                   }).toList(),
                                   onChanged: (String? value) {
@@ -188,8 +164,7 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
                                     ),
                                   ),
                                   borderRadius: BorderRadius.circular(10),
-                                  items: controller.jabatanUnitItem
-                                      .map((String items) {
+                                  items: controller.jabatanUnitItem.map((String items) {
                                     return DropdownMenuItem(
                                       value: items,
                                       child: Text(
@@ -221,25 +196,20 @@ class HalamanKpiPage extends GetView<HalamanKpiController> {
               builder: (context, snapshot) {
                 // FIXME: setelah tambah kpi, ke detail dan kembali lagi ke list, kpi belum update
                 if (snapshot.hasData) {
-                  List<Map<String, dynamic>>? dataKpi =
-                      snapshot.data?.docs.map((e) => e.data()).toList();
+                  List<Map<String, dynamic>>? dataKpi = snapshot.data?.docs.map((e) => e.data()).toList();
                   controller.allKpi.value = dataKpi!;
                 }
                 return Obx(() => ListView.builder(
                       itemCount: controller.results.length,
                       itemBuilder: (context, index) {
-                        Map<String, dynamic>? kpi =
-                            controller.results.elementAt(index);
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        Map<String, dynamic>? kpi = controller.results.elementAt(index);
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           //TODO: Change to loading skeleton
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasData) {
                           return InkWell(
                             onTap: () {
-                              Get.toNamed(Routes.DETAIL_KPI,
-                                  arguments: kpi?['id']);
+                              Get.toNamed(Routes.DETAIL_KPI, arguments: kpi?['id']);
                             },
                             child: CardKpi(
                               perusahaan: kpi?['perusahaan'] ?? 'Kosong',

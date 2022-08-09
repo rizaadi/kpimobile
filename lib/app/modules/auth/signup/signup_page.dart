@@ -13,9 +13,7 @@ class SignupPage extends GetView<SignupController> {
             children: [
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 52, 16, 0),
-                child: Text('Create account',
-                    style:
-                        TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                child: Text('Create account', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               ),
               Row(
                 children: [
@@ -35,74 +33,60 @@ class SignupPage extends GetView<SignupController> {
                       },
                       child: const Text(
                         "login",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            decoration: TextDecoration.underline),
+                        style: TextStyle(fontWeight: FontWeight.w600, decoration: TextDecoration.underline),
                       ))
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Email"),
-                      TextField(
-                        controller: controller.emailC,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                        ),
-                      ),
-                    ]),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text("Email"),
+                  TextField(
+                    controller: controller.emailC,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                    ),
+                  ),
+                ]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 25, 16, 0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Password"),
-                      TextField(
-                        controller: controller.passC,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                        ),
-                      ),
-                    ]),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text("Password"),
+                  TextField(
+                    controller: controller.passC,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                    ),
+                  ),
+                ]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 25, 16, 0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Confirm Password"),
-                      TextField(
-                        controller: controller.pass2C,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              borderRadius: BorderRadius.circular(6)),
-                        ),
-                      ),
-                    ]),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text("Confirm Password"),
+                  TextField(
+                    controller: controller.pass2C,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(6)),
+                    ),
+                  ),
+                ]),
               ),
               Center(
                   child: Padding(
@@ -124,10 +108,7 @@ class SignupPage extends GetView<SignupController> {
                       child: controller.isLoading.isFalse
                           ? const Text(
                               "Create account",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                             )
                           : const CircularProgressIndicator(
                               color: Colors.white,

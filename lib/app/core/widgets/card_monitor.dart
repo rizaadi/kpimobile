@@ -3,8 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class CardMonitor extends StatelessWidget {
-  const CardMonitor({Key? key, required this.status, required this.value})
-      : super(key: key);
+  const CardMonitor({Key? key, required this.status, required this.value}) : super(key: key);
 
   final String status;
   final String value;
@@ -26,8 +25,7 @@ class CardMonitor extends StatelessWidget {
               ),
               child: Text(
                 status,
-                style: Get.textTheme.bodyText2!
-                    .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                style: Get.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),
             Padding(
@@ -35,10 +33,7 @@ class CardMonitor extends StatelessWidget {
               child: Text(
                 value,
                 maxLines: 1,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold),
+                style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
           ],

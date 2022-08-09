@@ -36,43 +36,33 @@ class HistoryView extends GetView<HistoryController> {
                   padding: const EdgeInsets.all(16),
                   decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20))),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                   child: Column(
                     children: [
                       const Text(
                         "Filter",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 20),
                       Wrap(
                         direction: Axis.vertical,
                         alignment: WrapAlignment.start,
                         children: [
-                          const Text("Status",
-                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          const Text("Status", style: TextStyle(fontWeight: FontWeight.w600)),
                           Obx(
                             () => Wrap(
                               alignment: WrapAlignment.start,
                               spacing: 10,
                               children: List<Widget>.generate(4, (int index) {
                                 return ChoiceChip(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 6),
-                                    selectedColor:
-                                        ThemeConfig.colors.Blue_primary,
-                                    labelStyle: TextStyle(
-                                        color:
-                                            ThemeConfig.colors.Black_primary),
+                                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                                    selectedColor: ThemeConfig.colors.Blue_primary,
+                                    labelStyle: TextStyle(color: ThemeConfig.colors.Black_primary),
                                     label: Text(_chipLabel[index]),
                                     selected: historyC.selectedChip == index,
                                     onSelected: (bool selected) {
-                                      historyC.selectedChip =
-                                          selected ? index : null;
-                                      historyC
-                                          .filterChip(historyC.selectedChip);
+                                      historyC.selectedChip = selected ? index : null;
+                                      historyC.filterChip(historyC.selectedChip);
                                       print(historyC.selectedChip);
                                     });
                               }),
@@ -87,16 +77,14 @@ class HistoryView extends GetView<HistoryController> {
             },
             icon: SvgPicture.asset('assets/icons/sliders.svg'),
             label: const Text("Filter"),
-            style: ElevatedButton.styleFrom(
-                primary: ThemeConfig.colors.Green_primary)),
+            style: ElevatedButton.styleFrom(primary: ThemeConfig.colors.Green_primary)),
         const SizedBox(height: 16),
         Expanded(
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: historyC.getListKpi(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  List<Map<String, dynamic>>? dataKpi =
-                      snapshot.data?.docs.map((e) => e.data()).toList();
+                  List<Map<String, dynamic>>? dataKpi = snapshot.data?.docs.map((e) => e.data()).toList();
                   historyC.allKpi.addAll(dataKpi!);
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -111,27 +99,21 @@ class HistoryView extends GetView<HistoryController> {
                               indicatorPosition: 0.1,
                               nodePosition: 0,
                               color: Get.theme.primaryColor,
-                              indicatorTheme:
-                                  const IndicatorThemeData(size: 14),
-                              connectorTheme:
-                                  const ConnectorThemeData(thickness: 2)),
+                              indicatorTheme: const IndicatorThemeData(size: 14),
+                              connectorTheme: const ConnectorThemeData(thickness: 2)),
                           shrinkWrap: true,
                           builder: TimelineTileBuilder.connectedFromStyle(
                               firstConnectorStyle: ConnectorStyle.transparent,
                               lastConnectorStyle: ConnectorStyle.transparent,
-                              connectorStyleBuilder: (context, index) =>
-                                  ConnectorStyle.solidLine,
-                              indicatorStyleBuilder: (context, index) =>
-                                  IndicatorStyle.dot,
+                              connectorStyleBuilder: (context, index) => ConnectorStyle.solidLine,
+                              indicatorStyleBuilder: (context, index) => IndicatorStyle.dot,
                               itemCount: historyC.results.length,
                               contentsBuilder: (context, index) {
-                                Map<String, dynamic>? kpi =
-                                    historyC.results.elementAt(index);
+                                Map<String, dynamic>? kpi = historyC.results.elementAt(index);
                                 // snapshot.data?.docs.elementAt(index).data();
                                 log(name: "History", kpi.toString());
                                 return CardHistoryTimeline(
-                                  tanggal: DateFormat('d MMM yyyy')
-                                      .format(kpi?['updatedAt'].toDate()),
+                                  tanggal: DateFormat('d MMM yyyy').format(kpi?['updatedAt'].toDate()),
                                   status: kpi?['status'][0],
                                   nama: kpi?['nama'],
                                   jabatan: kpi?['jabatan'],

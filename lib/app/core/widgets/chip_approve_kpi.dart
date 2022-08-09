@@ -29,8 +29,7 @@ class ChipApproveKpi extends StatelessWidget {
           color: color,
         ),
         const SizedBox(height: 10),
-        Text(name,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
+        Text(name, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
       ]),
     );
   }

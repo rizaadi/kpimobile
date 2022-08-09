@@ -14,8 +14,7 @@ class LoginPage extends GetView<LoginController> {
           children: [
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 52, 16, 0),
-              child: Text('Welcome Back!',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              child: Text('Welcome Back!', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
             ),
             Row(
               children: [
@@ -41,46 +40,38 @@ class LoginPage extends GetView<LoginController> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Email"),
-                    TextField(
-                      controller: controller.emailC,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(6)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(6)),
-                      ),
-                    ),
-                  ]),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text("Email"),
+                TextField(
+                  controller: controller.emailC,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(6)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ]),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 25, 16, 0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text("Password"),
-                    TextField(
-                      controller: controller.passC,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(6)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(width: 1, color: Colors.black),
-                            borderRadius: BorderRadius.circular(6)),
-                      ),
-                    ),
-                  ]),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text("Password"),
+                TextField(
+                  controller: controller.passC,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(6)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1, color: Colors.black),
+                        borderRadius: BorderRadius.circular(6)),
+                  ),
+                ),
+              ]),
             ),
             Center(
                 child: Padding(
@@ -102,9 +93,7 @@ class LoginPage extends GetView<LoginController> {
                     child: controller.isLoading.isFalse
                         ? const Text(
                             "Sign in",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           )
                         : const CircularProgressIndicator(
                             color: Colors.white,

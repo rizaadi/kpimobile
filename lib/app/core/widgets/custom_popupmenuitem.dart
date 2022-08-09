@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-PopupMenuItem customPopupMenuItem(
-    String name, String icon, Color color, int position) {
+PopupMenuItem customPopupMenuItem(String name, String icon, Color color, int position) {
   return PopupMenuItem(
     value: position,
     child: Row(

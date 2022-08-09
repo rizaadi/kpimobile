@@ -45,8 +45,7 @@ class CardHistoryTimeline extends StatelessWidget {
                   const SizedBox(width: 5),
                   Text(
                     tanggal,
-                    style: const TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                   )
                 ],
               ),

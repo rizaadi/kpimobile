@@ -14,8 +14,7 @@ class LoginController extends GetxController {
     if (emailC.text.isNotEmpty && passC.text.isNotEmpty) {
       isLoading.value = true;
       try {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailC.text,
           password: passC.text,
         );
@@ -33,8 +32,7 @@ class LoginController extends GetxController {
         }
       }
     } else {
-      Get.snackbar(
-          'Terjadi Kesalahan', 'Email dan Password tidak boleh kosong');
+      Get.snackbar('Terjadi Kesalahan', 'Email dan Password tidak boleh kosong');
     }
   }
 }

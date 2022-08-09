@@ -49,12 +49,10 @@ class HomePage extends GetView<HomeController> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Hello",
-                                    style: Get.theme.textTheme.headline5),
+                                Text("Hello", style: Get.theme.textTheme.headline5),
                                 Text(
                                   "${user['nama']}",
-                                  style: Get.theme.textTheme.headline5
-                                      ?.copyWith(fontWeight: FontWeight.normal),
+                                  style: Get.theme.textTheme.headline5?.copyWith(fontWeight: FontWeight.normal),
                                 )
                               ],
                             ),
@@ -65,9 +63,7 @@ class HomePage extends GetView<HomeController> {
                           ],
                         ),
                         const SizedBox(height: 30),
-                        Text("Status KPI",
-                            style: Get.theme.textTheme.subtitle1
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                        Text("Status KPI", style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600)),
                         const SizedBox(height: 13),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -77,8 +73,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 // Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumOnTrack(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -113,8 +108,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 // Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumBehindTarget(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -149,8 +143,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 // Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumInactive(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -183,8 +176,7 @@ class HomePage extends GetView<HomeController> {
                         ),
                         const SizedBox(height: 16),
                         Text("Approval Request",
-                            style: Get.theme.textTheme.subtitle1
-                                ?.copyWith(fontWeight: FontWeight.w600)),
+                            style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600)),
                         const SizedBox(height: 13),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,8 +186,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumKpi(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -230,8 +221,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 // Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumMonitoring(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -266,8 +256,7 @@ class HomePage extends GetView<HomeController> {
                               onTap: () {
                                 // Get.toNamed(Routes.HALAMANKPI);
                               },
-                              child: StreamBuilder<
-                                      QuerySnapshot<Map<String, dynamic>>>(
+                              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                   stream: homeC.getSumPenilaian(),
                                   builder: (context, snapshot) {
                                     var kpi = snapshot.data?.docs.length ?? 0;
@@ -303,8 +292,7 @@ class HomePage extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("KPI Terakhir",
-                                style: Get.theme.textTheme.subtitle1
-                                    ?.copyWith(fontWeight: FontWeight.w600)),
+                                style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600)),
                             TextButton(
                                 onPressed: () {
                                   //FIXME : belum muncul detail kpi
@@ -313,8 +301,7 @@ class HomePage extends GetView<HomeController> {
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   minimumSize: Size.zero,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
+                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 ),
                                 child: Text(
                                   "Lihat Semua",
@@ -333,10 +320,7 @@ class HomePage extends GetView<HomeController> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: snapshot.data?.docs.length ?? 0,
                                 itemBuilder: (context, index) {
-                                  Map<String, dynamic>? kpi = snapshot
-                                      .data?.docs
-                                      .elementAt(index)
-                                      .data();
+                                  Map<String, dynamic>? kpi = snapshot.data?.docs.elementAt(index).data();
                                   // log(name: "HIstoryHome", kpi.toString());
                                   if (snapshot.hasData) {
                                     switch (snapshot.connectionState) {
@@ -362,8 +346,7 @@ class HomePage extends GetView<HomeController> {
                         const SizedBox(height: 30),
                         Text(
                           "KPI",
-                          style: Get.theme.textTheme.subtitle1
-                              ?.copyWith(fontWeight: FontWeight.w600),
+                          style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton.icon(
@@ -379,18 +362,13 @@ class HomePage extends GetView<HomeController> {
                                   titlePadding: const EdgeInsets.all(16),
                                   contentPadding: const EdgeInsets.all(16),
                                   buttonColor: Get.theme.primaryColor,
-                                  cancelTextColor:
-                                      ThemeConfig.colors.Black_primary,
+                                  cancelTextColor: ThemeConfig.colors.Black_primary,
                                   confirmTextColor: Colors.white,
                                   cancel: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          elevation: 0,
-                                          primary:
-                                              ThemeConfig.colors.Gray_primary),
+                                          elevation: 0, primary: ThemeConfig.colors.Gray_primary),
                                       onPressed: () {
-                                        controller.isLoading == true
-                                            ? null
-                                            : Get.back();
+                                        controller.isLoading == true ? null : Get.back();
                                       },
                                       child: const Text(
                                         "Batal",
@@ -398,36 +376,26 @@ class HomePage extends GetView<HomeController> {
                                       )),
                                   confirm: ElevatedButton(
                                       onPressed: () {
-                                        controller.isLoading == true
-                                            ? null
-                                            : controller.addKpi();
+                                        controller.isLoading == true ? null : controller.addKpi();
                                       },
-                                      child: Text(controller.isLoading == true
-                                          ? "Loading.."
-                                          : "Selanjutnya")),
+                                      child: Text(controller.isLoading == true ? "Loading.." : "Selanjutnya")),
                                   content: SizedBox(
                                     width: Get.width,
                                     child: Column(
                                       children: [
                                         DropdownButtonFormField(
                                             isExpanded: true,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            hint: const Text(
-                                                "Pilih Periode Penyusunan KPI"),
+                                            borderRadius: BorderRadius.circular(10),
+                                            hint: const Text("Pilih Periode Penyusunan KPI"),
                                             decoration: InputDecoration(
                                               border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
+                                                borderRadius: BorderRadius.circular(10),
                                               ),
                                             ),
-                                            items: controller.periodeItem
-                                                .map((String items) {
+                                            items: controller.periodeItem.map((String items) {
                                               return DropdownMenuItem(
                                                 value: items,
-                                                child: Text(items,
-                                                    style: const TextStyle(
-                                                        fontSize: 13)),
+                                                child: Text(items, style: const TextStyle(fontSize: 13)),
                                               );
                                             }).toList(),
                                             onChanged: (String? value) {
@@ -436,24 +404,19 @@ class HomePage extends GetView<HomeController> {
                                         const SizedBox(height: 16),
                                         DropdownButtonFormField(
                                             isExpanded: true,
-                                            hint: const Text(
-                                                "Pilih Jabatan / Unit Kerja"),
+                                            hint: const Text("Pilih Jabatan / Unit Kerja"),
                                             decoration: InputDecoration(
                                               border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
+                                                borderRadius: BorderRadius.circular(10),
                                               ),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            items: controller.jabatanUnitItem
-                                                .map((String items) {
+                                            borderRadius: BorderRadius.circular(10),
+                                            items: controller.jabatanUnitItem.map((String items) {
                                               return DropdownMenuItem(
                                                 value: items,
                                                 child: Text(
                                                   items,
-                                                  style: const TextStyle(
-                                                      fontSize: 13),
+                                                  style: const TextStyle(fontSize: 13),
                                                 ),
                                               );
                                             }).toList(),
@@ -479,9 +442,8 @@ class HomePage extends GetView<HomeController> {
                           padding: const EdgeInsets.fromLTRB(16, 38, 16, 25),
                           decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20))),
+                              borderRadius:
+                                  BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -495,8 +457,7 @@ class HomePage extends GetView<HomeController> {
                                 children: [
                                   Text(
                                     user['nama'],
-                                    style: Get.theme.textTheme.headline5
-                                        ?.copyWith(fontWeight: FontWeight.w600),
+                                    style: Get.theme.textTheme.headline5?.copyWith(fontWeight: FontWeight.w600),
                                   ),
                                   const StatusBadge(status: "Admin")
                                 ],
@@ -518,13 +479,10 @@ class HomePage extends GetView<HomeController> {
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                         stream: homeC.getSumOnTrackAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -556,14 +514,10 @@ class HomePage extends GetView<HomeController> {
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
-                                        stream:
-                                            homeC.getSumBehindTargetAtasan(),
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                                        stream: homeC.getSumBehindTargetAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -595,13 +549,10 @@ class HomePage extends GetView<HomeController> {
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                         stream: homeC.getSumInactiveAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -631,21 +582,17 @@ class HomePage extends GetView<HomeController> {
                               ),
                               const SizedBox(height: 16),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                       child: GestureDetector(
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                         stream: homeC.getListKpiAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -677,13 +624,10 @@ class HomePage extends GetView<HomeController> {
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                         stream: homeC.getSumMonitoringAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -715,13 +659,10 @@ class HomePage extends GetView<HomeController> {
                                     onTap: () {
                                       // Get.toNamed(Routes.HALAMANKPI);
                                     },
-                                    child: StreamBuilder<
-                                            QuerySnapshot<
-                                                Map<String, dynamic>>>(
+                                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                         stream: homeC.getSumPenilaianAtasan(),
                                         builder: (context, snapshot) {
-                                          var kpi =
-                                              snapshot.data?.docs.length ?? 0;
+                                          var kpi = snapshot.data?.docs.length ?? 0;
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
@@ -755,178 +696,122 @@ class HomePage extends GetView<HomeController> {
                         const SizedBox(height: 30),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(
+                              "KPI",
+                              style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "KPI",
-                                  style: Get.theme.textTheme.subtitle1
-                                      ?.copyWith(fontWeight: FontWeight.w600),
-                                ),
-                                const SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          Get.toNamed(Routes.HALAMANKPI,
-                                              arguments: "approval");
-                                        },
-                                        child: Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                20, 20, 20, 13),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.32),
-                                                      blurRadius: 29,
-                                                      spreadRadius: 0,
-                                                      offset:
-                                                          const Offset(0, 10))
-                                                ]),
-                                            child: Column(
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/check-circle.svg',
-                                                  color: ThemeConfig
-                                                      .colors.Blue_primary,
-                                                  height: 36,
-                                                  width: 36,
-                                                ),
-                                                const SizedBox(height: 6),
-                                                Text("Approval",
-                                                    style: Get
-                                                        .textTheme.subtitle1!
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                StreamBuilder<
-                                                        QuerySnapshot<
-                                                            Map<String,
-                                                                dynamic>>>(
-                                                    stream: controller
-                                                        .getListKpiApprovalAtasan(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      var sumKpi = snapshot.data
-                                                              ?.docs.length ??
-                                                          "0";
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.toNamed(Routes.HALAMANKPI, arguments: "approval");
+                                    },
+                                    child: Container(
+                                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 13),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(15),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.32),
+                                                  blurRadius: 29,
+                                                  spreadRadius: 0,
+                                                  offset: const Offset(0, 10))
+                                            ]),
+                                        child: Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/check-circle.svg',
+                                              color: ThemeConfig.colors.Blue_primary,
+                                              height: 36,
+                                              width: 36,
+                                            ),
+                                            const SizedBox(height: 6),
+                                            Text("Approval",
+                                                style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w600)),
+                                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                                                stream: controller.getListKpiApprovalAtasan(),
+                                                builder: (context, snapshot) {
+                                                  var sumKpi = snapshot.data?.docs.length ?? "0";
 
-                                                      if (snapshot.hasData) {
-                                                        switch (snapshot
-                                                            .connectionState) {
-                                                          case ConnectionState
-                                                              .none:
-                                                            return const Text(
-                                                                "- Waiting Approval");
-                                                          case ConnectionState
-                                                              .waiting:
-                                                            return const CircularProgressIndicator();
-                                                          case ConnectionState
-                                                              .active:
-                                                          case ConnectionState
-                                                              .done:
-                                                            return Text(
-                                                                "$sumKpi Waiting Approval");
-                                                          default:
-                                                            break;
-                                                        }
-                                                      }
-                                                      return const Text(
-                                                          "- Waiting Approval");
-                                                    })
-                                              ],
-                                            )),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          Get.toNamed(Routes.HALAMANKPI,
-                                              arguments: "listkpi");
-                                        },
-                                        child: Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                20, 20, 20, 13),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.32),
-                                                      blurRadius: 29,
-                                                      spreadRadius: 0,
-                                                      offset:
-                                                          const Offset(0, 10))
-                                                ]),
-                                            child: Column(
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/list.svg',
-                                                  color: ThemeConfig
-                                                      .colors.Blue_primary,
-                                                  height: 36,
-                                                  width: 36,
-                                                ),
-                                                const SizedBox(height: 6),
-                                                Text("List KPI",
-                                                    style: Get
-                                                        .textTheme.subtitle1!
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                StreamBuilder<
-                                                        QuerySnapshot<
-                                                            Map<String,
-                                                                dynamic>>>(
-                                                    stream: controller
-                                                        .getListKpiAtasan(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      var sumKpi = snapshot.data
-                                                              ?.docs.length ??
-                                                          "0";
-                                                      if (snapshot.hasData) {
-                                                        switch (snapshot
-                                                            .connectionState) {
-                                                          case ConnectionState
-                                                              .none:
-                                                            return const Text(
-                                                                "- KPI");
-                                                          case ConnectionState
-                                                              .waiting:
-                                                            return const CircularProgressIndicator();
-                                                          case ConnectionState
-                                                              .active:
-                                                          case ConnectionState
-                                                              .done:
-                                                            return Text(
-                                                                "$sumKpi KPI");
-                                                          default:
-                                                            break;
-                                                        }
-                                                      }
-                                                      return const Text(
-                                                          "- KPI");
-                                                    })
-                                              ],
-                                            )),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ]),
+                                                  if (snapshot.hasData) {
+                                                    switch (snapshot.connectionState) {
+                                                      case ConnectionState.none:
+                                                        return const Text("- Waiting Approval");
+                                                      case ConnectionState.waiting:
+                                                        return const CircularProgressIndicator();
+                                                      case ConnectionState.active:
+                                                      case ConnectionState.done:
+                                                        return Text("$sumKpi Waiting Approval");
+                                                      default:
+                                                        break;
+                                                    }
+                                                  }
+                                                  return const Text("- Waiting Approval");
+                                                })
+                                          ],
+                                        )),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.toNamed(Routes.HALAMANKPI, arguments: "listkpi");
+                                    },
+                                    child: Container(
+                                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 13),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(15),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.32),
+                                                  blurRadius: 29,
+                                                  spreadRadius: 0,
+                                                  offset: const Offset(0, 10))
+                                            ]),
+                                        child: Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/list.svg',
+                                              color: ThemeConfig.colors.Blue_primary,
+                                              height: 36,
+                                              width: 36,
+                                            ),
+                                            const SizedBox(height: 6),
+                                            Text("List KPI",
+                                                style: Get.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w600)),
+                                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                                                stream: controller.getListKpiAtasan(),
+                                                builder: (context, snapshot) {
+                                                  var sumKpi = snapshot.data?.docs.length ?? "0";
+                                                  if (snapshot.hasData) {
+                                                    switch (snapshot.connectionState) {
+                                                      case ConnectionState.none:
+                                                        return const Text("- KPI");
+                                                      case ConnectionState.waiting:
+                                                        return const CircularProgressIndicator();
+                                                      case ConnectionState.active:
+                                                      case ConnectionState.done:
+                                                        return Text("$sumKpi KPI");
+                                                      default:
+                                                        break;
+                                                    }
+                                                  }
+                                                  return const Text("- KPI");
+                                                })
+                                          ],
+                                        )),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ]),
                         ),
                         const SizedBox(height: 30),
                         Container(
@@ -935,13 +820,10 @@ class HomePage extends GetView<HomeController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("KPI Terakhir",
-                                        style: Get.theme.textTheme.subtitle1
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w600)),
+                                        style: Get.theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w600)),
                                     TextButton(
                                         onPressed: () {
                                           Get.toNamed(Routes.HALAMANKPI);
@@ -949,8 +831,7 @@ class HomePage extends GetView<HomeController> {
                                         style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
                                           minimumSize: Size.zero,
-                                          tapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
+                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         child: Text(
                                           "Lihat Semua",
@@ -961,34 +842,26 @@ class HomePage extends GetView<HomeController> {
                                 const SizedBox(
                                   height: 13,
                                 ),
-                                StreamBuilder<
-                                        QuerySnapshot<Map<String, dynamic>>>(
+                                StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                                     stream: homeC.getListHistoryKpiAtasan(),
                                     builder: (context, snapshot) {
                                       return ListView.builder(
                                         shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount:
-                                            snapshot.data?.docs.length ?? 0,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount: snapshot.data?.docs.length ?? 0,
                                         itemBuilder: (context, index) {
-                                          Map<String, dynamic>? kpi = snapshot
-                                              .data?.docs
-                                              .elementAt(index)
-                                              .data();
+                                          Map<String, dynamic>? kpi = snapshot.data?.docs.elementAt(index).data();
                                           // log(name: "HIstoryHome", kpi.toString());
                                           if (snapshot.hasData) {
                                             switch (snapshot.connectionState) {
                                               case ConnectionState.none:
-                                                return const Text(
-                                                    "No Connections");
+                                                return const Text("No Connections");
                                               case ConnectionState.waiting:
                                                 return const CircularProgressIndicator();
                                               case ConnectionState.active:
                                               case ConnectionState.done:
                                                 return CardHistory(
-                                                  namaPerusahaan:
-                                                      kpi?['perusahaan'],
+                                                  namaPerusahaan: kpi?['perusahaan'],
                                                   periode: kpi?['periode'],
                                                   status: kpi?['status'][0],
                                                 );

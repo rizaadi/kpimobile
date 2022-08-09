@@ -5,11 +5,7 @@ import 'package:kpimobile/app/core/widgets/status_badge.dart';
 import 'package:kpimobile/app/routes/app_pages.dart';
 
 class CardHistory extends StatelessWidget {
-  const CardHistory(
-      {Key? key,
-      required this.status,
-      required this.periode,
-      required this.namaPerusahaan})
+  const CardHistory({Key? key, required this.status, required this.periode, required this.namaPerusahaan})
       : super(key: key);
   final String status;
   final String periode;
@@ -47,8 +43,7 @@ class CardHistory extends StatelessWidget {
                         const SizedBox(width: 5),
                         Text(
                           namaPerusahaan,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 13),
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                         )
                       ],
                     ),

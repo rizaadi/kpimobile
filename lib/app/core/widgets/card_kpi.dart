@@ -40,8 +40,8 @@ class CardKpi extends StatelessWidget {
                 Wrap(
                   children: [
                     CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://ui-avatars.com/api/?background=26A0C9&color=fff&name=$nama'),
+                        backgroundImage:
+                            NetworkImage('https://ui-avatars.com/api/?background=26A0C9&color=fff&name=$nama'),
                         radius: 15),
                     const SizedBox(width: 6),
                     Column(
@@ -58,8 +58,7 @@ class CardKpi extends StatelessWidget {
                             const SizedBox(width: 5),
                             Text(
                               perusahaan,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 13),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                             )
                           ],
                         ),
@@ -97,27 +96,21 @@ class CardKpi extends StatelessWidget {
             const SizedBox(height: 15),
             Container(
               width: Get.width,
-              decoration: BoxDecoration(
-                  color: ThemeConfig.colors.Gray_primary,
-                  borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(color: ThemeConfig.colors.Gray_primary, borderRadius: BorderRadius.circular(8)),
               child: Padding(
                 padding: const EdgeInsets.all(13),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Nama Karyawan",
-                          style: TextStyle(fontSize: 12)),
-                      SizedBox(
-                        width: 220,
-                        child: Text(
-                          nama,
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 11),
-                        ),
-                      )
-                    ]),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  const Text("Nama Karyawan", style: TextStyle(fontSize: 12)),
+                  SizedBox(
+                    width: 220,
+                    child: Text(
+                      nama,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+                    ),
+                  )
+                ]),
               ),
             ),
             Container(
@@ -125,45 +118,37 @@ class CardKpi extends StatelessWidget {
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: Padding(
                 padding: const EdgeInsets.all(13),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Jabatan", style: TextStyle(fontSize: 12)),
-                      SizedBox(
-                        width: 220,
-                        child: Text(
-                          jabatan,
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 11),
-                        ),
-                      )
-                    ]),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  const Text("Jabatan", style: TextStyle(fontSize: 12)),
+                  SizedBox(
+                    width: 220,
+                    child: Text(
+                      jabatan,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+                    ),
+                  )
+                ]),
               ),
             ),
             Container(
               width: Get.width,
-              decoration: BoxDecoration(
-                  color: ThemeConfig.colors.Gray_primary,
-                  borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(color: ThemeConfig.colors.Gray_primary, borderRadius: BorderRadius.circular(8)),
               child: Padding(
                 padding: const EdgeInsets.all(13),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Unit Kerja", style: TextStyle(fontSize: 12)),
-                      SizedBox(
-                        width: 220,
-                        child: Text(
-                          unitKerja,
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 11),
-                        ),
-                      )
-                    ]),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  const Text("Unit Kerja", style: TextStyle(fontSize: 12)),
+                  SizedBox(
+                    width: 220,
+                    child: Text(
+                      unitKerja,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+                    ),
+                  )
+                ]),
               ),
             ),
             Container(
@@ -171,21 +156,18 @@ class CardKpi extends StatelessWidget {
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
               child: Padding(
                 padding: const EdgeInsets.all(13),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Status", style: TextStyle(fontSize: 12)),
-                      SizedBox(
-                        width: 220,
-                        child: Text(
-                          status,
-                          textAlign: TextAlign.end,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 11),
-                        ),
-                      )
-                    ]),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  const Text("Status", style: TextStyle(fontSize: 12)),
+                  SizedBox(
+                    width: 220,
+                    child: Text(
+                      status,
+                      textAlign: TextAlign.end,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+                    ),
+                  )
+                ]),
               ),
             ),
           ],

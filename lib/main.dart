@@ -14,25 +14,25 @@ Future<void> main() async {
   );
   runApp(
     StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-      }
-      return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'KPI Mobile',
-        initialBinding: ApplicationBindings(),
-        initialRoute: snapshot.data != null ? Routes.BOTTOM_NAVIGATION : Routes.LOGIN,
-        getPages: AppPages.routes,
-        theme: ThemeConfig().getThemeData,
-      );
-    }),
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          }
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'KPI Mobile',
+            initialBinding: ApplicationBindings(),
+            initialRoute: snapshot.data != null ? Routes.BOTTOM_NAVIGATION : Routes.LOGIN,
+            getPages: AppPages.routes,
+            theme: ThemeConfig().getThemeData,
+          );
+        }),
   );
 }

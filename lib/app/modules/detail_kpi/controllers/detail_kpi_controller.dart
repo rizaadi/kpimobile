@@ -18,17 +18,12 @@ class DetailKpiController extends GetxController {
     '4. > 100',
   ];
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(
-      uid) async* {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getDetailKpiKaryawan(uid) async* {
     yield* firestore.collection("kpi").doc(uid).snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getListKpiKaryawan(uid) async* {
-    yield* firestore
-        .collection("kpi")
-        .doc(uid)
-        .collection("kpiuser")
-        .snapshots();
+    yield* firestore.collection("kpi").doc(uid).collection("kpiuser").snapshots();
   }
 
   deleteKpiUser(idKpi, id) async {
@@ -62,24 +57,17 @@ class DetailKpiController extends GetxController {
       "updatedAt": DateTime.now(),
     });
     final docKpi = await firestore.collection("kpi").doc(idKpi).get();
-    await firestore
-        .collection("users")
-        .where('uid', isEqualTo: docKpi.data()!['uid'])
-        .get()
-        .then((value) => {
-              firestore
-                  .collection("users")
-                  .doc(value.docs[0].data()['uidAtasan'])
-                  .update({
-                "notif": FieldValue.arrayUnion([
-                  {
-                    "nama": docKpi.data()!['nama'],
-                    "periode": docKpi.data()!['periode'],
-                    "tanggal": DateTime.now(),
-                  }
-                ])
-              })
-            });
+    await firestore.collection("users").where('uid', isEqualTo: docKpi.data()!['uid']).get().then((value) => {
+          firestore.collection("users").doc(value.docs[0].data()['uidAtasan']).update({
+            "notif": FieldValue.arrayUnion([
+              {
+                "nama": docKpi.data()!['nama'],
+                "periode": docKpi.data()!['periode'],
+                "tanggal": DateTime.now(),
+              }
+            ])
+          })
+        });
     if (docKpi.data()!['totalBobot'] == 0) {
       firestore.collection("kpi").doc(idKpi).update({
         "status": FieldValue.arrayUnion(["Inactive"])
@@ -102,27 +90,20 @@ class DetailKpiController extends GetxController {
       "updatedAt": DateTime.now(),
     });
     final docKpi = await firestore.collection("kpi").doc(idKpi).get();
-    await firestore
-        .collection("users")
-        .where("uidAtasan", isEqualTo: auth.currentUser!.uid)
-        .get()
-        .then((value) => {
-              value.docs.forEach((element) => {
-                    firestore
-                        .collection("users")
-                        .doc(element.data()['uid'])
-                        .update({
-                      "notif": FieldValue.arrayUnion([
-                        {
-                          "nama": element.data()['nama'],
-                          "periode": docKpi.data()!['periode'],
-                          "status": "Disetujui",
-                          "tanggal": DateTime.now(),
-                        }
-                      ])
-                    })
-                  })
-            });
+    await firestore.collection("users").where("uidAtasan", isEqualTo: auth.currentUser!.uid).get().then((value) => {
+          value.docs.forEach((element) => {
+                firestore.collection("users").doc(element.data()['uid']).update({
+                  "notif": FieldValue.arrayUnion([
+                    {
+                      "nama": element.data()['nama'],
+                      "periode": docKpi.data()!['periode'],
+                      "status": "Disetujui",
+                      "tanggal": DateTime.now(),
+                    }
+                  ])
+                })
+              })
+        });
     Get.back();
   }
 
@@ -132,67 +113,45 @@ class DetailKpiController extends GetxController {
       "updatedAt": DateTime.now(),
     });
     //delete field percapaian & grading in collection kpiuser
-    await firestore
-        .collection("kpi")
-        .doc(idKpi)
-        .collection("kpiuser")
-        .get()
-        .then((value) => {
-              value.docs.forEach((element) => {
-                    firestore
-                        .collection("kpi")
-                        .doc(idKpi)
-                        .collection("kpiuser")
-                        .doc(element.id)
-                        .update({
-                      "pencapaian": FieldValue.delete(),
-                      "grading": FieldValue.delete(),
-                    })
-                  })
-            });
+    await firestore.collection("kpi").doc(idKpi).collection("kpiuser").get().then((value) => {
+          value.docs.forEach((element) => {
+                firestore.collection("kpi").doc(idKpi).collection("kpiuser").doc(element.id).update({
+                  "pencapaian": FieldValue.delete(),
+                  "grading": FieldValue.delete(),
+                })
+              })
+        });
     //notif karyawan
     final docKpi = await firestore.collection("kpi").doc(idKpi).get();
-    await firestore
-        .collection("users")
-        .where("uidAtasan", isEqualTo: auth.currentUser!.uid)
-        .get()
-        .then((value) => {
-              value.docs.forEach((element) => {
-                    firestore
-                        .collection("users")
-                        .doc(element.data()['uid'])
-                        .update({
-                      "notif": FieldValue.arrayUnion([
-                        {
-                          "nama": element.data()['nama'],
-                          "periode": docKpi.data()!['periode'],
-                          "status": "Ditolak",
-                          "tanggal": DateTime.now(),
-                        }
-                      ])
-                    })
-                  })
-            });
+    await firestore.collection("users").where("uidAtasan", isEqualTo: auth.currentUser!.uid).get().then((value) => {
+          value.docs.forEach((element) => {
+                firestore.collection("users").doc(element.data()['uid']).update({
+                  "notif": FieldValue.arrayUnion([
+                    {
+                      "nama": element.data()['nama'],
+                      "periode": docKpi.data()!['periode'],
+                      "status": "Ditolak",
+                      "tanggal": DateTime.now(),
+                    }
+                  ])
+                })
+              })
+        });
 
     Get.back();
   }
 
   totalBobot(idKpi) async {
     num total = 0;
-    await firestore
-        .collection("kpi")
-        .doc(idKpi)
-        .collection("kpiuser")
-        .get()
-        .then((value) {
+    await firestore.collection("kpi").doc(idKpi).collection("kpiuser").get().then((value) {
       for (var element in value.docs) {
         total += element.data()['bobot'];
       }
     }).then((value) => {
-              firestore.collection("kpi").doc(idKpi).update({
-                "totalBobot": total,
-              })
-            });
+          firestore.collection("kpi").doc(idKpi).update({
+            "totalBobot": total,
+          })
+        });
   }
 
   getUserRole() async {
@@ -205,12 +164,7 @@ class DetailKpiController extends GetxController {
     if (pencapaianC.text.isEmpty) {
       Get.snackbar("Error", "Pencapaian tidak boleh kosong");
     } else {
-      await firestore
-          .collection("kpi")
-          .doc(idKpi)
-          .collection("kpiuser")
-          .doc(idKpiUser)
-          .update({
+      await firestore.collection("kpi").doc(idKpi).collection("kpiuser").doc(idKpiUser).update({
         "pencapaian": pencapaianC.text,
         "updatedAt": DateTime.now(),
       });
@@ -222,12 +176,7 @@ class DetailKpiController extends GetxController {
     if (gradingC.text.isEmpty || gradingC.text == "Kosong") {
       Get.snackbar("Error", "Grading tidak boleh kosong");
     } else {
-      await firestore
-          .collection("kpi")
-          .doc(idKpi)
-          .collection("kpiuser")
-          .doc(idKpiUser)
-          .update({
+      await firestore.collection("kpi").doc(idKpi).collection("kpiuser").doc(idKpiUser).update({
         "grading": gradingC.text,
         "updatedAt": DateTime.now(),
       });

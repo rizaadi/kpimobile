@@ -41,8 +41,8 @@ class ProfileView extends GetView<ProfileController> {
                 const SizedBox(height: 19),
                 CircleAvatar(
                     radius: 49,
-                    backgroundImage: NetworkImage(
-                        'https://ui-avatars.com/api/?background=26A0C9&color=fff&name=${user['nama']}')),
+                    backgroundImage:
+                        NetworkImage('https://ui-avatars.com/api/?background=26A0C9&color=fff&name=${user['nama']}')),
                 const SizedBox(height: 37),
                 ListContainer(
                   title: "Perusahaan",

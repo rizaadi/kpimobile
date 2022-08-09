@@ -15,15 +15,12 @@ class SignupController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Future<void> signUp() async {
-    if (emailC.text.isNotEmpty &&
-        passC.text.isNotEmpty &&
-        pass2C.text.isNotEmpty) {
+    if (emailC.text.isNotEmpty && passC.text.isNotEmpty && pass2C.text.isNotEmpty) {
       if (passC.text == pass2C.text) {
         try {
           isLoading.value = true;
           UserCredential userCredential =
-              await auth.createUserWithEmailAndPassword(
-                  email: emailC.text, password: passC.text);
+              await auth.createUserWithEmailAndPassword(email: emailC.text, password: passC.text);
           if (userCredential.user != null) {
             String uId = userCredential.user!.uid;
 
@@ -54,8 +51,7 @@ class SignupController extends GetxController {
         Get.snackbar('Terjadi Kesalahan', 'Password tidak sama');
       }
     } else {
-      Get.snackbar(
-          'Terjadi Kesalahan', 'Email dan Password tidak boleh kosong');
+      Get.snackbar('Terjadi Kesalahan', 'Email dan Password tidak boleh kosong');
     }
   }
 }
