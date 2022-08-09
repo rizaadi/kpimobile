@@ -477,7 +477,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                       )),
                                                       DataCell(Text(
                                                         kpilist?[index].data()[
-                                                                "target"] ??
+                                                                "target"].toString() ??
                                                             "Kosong",
                                                         style: const TextStyle(
                                                             fontSize: 12),
