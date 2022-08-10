@@ -602,7 +602,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                             child: Text("Target"),
                                                                           ),
                                                                           ListSingleContainer(
-                                                                            value: kpilist?[index].data()["target"],
+                                                                            value: '${kpilist?[index].data()["target"]}',
                                                                           ),
                                                                           const Padding(
                                                                             padding:
@@ -922,7 +922,7 @@ class DetailKpiView extends GetView<DetailKpiController> {
                                                                                 child: Text("Target"),
                                                                               ),
                                                                               ListSingleContainer(
-                                                                                value: kpilist?[index].data()["target"],
+                                                                                value: '${kpilist?[index].data()["target"]}',
                                                                               ),
                                                                               const Padding(
                                                                                 padding:

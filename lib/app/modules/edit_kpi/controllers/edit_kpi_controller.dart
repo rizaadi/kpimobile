@@ -41,7 +41,7 @@ class EditKpiController extends GetxController {
     kraC.text = argum[0]['kra'];
     rumusC.text = argum[0]['rumus'];
     bobotC.text = argum[0]['bobot'].toString();
-    targetC.text = argum[0]['target'];
+    targetC.text = argum[0]['target'].toString();
     satuanC.text = argum[0]['satuan'];
     sumberDataC.text = argum[0]['sumberData'];
     perhatianC.text = argum[0]['perhatian'];
@@ -58,7 +58,7 @@ class EditKpiController extends GetxController {
       "deskripsi": deskripsiC.text,
       "rumus": rumusC.text,
       "bobot": int.tryParse(bobotC.text)!.toInt(),
-      "target": targetC.text,
+      "target": int.tryParse(targetC.text)!.toInt(),
       "satuan": satuanC.text,
       "sumberData": sumberDataC.text,
       "perhatian": perhatianC.text,
